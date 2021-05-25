@@ -1,25 +1,13 @@
 import ReactDOM from 'react-dom';
 import './index.css';
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+// eslint-disable-next-line import/no-unresolved
+import Lists from 'components/list/Lists';
 import reportWebVitals from './reportWebVitals';
-import Home from './pages/Home';
-import User from './pages/User';
-import Navbar from './components/navigations/Navbar';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Navbar />
-    <Router>
-      <Switch>
-        <Route
-          exact
-          path="/companies/:companyId"
-          render={(match) => <Home match={match} />}
-        />
-        <Route exact path="/companies" component={User} />
-      </Switch>
-    </Router>
+    <Lists />
   </React.StrictMode>,
   document.getElementById('root'),
 );
