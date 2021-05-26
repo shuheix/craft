@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState, VFC } from 'react';
-import { ListType } from 'types/List/listType';
+import { ListType } from '../../types/list/listType';
+
 import List from './List';
 
-const Lists: VFC<ListType> = () => {
+const Lists: VFC = () => {
   const [list, setList] = useState<ListType[]>([]);
 
   const fetchAllUsers = () => {

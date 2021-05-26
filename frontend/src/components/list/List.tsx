@@ -1,6 +1,5 @@
 import React, { VFC } from 'react';
-
-import { ListType } from 'types/List/listType';
+import { ListType } from '../../types/list/listType';
 
 const List: VFC<ListType> = ({ id, title }) => (
   <div>
