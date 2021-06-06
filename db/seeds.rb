@@ -11,7 +11,7 @@ end
 
 5.times do |n|
   Article.create!(
-    name: "name_is_#{n}番目の名前",
+    title: "name_is_#{n}番目の名前",
     text: "name_is_#{n}番目の記事",
     user_id: 1
   )
@@ -19,7 +19,7 @@ end
 
 5.times do |n|
   Article.create!(
-    name: "name_is_#{n}番目の名前",
+    title: "name_is_#{n}番目の名前",
     text: "name_is_#{n}番目の記事",
     user_id: 2
   )
@@ -27,7 +27,7 @@ end
 
 5.times do |n|
   Article.create!(
-    name: "name_is_#{n}番目の名前",
+    title: "name_is_#{n}番目の名前",
     text: "name_is_#{n}番目の記事",
     user_id: 3
   )
