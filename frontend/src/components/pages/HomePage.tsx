@@ -1,4 +1,4 @@
-import { Box, Spinner, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Center, Spinner, Wrap, WrapItem } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { useEffect } from "react";
 import { rootUrl } from "../../constant/railsRoute";
@@ -6,11 +6,11 @@ import { useArticleApi } from "../../hooks/useArticleApi";
 import ArticleCard from "../articles/ArticleCard";
 
 const HomePage: VFC = () => {
-  const { loading, articles, fetchAllArticle } = useArticleApi();
+  const { loading, articles, fetchArticleApi } = useArticleApi();
 
   useEffect(() => {
-    fetchAllArticle(rootUrl);
-  }, [fetchAllArticle]);
+    fetchArticleApi(rootUrl);
+  }, [fetchArticleApi]);
 
   return (
     <>

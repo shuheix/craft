@@ -4,20 +4,24 @@ import { ArticleApiType, ArticleType } from "../types/articleType";
 
 export const useArticleApi = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [articles, setArticles] = useState<ArticleType[]>([]);
 
-  const fetchAllArticle = useCallback((url: string) => {
+  const fetchArticleApi = useCallback((url: string) => {
     setLoading(true);
     axios
       .get<ArticleApiType>(url)
       .then((res) => {
         setLoading(false);
-        const articles = res.data.articles;
-        setArticles(articles);
+
+        const articleData = res.data.articles;
+        setArticles(articleData);
       })
-      .catch(() => alert("取得に失敗しました"));
-    setLoading(false);
+      .catch(() => {
+        setLoading(false);
+        setError(true);
+      });
   }, []);
 
-  return { loading, articles, fetchAllArticle };
+  return { loading, error, articles, fetchArticleApi };
 };
