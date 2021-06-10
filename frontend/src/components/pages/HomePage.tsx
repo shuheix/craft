@@ -1,4 +1,4 @@
-import { Box, Center, Spinner, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Spinner, Wrap, WrapItem } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { useEffect } from "react";
 import { rootUrl } from "../../constant/railsRoute";
@@ -19,9 +19,9 @@ const HomePage: VFC = () => {
           <Spinner />
         </Box>
       ) : (
-        <Wrap>
+        <Wrap flex={1} justifyContent="space-evenly">
           {articles.map((article) => (
-            <WrapItem key={article.id} mx="auto">
+            <WrapItem key={article.id}>
               <ArticleCard
                 id={article.id}
                 title={article.title}
