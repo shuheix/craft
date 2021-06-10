@@ -19,7 +19,7 @@ const HomePage: VFC = () => {
           <Spinner />
         </Box>
       ) : (
-        <Wrap flex={1} justifyContent="space-evenly">
+        <Wrap flex={1} justify="center">
           {articles.map((article) => (
             <WrapItem key={article.id}>
               <ArticleCard

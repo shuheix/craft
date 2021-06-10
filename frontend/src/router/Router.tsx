@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { Route, Switch } from "react-router-dom";
 import LeftAside from "../components/aside/LeftAside";
@@ -11,12 +11,14 @@ const Router: VFC = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <Header />
-        <Flex>
-          <LeftAside />
-          <HomePage />
-          <RightAside />
-        </Flex>
+        <Container maxW="container.xl">
+          <Header />
+          <Flex>
+            <LeftAside />
+            <HomePage />
+            <RightAside />
+          </Flex>
+        </Container>
       </Route>
       <Route path="/login">
         <LoginPage />

@@ -3,7 +3,7 @@ import React, { VFC } from "react";
 
 const Header: VFC = () => {
   return (
-    <Box bgColor="red.100" height="200px" mb={10}>
+    <Box bgColor="red.100" height="50px" mb={5}>
       HeaderArea
     </Box>
   );
