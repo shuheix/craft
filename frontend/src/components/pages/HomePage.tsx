@@ -3,7 +3,7 @@ import React, { VFC } from "react";
 import { useEffect } from "react";
 import { rootUrl } from "../../constant/railsRoute";
 import { useArticleApi } from "../../hooks/useArticleApi";
-import ArticleCard from "../articles/ArticleCard";
+import ArticleCard from "../article/ArticleCard";
 
 const HomePage: VFC = () => {
   const { loading, articles, fetchArticleApi } = useArticleApi();
