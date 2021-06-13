@@ -1,17 +1,23 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
 import React, { VFC } from "react";
 
-const UserInformation: VFC = () => {
+type Props = {
+  name: string;
+};
+
+const UserInformation: VFC<Props> = (props) => {
+  const { name } = props;
   return (
     <Flex>
       <Image
         src="https://source.unsplash.com/random"
         alt="user_id"
-        boxSize="50px"
+        boxSize="40px"
         borderRadius="full"
+        mt={1}
       />
-      <Box>
-        <p>name</p>
+      <Box pl={2}>
+        <p>{name}</p>
         <p>status</p>
       </Box>
     </Flex>

@@ -12,14 +12,19 @@ const ArticleCard: VFC<Props> = (props) => {
   const { id, title, text } = props;
   return (
     <Box w="200px" h="260px" bgColor="red.100" shadow="md" borderRadius="10px">
-      <Box outline="solid" h="50px"></Box>
+      <Box
+        h="50px"
+        borderRadius="10px"
+        bgColor="blue
+      .100"
+      ></Box>
       <Box>
         <Text>{id}</Text>
         <Text>{title}</Text>
         <Text>{text}</Text>
       </Box>
       <Box>
-        <UserInformation />
+        <UserInformation name="onos" />
       </Box>
     </Box>
   );

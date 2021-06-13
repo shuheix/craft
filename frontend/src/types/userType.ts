@@ -5,3 +5,7 @@ export type UserType = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type UserApiType = {
+  users: UserType[];
+};
