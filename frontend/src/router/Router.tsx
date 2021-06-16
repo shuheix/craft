@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import LeftAside from "../components/aside/LeftAside";
 import RightAside from "../components/aside/RightAside";
 import Header from "../components/header/Header";
+import Login from "../components/login/Login";
 import HomePage from "../components/pages/HomePage";
 import LoginPage from "../components/pages/LoginPage";
 
@@ -22,6 +23,9 @@ const Router: VFC = () => {
       </Route>
       <Route path="/login">
         <LoginPage />
+      </Route>
+      <Route path="/test">
+        <Login />
       </Route>
     </Switch>
   );
