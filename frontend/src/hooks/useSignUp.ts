@@ -1,7 +1,5 @@
 import { useState, useCallback } from "react";
 
-type inputName = "username" | "email" | "password" | "passwordConfirmation";
-
 export const useSignUp = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");

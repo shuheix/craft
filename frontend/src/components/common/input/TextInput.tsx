@@ -4,17 +4,17 @@ import React, { VFC } from "react";
 type Props = {
   placeholder: string;
   value: string;
-  fullWidth?: string;
+  onChange: (event: any) => void;
 };
 
 const TextInput: VFC<Props> = (props) => {
-  const { placeholder, value, fullWidth } = props;
+  const { placeholder, value, onChange } = props;
   return (
     <Input
       size="md"
       placeholder={placeholder}
       value={value}
-      fullWidth={fullWidth}
+      onChange={onChange}
     />
   );
 };
