@@ -1,4 +1,6 @@
+import { Button, Text } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
+import { auth } from "../../firebase";
 import TextInput from "../common/input/TextInput";
 
 const Login = () => {
@@ -21,24 +23,35 @@ const Login = () => {
     setPasswordConfirmation(event.target.value);
   }, []);
 
+  const createNewUser = () => {
+    auth.createUserWithEmailAndPassword(email, password);
+    console.log(email, password);
+  };
+
   return (
     <div>
+      <Text>{username}</Text>
       <TextInput
         placeholder="ユーザー名"
         value={username}
         onChange={inputUsername}
       />
+      <Text>{email}</Text>
       <TextInput placeholder="Email" value={email} onChange={inputEmail} />
+
+      <Text>{password}</Text>
       <TextInput
         placeholder="Password"
         value={password}
         onChange={inputPassword}
       />
+      <Text>{passwordConfirmation}</Text>
       <TextInput
         placeholder="passwordConfirmation"
         value={passwordConfirmation}
         onChange={inputPasswordConfirmation}
       />
+      <Button onClick={createNewUser}>登録</Button>
     </div>
   );
 };
