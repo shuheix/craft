@@ -1,12 +1,14 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React, { VFC } from "react";
-import Img from "../common/user/Img";
+import SingUpModal from "../login/SingUpModal";
+import Img from "../user/Img";
 
 const Header: VFC = () => {
   return (
-    <Box bgColor="red.100" height="65px" mb={5}>
+    <Flex bgColor="red.100" height="65px" mb={5}>
       <Img />
-    </Box>
+      <SingUpModal />
+    </Flex>
   );
 };
 

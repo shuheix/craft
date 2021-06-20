@@ -1,4 +1,5 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Button, FormControl, Text } from "@chakra-ui/react";
+
 import React, { useCallback, useState } from "react";
 import { auth } from "../../firebase";
 import TextInput from "../common/input/TextInput";
@@ -24,35 +25,45 @@ const Login = () => {
   }, []);
 
   const createNewUser = () => {
-    auth.createUserWithEmailAndPassword(email, password);
-    console.log(email, password);
+    if (password === passwordConfirmation) {
+      auth.createUserWithEmailAndPassword(email, password);
+    } else {
+      // パスワードが違ったときの処理
+    }
+  };
+
+  const checkCurrentUser = () => {
+    console.log(auth.currentUser);
+  };
+
+  const login = () => {
+    auth.signInWithEmailAndPassword("ono.shuhei210@gmail.com", "syuu0210");
   };
 
   return (
-    <div>
-      <Text>{username}</Text>
+    <FormControl>
       <TextInput
         placeholder="ユーザー名"
         value={username}
         onChange={inputUsername}
+        mb={4}
       />
-      <Text>{email}</Text>
       <TextInput placeholder="Email" value={email} onChange={inputEmail} />
 
-      <Text>{password}</Text>
       <TextInput
         placeholder="Password"
         value={password}
         onChange={inputPassword}
       />
-      <Text>{passwordConfirmation}</Text>
       <TextInput
         placeholder="passwordConfirmation"
         value={passwordConfirmation}
         onChange={inputPasswordConfirmation}
       />
       <Button onClick={createNewUser}>登録</Button>
-    </div>
+      <Button onClick={login}>ログイン</Button>
+      <Button onClick={checkCurrentUser}>ログインユーザー確認</Button>
+    </FormControl>
   );
 };
 
