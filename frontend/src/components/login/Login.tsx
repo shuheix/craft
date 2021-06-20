@@ -47,6 +47,7 @@ const Login = () => {
         value={username}
         onChange={inputUsername}
         mb={4}
+        w="sm"
       />
       <TextInput placeholder="Email" value={email} onChange={inputEmail} />
 

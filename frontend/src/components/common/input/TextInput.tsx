@@ -6,6 +6,7 @@ type Props = {
   value: string;
   mb?: number;
   onChange: (event: any) => void;
+  w?: string;
 };
 
 const TextInput: VFC<Props> = (props) => {
