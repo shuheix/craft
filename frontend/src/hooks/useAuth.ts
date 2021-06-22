@@ -7,7 +7,7 @@ export const useAuth = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
-  const {} = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   //onchangeイベントで発火、inputのvalueでState更新
   const handleSignUpState = useCallback(
@@ -39,9 +39,7 @@ export const useAuth = () => {
   };
   //ログイン
   const login = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {});
+    auth.signInWithEmailAndPassword(email, password);
   };
 
   return {

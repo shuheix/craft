@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -12,9 +12,11 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AuthModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { currentUser } = useContext(AuthContext);
   const {
     handleSignUpState,
     signUp,
