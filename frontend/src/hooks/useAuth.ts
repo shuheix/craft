@@ -1,13 +1,11 @@
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback } from "react";
 import { auth } from "../firebase";
-import { AuthContext } from "../providers/AuthProvider";
 
 export const useAuth = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
-  const { currentUser } = useContext(AuthContext);
 
   //onchangeイベントで発火、inputのvalueでState更新
   const handleSignUpState = useCallback(
@@ -39,7 +37,10 @@ export const useAuth = () => {
   };
   //ログイン
   const login = () => {
-    auth.signInWithEmailAndPassword(email, password);
+    auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+    });
   };
 
   return {

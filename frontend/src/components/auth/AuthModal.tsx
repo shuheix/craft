@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Modal,
   ModalOverlay,
@@ -9,14 +9,12 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  Input,
 } from "@chakra-ui/react";
 import { useAuth } from "../../hooks/useAuth";
-import { AuthContext } from "../../providers/AuthProvider";
+import SignUp from "./modalContent/SignUp";
 
 const AuthModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { currentUser } = useContext(AuthContext);
   const {
     handleSignUpState,
     signUp,
@@ -36,43 +34,15 @@ const AuthModal = () => {
         <ModalContent>
           <ModalHeader mx="auto">新規登録</ModalHeader>
           <ModalCloseButton />
-          <ModalBody></ModalBody>
-          <Input
-            placeholder="ユーザー名"
-            name="username"
-            mb={3}
-            value={username}
-            onChange={handleSignUpState}
-            w="xs"
-            mx="auto"
-          />
-          <Input
-            placeholder="Email"
-            name="email"
-            mb={3}
-            value={email}
-            onChange={handleSignUpState}
-            w="xs"
-            mx="auto"
-          />
-          <Input
-            placeholder="パスワード"
-            name="password"
-            mb={3}
-            value={password}
-            onChange={handleSignUpState}
-            w="xs"
-            mx="auto"
-          />
-          <Input
-            placeholder="パスワード確認"
-            name="passwordConfirmation"
-            mb={3}
-            value={passwordConfirmation}
-            onChange={handleSignUpState}
-            w="xs"
-            mx="auto"
-          />
+          <ModalBody>
+            <SignUp
+              username={username}
+              email={email}
+              password={password}
+              passwordConfirmation={passwordConfirmation}
+              handleSignUpState={handleSignUpState}
+            />
+          </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={signUp} mx="auto" w="xs">
               登録
