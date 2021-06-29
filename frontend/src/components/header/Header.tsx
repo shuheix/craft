@@ -2,6 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
+import TestButton from "../common/button/TestButton";
 import Img from "../user/Img";
 
 const Header: VFC = () => {
@@ -11,6 +12,7 @@ const Header: VFC = () => {
       <Img />
       <AuthModal />
       <Box>{currentUser?.email}</Box>
+      <TestButton />
     </Flex>
   );
 };
