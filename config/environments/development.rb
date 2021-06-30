@@ -20,7 +20,8 @@ Rails.application.configure do
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
-    config.action_controller.perform_caching = false
+    # ローカルでのキャッシュ有効
+    config.action_controller.perform_caching = true
 
     config.cache_store = :null_store
   end

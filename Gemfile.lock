@@ -206,6 +206,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   google-apis-identitytoolkit_v3
+  jwt
   listen (~> 3.2)
   mysql2 (>= 0.4.4)
   puma (~> 4.1)
