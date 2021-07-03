@@ -52,10 +52,16 @@ export const useAuth = () => {
     });
   };
 
+  //ログアウト
+  const logout = () => {
+    auth.signOut();
+  };
+
   return {
     handleSignUpState,
     signUp,
     login,
+    logout,
     username,
     email,
     password,

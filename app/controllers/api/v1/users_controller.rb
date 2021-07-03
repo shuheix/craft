@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      skip_before_action :authenticate_user, only: [:create]
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))

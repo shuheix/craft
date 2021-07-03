@@ -19,6 +19,7 @@ const AuthModal = () => {
     handleSignUpState,
     signUp,
     login,
+    logout,
     username,
     email,
     password,
@@ -49,6 +50,9 @@ const AuthModal = () => {
             </Button>
             <Button colorScheme="blue" mr={3} onClick={login} mx="auto" w="xs">
               ログイン
+            </Button>
+            <Button colorScheme="blue" mr={3} onClick={logout} mx="auto" w="xs">
+              ログアウト
             </Button>
           </ModalFooter>
         </ModalContent>

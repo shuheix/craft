@@ -3,7 +3,7 @@ import React, { VFC } from "react";
 import UserInformation from "../user/UserInformation";
 
 type Props = {
-  id: number;
+  id: string;
   title: string;
   text: string;
 };
@@ -19,9 +19,9 @@ const ArticleCard: VFC<Props> = (props) => {
       .100"
       ></Box>
       <Box>
-        <Text>{id}</Text>
-        <Text>{title}</Text>
-        <Text>{text}</Text>
+        <Text>article_id: {id}</Text>
+        <Text>title:{title}</Text>
+        <Text>text:{text}</Text>
       </Box>
       <Box>
         <UserInformation name="onos" />

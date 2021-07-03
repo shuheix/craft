@@ -13,7 +13,6 @@ export const useArticleApi = () => {
       .get<ArticleApiType>(url)
       .then((res) => {
         setLoading(false);
-
         const articleData = res.data.articles;
         setArticles(articleData);
       })
