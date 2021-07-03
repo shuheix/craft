@@ -25,8 +25,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
-gem 'google-apis-identitytoolkit_v3'
-gem 'jwt'
+# firebase Authenticationのトークン解析
+gem 'firebase-auth-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

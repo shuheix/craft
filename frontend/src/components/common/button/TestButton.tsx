@@ -7,6 +7,7 @@ const TestButton = () => {
       console.log(token);
     });
   };
+
   return (
     <div>
       <Button onClick={outputLog}>log</Button>

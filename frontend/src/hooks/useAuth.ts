@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useCallback } from "react";
 import { auth } from "../firebase";
 
@@ -33,7 +34,15 @@ export const useAuth = () => {
   );
   //新規登録
   const signUp = () => {
-    auth.createUserWithEmailAndPassword(email, password);
+    auth.createUserWithEmailAndPassword(email, password).then(() => {
+      auth.currentUser?.getIdToken(true).then((token) => {
+        console.log(token);
+        axios.post("http://localhost:3000/api/v1/users", {
+          token: token,
+          registration: { name: username },
+        });
+      });
+    });
   };
   //ログイン
   const login = () => {
