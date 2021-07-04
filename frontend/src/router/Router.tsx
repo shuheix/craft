@@ -13,8 +13,8 @@ const Router: VFC = () => {
   return (
     <Switch>
       <AuthProvider>
+        <Header />
         <Route exact path="/">
-          <Header />
           <Container maxW="container.xl">
             <Flex>
               <LeftAside />

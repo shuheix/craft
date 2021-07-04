@@ -1,12 +1,12 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
-import { useParams } from "react-router-dom";
+import ArticleLayout from "../layouts/ArticleLayout";
 
-export const ArticlePage = () => {
-  const { articleId } = useParams<{ articleId: string }>();
+const ArticlePage = () => {
   return (
-    <div>
-      <h1>{articleId}ArticlePage</h1>
-    </div>
+    <Box>
+      <ArticleLayout />
+    </Box>
   );
 };
 
