@@ -17,17 +17,19 @@ const ArticleLayout: VFC = () => {
 
   if (error) return <div>Error!</div>;
   return (
-    <Container>
+    <Container maxW="container.lg">
       {loading ? (
         <Box>
           <Spinner />
         </Box>
       ) : (
         <Box>
-          <Heading border="solid" borderRadius="full">
+          <Heading border="solid" height="20vh">
             {articleTitle}
           </Heading>
-          <Text>{articleText}</Text>
+          <Text border="solid" height="100vh">
+            {articleText}
+          </Text>
         </Box>
       )}
     </Container>

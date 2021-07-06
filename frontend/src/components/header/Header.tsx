@@ -8,7 +8,7 @@ import Img from "../user/Img";
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   return (
-    <Flex bgColor="red.100" height="65px" mb={5}>
+    <Flex bgColor="teal.50" height="65px" mb={5}>
       <Img />
       <AuthModal />
       <Box>{currentUser?.email}</Box>
