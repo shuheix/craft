@@ -1,32 +1,32 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import UserInformation from "../user/UserInformation";
 
 type Props = {
-  id: string;
   title: string;
-  text: string;
 };
 
 const ArticleCard: VFC<Props> = (props) => {
-  const { id, title, text } = props;
+  const { title } = props;
   return (
-    <Box w="200px" h="260px" bgColor="red.100" shadow="md" borderRadius="10px">
-      <Box
-        h="50px"
-        borderRadius="10px"
-        bgColor="blue
-      .100"
-      ></Box>
+    <Flex
+      w="200px"
+      h="260px"
+      shadow="md"
+      borderRadius="10px"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
+      <Box h="100px" borderTopRadius="10px" bgColor="teal.200"></Box>
       <Box>
-        <Text>article_id: {id}</Text>
-        <Text>title:{title}</Text>
-        <Text>text:{text}</Text>
+        <Text fontSize={20} fontWeight={500}>
+          {title}
+        </Text>
       </Box>
-      <Box>
+      <Box pb={4}>
         <UserInformation name="onos" />
       </Box>
-    </Box>
+    </Flex>
   );
 };
 

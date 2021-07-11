@@ -4,10 +4,11 @@ import { Route, Switch } from "react-router-dom";
 import LeftAside from "../components/aside/LeftAside";
 import RightAside from "../components/aside/RightAside";
 import Header from "../components/header/Header";
-import ArticlePage from "../components/pages/ArticlePage";
-import HomePage from "../components/pages/HomePage";
+import IndexArticlePage from "../components/pages/IndexArticlePage";
 import LoginPage from "../components/pages/LoginPage";
 import AuthProvider from "../providers/AuthProvider";
+import ShowArticlePage from "../components/pages/ShowArticlePage";
+import NewArticlePage from "../components/pages/NewArticlePage";
 
 const Router: VFC = () => {
   return (
@@ -18,13 +19,16 @@ const Router: VFC = () => {
           <Container maxW="container.xl">
             <Flex>
               <LeftAside />
-              <HomePage />
+              <IndexArticlePage />
               <RightAside />
             </Flex>
           </Container>
         </Route>
         <Route path="/article/:articleId">
-          <ArticlePage />
+          <ShowArticlePage />
+        </Route>
+        <Route path="/new">
+          <NewArticlePage />
         </Route>
         <Route path="/login">
           <LoginPage />

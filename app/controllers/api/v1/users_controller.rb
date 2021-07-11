@@ -4,6 +4,7 @@ module Api
       skip_before_action :authenticate_user, only: [:create]
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+        #find_or_initialize_by
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))
         if @user.save
           render json: @user, status: :ok

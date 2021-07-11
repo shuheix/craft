@@ -6,7 +6,7 @@ import { useArticleApi } from "../../hooks/useArticleApi";
 import { usePageTransition } from "../../hooks/usePageTransition";
 import ArticleCard from "../article/ArticleCard";
 
-const HomePage: VFC = () => {
+const IndexArticlePage: VFC = () => {
   const { loading, articles, fetchArticleApi } = useArticleApi();
   const { pageTransition } = usePageTransition();
 
@@ -26,12 +26,12 @@ const HomePage: VFC = () => {
             <WrapItem
               key={article.id}
               onClick={() => pageTransition(`/article/${article.id}`)}
+              _hover={{
+                boxShadow: "xl",
+                cursor: "pointer",
+              }}
             >
-              <ArticleCard
-                id={article.id}
-                title={article.title}
-                text={article.text}
-              />
+              <ArticleCard title={article.title} />
             </WrapItem>
           ))}
         </Wrap>
@@ -40,4 +40,4 @@ const HomePage: VFC = () => {
   );
 };
 
-export default HomePage;
+export default IndexArticlePage;
