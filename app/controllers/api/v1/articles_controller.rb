@@ -18,25 +18,26 @@ module Api
       end
 
       def create
-        s =  params.require(:headers)[:Authorization]
-        pp FirebaseIdToken::Signature.verify s
+        article = Article.new(article_params.merge(user_id: current_user.id))
+        if article.save
+          pp article
+        end
+        # pp FirebaseIdToken::Signature.verify(params.require(:headers).permit(:Authorization)[:Authorization])
       end
 
       private
 
-    def sign_up_params
-      params.require(:registration).permit(:user_name, :display_name)
-    end
-
-    def token_from_request_headers
-      request.headers['Authorization']&.split&.last
+    def article_params
+      params.require(:article).permit(:title,:text)
     end
 
     def token
-      params[:token] || token_from_request_headers
+      params.require(:headers).permit(:Authorization)[:Authorization]
     end
 
     def payload
+      # tokenの検証が成功すれば、@payloadに入る
+      # https://github.com/fschuindt/firebase_id_token
       @payload ||= FirebaseIdToken::Signature.verify token
     end
 

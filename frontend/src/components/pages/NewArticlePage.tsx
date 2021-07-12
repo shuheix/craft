@@ -20,9 +20,11 @@ const NewArticlePage: VFC = () => {
   const postArticle = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios.post("http://localhost:3000/api/v1/articles", {
-        headers: { Authorization: token },
-        title: title,
-        text: text,
+        headers: { Authorization: `Bearer ${token}` },
+        data: {
+          title: title,
+          text: text,
+        },
       });
     });
   };
