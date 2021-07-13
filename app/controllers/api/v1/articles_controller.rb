@@ -1,7 +1,7 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
-      skip_before_action :authenticate_user, only: [:index,:show, :create]
+      skip_before_action :authenticate_user, only: [:index,:show]
 
       def index
         articles = Article.all.as_json(include:[:user, :favorites])
@@ -11,16 +11,22 @@ module Api
       end
 
       def show
-        article = [ Article.find(params[:id]).as_json(include:[:user, :favorites]) ]
+        article = Article.find(params[:id]).as_json(include:[:user, :favorites])
         render json: {
-          articles: article
+          articles: [article]
         },status: :ok
       end
 
       def create
-        article = Article.new(article_params.merge(user_id: current_user.id))
+        article =  Article.new(article_params.merge(user_id: current_user.id))
         if article.save
-          pp article
+          render json: {
+            articles: article,
+          }, status: :ok
+        else
+          render json: {
+            articles: article.error,
+          }
         end
         # pp FirebaseIdToken::Signature.verify(params.require(:headers).permit(:Authorization)[:Authorization])
       end
