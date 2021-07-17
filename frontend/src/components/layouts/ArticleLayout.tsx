@@ -8,7 +8,7 @@ const ArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { loading, error, articles, fetchArticleApi } = useArticleApi();
 
-  const articleTitle = articles.map((article) => article.id);
+  const articleTitle = articles.map((article) => article.title);
   const articleText = articles.map((article) => article.text);
 
   useEffect(() => {
@@ -17,17 +17,23 @@ const ArticleLayout: VFC = () => {
 
   if (error) return <div>Error!</div>;
   return (
-    <Container maxW="container.lg">
+    <Container px={0} py={20}>
       {loading ? (
         <Box>
           <Spinner />
         </Box>
       ) : (
-        <Box>
-          <Heading border="solid" height="20vh">
+        <Box
+          bgColor="white"
+          boxShadow="xl"
+          borderRadius="2xl"
+          border="1px"
+          borderColor="gray.100"
+        >
+          <Heading height="20vh" borderTopRadius="xl">
             {articleTitle}
           </Heading>
-          <Text border="solid" height="100vh">
+          <Text minHeight="60vh" borderBottomRadius="xl">
             {articleText}
           </Text>
         </Box>

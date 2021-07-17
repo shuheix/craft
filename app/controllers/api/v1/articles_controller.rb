@@ -17,6 +17,10 @@ module Api
         },status: :ok
       end
 
+      def edit
+
+      end
+
       def create
         article =  Article.new(article_params.merge(user_id: current_user.id))
         if article.save

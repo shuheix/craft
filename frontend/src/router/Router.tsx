@@ -9,6 +9,7 @@ import LoginPage from "../components/pages/LoginPage";
 import AuthProvider from "../providers/AuthProvider";
 import ShowArticlePage from "../components/pages/ShowArticlePage";
 import NewArticlePage from "../components/pages/NewArticlePage";
+import EditArticlePage from "../components/pages/EditArticlePage";
 
 const Router: VFC = () => {
   return (
@@ -29,6 +30,9 @@ const Router: VFC = () => {
         </Route>
         <Route path="/new">
           <NewArticlePage />
+        </Route>
+        <Route path="/edit">
+          <EditArticlePage />
         </Route>
         <Route path="/login">
           <LoginPage />

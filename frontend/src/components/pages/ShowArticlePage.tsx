@@ -4,7 +4,7 @@ import ArticleLayout from "../layouts/ArticleLayout";
 
 const ArticlePage = () => {
   return (
-    <Box>
+    <Box bgColor="teal.50">
       <ArticleLayout />
     </Box>
   );
