@@ -17,7 +17,7 @@ const NewArticleBody: VFC<ArticleBodyType> = (props) => {
     postArticle,
   } = props;
   return (
-    <Container maxW="container.sm" px={0} py={20}>
+    <Container px={0} py={20}>
       <Input value={title} onChange={handleTitleValue} minH="50px" mb={5} />
       <Textarea value={text} onChange={handleTextareaValue} rows={25} />
       <Button onClick={postArticle}>投稿</Button>

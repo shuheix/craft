@@ -2,7 +2,14 @@ import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
 import { useArticleApi } from "../../hooks/useArticleApi";
 import { articleApi } from "../../constant/railsRoute";
-import { Box, Container, Input, Spinner, Textarea } from "@chakra-ui/react";
+import {
+  Container,
+  Box,
+  Spinner,
+  Input,
+  Textarea,
+  Button,
+} from "@chakra-ui/react";
 
 const EditArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -24,8 +31,9 @@ const EditArticleLayout: VFC = () => {
         </Box>
       ) : (
         <Box>
-          <Input value={articleTitle} minH="50px" mb={5} />
-          <Textarea value={articleText} rows={25} />
+          <Input defaultValue={articleTitle} minH="50px" mb={5} />
+          <Textarea defaultValue={articleText} rows={25} />
+          <Button>投稿</Button>
         </Box>
       )}
     </Container>

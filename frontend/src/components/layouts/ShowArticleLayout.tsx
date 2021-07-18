@@ -15,7 +15,8 @@ const ShowArticleLayout: VFC = () => {
     fetchArticleApi(articleApi(articleId));
   }, [fetchArticleApi, articleId]);
 
-  if (error) return <div>Error!</div>;
+  if (error) return <p>error!</p>;
+
   return (
     <Container px={0} py={20}>
       {loading ? (
