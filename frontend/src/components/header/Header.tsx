@@ -4,14 +4,14 @@ import React, { useContext, VFC } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import TestButton from "../common/button/TestButton";
-import Img from "../user/Img";
+import UserImg from "../user/UserImg";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   return (
     <>
       <Flex height="65px" px={5}>
-        <Img />
+        <UserImg />
         <AuthModal />
         <Box>{currentUser?.email}</Box>
         <TestButton />

@@ -4,7 +4,7 @@ import { useArticleApi } from "../../hooks/useArticleApi";
 import { articleApi } from "../../constant/railsRoute";
 import { Box, Container, Heading, Spinner, Text } from "@chakra-ui/react";
 
-const ArticleLayout: VFC = () => {
+const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { loading, error, articles, fetchArticleApi } = useArticleApi();
 
@@ -42,4 +42,4 @@ const ArticleLayout: VFC = () => {
   );
 };
 
-export default ArticleLayout;
+export default ShowArticleLayout;

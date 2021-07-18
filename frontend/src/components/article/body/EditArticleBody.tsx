@@ -8,7 +8,7 @@ type ArticleBodyType = {
   handleTextareaValue: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   postArticle: () => void;
 };
-const ArticleBody: VFC<ArticleBodyType> = (props) => {
+const EditArticleBody: VFC<ArticleBodyType> = (props) => {
   const {
     title,
     text,
@@ -25,4 +25,4 @@ const ArticleBody: VFC<ArticleBodyType> = (props) => {
   );
 };
 
-export default ArticleBody;
+export default EditArticleBody;

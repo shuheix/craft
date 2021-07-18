@@ -1,7 +1,7 @@
 import { Box, Image } from "@chakra-ui/react";
 import React from "react";
 
-const Img = () => {
+const UserImg = () => {
   return (
     <Box>
       <Image
@@ -14,4 +14,4 @@ const Img = () => {
   );
 };
 
-export default Img;
+export default UserImg;
