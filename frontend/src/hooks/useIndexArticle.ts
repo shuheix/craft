@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { ArticleType } from "../types/articleType";
 
-export const useArticleApi = () => {
+export const useIndexArticle = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [articles, setArticles] = useState<ArticleType[]>([]);

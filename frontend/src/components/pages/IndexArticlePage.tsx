@@ -3,11 +3,11 @@ import React, { VFC } from "react";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { rootApi } from "../../constant/railsRoute";
-import { useArticleApi } from "../../hooks/useArticleApi";
+import { useIndexArticle } from "../../hooks/useIndexArticle";
 import ArticleCard from "../article/ArticleCard";
 
 const IndexArticlePage: VFC = () => {
-  const { loading, articles, fetchArticleApi } = useArticleApi();
+  const { loading, articles, fetchArticleApi } = useIndexArticle();
   const history = useHistory();
 
   useEffect(() => {

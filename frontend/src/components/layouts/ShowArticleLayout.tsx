@@ -1,12 +1,12 @@
 import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
-import { useArticleApi } from "../../hooks/useArticleApi";
 import { articleApi } from "../../constant/railsRoute";
 import { Box, Container, Heading, Spinner, Text } from "@chakra-ui/react";
+import { useIndexArticle } from "../../hooks/useIndexArticle";
 
 const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
-  const { loading, error, articles, fetchArticleApi } = useArticleApi();
+  const { loading, error, articles, fetchArticleApi } = useIndexArticle();
 
   const articleTitle = articles.map((article) => article.title);
   const articleText = articles.map((article) => article.text);
