@@ -25,7 +25,7 @@ const IndexArticlePage: VFC = () => {
           {articles.map((article) => (
             <WrapItem
               key={article.id}
-              onClick={() => history.push(`/article/${article.id}`)}
+              onClick={() => history.push(`/articles/${article.id}`)}
               _hover={{
                 boxShadow: "xl",
                 cursor: "pointer",
