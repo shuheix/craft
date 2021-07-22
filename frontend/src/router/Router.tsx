@@ -16,7 +16,7 @@ const Router: VFC = () => {
     <Switch>
       <AuthProvider>
         <Header />
-        <Route exact path="/">
+        <Route exact path="/articles">
           <Container maxW="container.xl">
             <Flex>
               <LeftAside />
@@ -25,13 +25,13 @@ const Router: VFC = () => {
             </Flex>
           </Container>
         </Route>
-        <Route path="/article/:articleId">
-          <ShowArticlePage />
-        </Route>
-        <Route path="/new">
+        <Route path="/articles/new">
           <NewArticlePage />
         </Route>
-        <Route path="/edit">
+        <Route exact path="/articles/:articleId(\d+)">
+          <ShowArticlePage />
+        </Route>
+        <Route path="/articles/:articleId/edit">
           <EditArticlePage />
         </Route>
         <Route path="/login">

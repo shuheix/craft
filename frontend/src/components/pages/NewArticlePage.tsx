@@ -1,6 +1,6 @@
 import React, { VFC } from "react";
-import { useHandleArticle } from "../../hooks/useHandleArticle";
-import ArticleBody from "../article/body/ArticleBody";
+import { useCreateArticle } from "../../hooks/useCreateArticle";
+import NewArticleBody from "../article/body/NewArticleBody";
 
 const NewArticlePage: VFC = () => {
   const {
@@ -9,10 +9,10 @@ const NewArticlePage: VFC = () => {
     handleTitleValue,
     handleTextareaValue,
     postArticle,
-  } = useHandleArticle();
+  } = useCreateArticle();
 
   return (
-    <ArticleBody
+    <NewArticleBody
       title={title}
       text={text}
       handleTitleValue={handleTitleValue}
