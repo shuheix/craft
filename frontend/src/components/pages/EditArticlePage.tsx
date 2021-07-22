@@ -9,18 +9,24 @@ import {
   Textarea,
   Button,
 } from "@chakra-ui/react";
-import { useIndexArticle } from "../../hooks/useIndexArticle";
+import { useUpdateArticle } from "../../hooks/useUpdateArticle";
 
 const EditArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
-  const { loading, error, articles, fetchArticleApi } = useIndexArticle();
-
-  const articleTitle = articles.map((article) => article.title);
-  const articleText = articles.map((article) => article.text);
+  const {
+    title,
+    text,
+    loading,
+    error,
+    handleTextareaValue,
+    handleTitleValue,
+    fetchSingleArticle,
+    postArticle,
+  } = useUpdateArticle();
 
   useEffect(() => {
-    fetchArticleApi(articleApi(articleId));
-  }, [fetchArticleApi, articleId]);
+    fetchSingleArticle(articleApi(articleId));
+  }, [articleId, fetchSingleArticle]);
 
   if (error) return <div>Error!</div>;
   return (
@@ -31,9 +37,13 @@ const EditArticleLayout: VFC = () => {
         </Box>
       ) : (
         <Box>
-          <Input defaultValue={articleTitle} minH="50px" mb={5} />
-          <Textarea defaultValue={articleText} rows={25} />
-          <Button>投稿</Button>
+          <Input value={title} onChange={handleTitleValue} minH="50px" mb={5} />
+          <Textarea
+            defaultValue={text}
+            onChange={handleTextareaValue}
+            rows={25}
+          />
+          <Button onClick={() => postArticle(articleId)}>投稿</Button>
         </Box>
       )}
     </Container>

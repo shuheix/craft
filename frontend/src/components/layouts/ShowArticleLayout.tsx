@@ -2,18 +2,21 @@ import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
 import { articleApi } from "../../constant/railsRoute";
 import { Box, Container, Heading, Spinner, Text } from "@chakra-ui/react";
-import { useIndexArticle } from "../../hooks/useIndexArticle";
+import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 
 const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
-  const { loading, error, articles, fetchArticleApi } = useIndexArticle();
-
-  const articleTitle = articles.map((article) => article.title);
-  const articleText = articles.map((article) => article.text);
+  const {
+    title,
+    text,
+    loading,
+    error,
+    fetchSingleArticle,
+  } = useFetchSingleArticle();
 
   useEffect(() => {
-    fetchArticleApi(articleApi(articleId));
-  }, [fetchArticleApi, articleId]);
+    fetchSingleArticle(articleApi(articleId));
+  }, [articleId, fetchSingleArticle]);
 
   if (error) return <p>error!</p>;
 
@@ -32,10 +35,10 @@ const ShowArticleLayout: VFC = () => {
           borderColor="gray.100"
         >
           <Heading height="20vh" borderTopRadius="xl">
-            {articleTitle}
+            {title}
           </Heading>
           <Text minHeight="60vh" borderBottomRadius="xl">
-            {articleText}
+            {text}
           </Text>
         </Box>
       )}

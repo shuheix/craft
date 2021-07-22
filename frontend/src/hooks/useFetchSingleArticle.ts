@@ -2,24 +2,25 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { ArticleType } from "../types/articleType";
 
-export const useIndexArticle = () => {
+export const useFetchSingleArticle = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [articles, setArticles] = useState<ArticleType[]>([]);
+  const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
 
-  const fetchArticleApi = useCallback((url: string) => {
+  const fetchSingleArticle = useCallback((url: string) => {
     setLoading(true);
     axios
-      .get<{ articles: ArticleType[] }>(url)
+      .get<{ articles: ArticleType }>(url)
       .then((res) => {
+        setText(res.data.articles.title);
+        setTitle(res.data.articles.text);
         setLoading(false);
-        const articleData = res.data.articles;
-        setArticles(articleData);
       })
       .catch(() => {
         setLoading(false);
         setError(true);
       });
   }, []);
-  return { loading, error, articles, fetchArticleApi };
+  return { loading, error, text, title, setText, setTitle, fetchSingleArticle };
 };
