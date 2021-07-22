@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
-import ArticleLayout from "../layouts/ArticleLayout";
+import React, { VFC } from "react";
+import ShowArticleLayout from "../layouts/ShowArticleLayout";
 
-const ArticlePage = () => {
+const ArticlePage: VFC = () => {
   return (
     <Box bgColor="teal.50">
-      <ArticleLayout />
+      <ShowArticleLayout />
     </Box>
   );
 };

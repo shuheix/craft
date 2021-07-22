@@ -13,12 +13,8 @@ module Api
       def show
         article = Article.find(params[:id]).as_json(include:[:user, :favorites])
         render json: {
-          articles: [article]
+          articles: article
         },status: :ok
-      end
-
-      def edit
-
       end
 
       def create
@@ -33,6 +29,19 @@ module Api
           }
         end
         # pp FirebaseIdToken::Signature.verify(params.require(:headers).permit(:Authorization)[:Authorization])
+      end
+
+      def update
+        article = Article.find(params[:id])
+        if article.update(article_params)
+          render json: {
+            articles: article,
+          },status: :ok
+        else
+          render json: {
+            articles: article.error
+          }
+        end
       end
 
       private
