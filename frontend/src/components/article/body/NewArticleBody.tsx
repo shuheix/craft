@@ -8,7 +8,7 @@ type ArticleBodyType = {
   handleTextareaValue: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   postArticle: () => void;
 };
-const ArticleBody: VFC<ArticleBodyType> = (props) => {
+const NewArticleBody: VFC<ArticleBodyType> = (props) => {
   const {
     title,
     text,
@@ -17,7 +17,7 @@ const ArticleBody: VFC<ArticleBodyType> = (props) => {
     postArticle,
   } = props;
   return (
-    <Container maxW="container.md" px={0} py={20}>
+    <Container px={0} py={20}>
       <Input value={title} onChange={handleTitleValue} minH="50px" mb={5} />
       <Textarea value={text} onChange={handleTextareaValue} rows={25} />
       <Button onClick={postArticle}>投稿</Button>
@@ -25,4 +25,4 @@ const ArticleBody: VFC<ArticleBodyType> = (props) => {
   );
 };
 
-export default ArticleBody;
+export default NewArticleBody;

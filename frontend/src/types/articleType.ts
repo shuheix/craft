@@ -6,7 +6,3 @@ export type ArticleType = {
   createdAt: string;
   updatedAt: string;
 };
-
-export type ArticleApiType = {
-  articles: ArticleType[];
-};

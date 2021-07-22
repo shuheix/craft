@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { auth } from "../firebase";
 import { ArticleType } from "../types/articleType";
 
-export const useHandleArticle = () => {
+export const useCreateArticle = () => {
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const history = useHistory();
@@ -31,8 +31,10 @@ export const useHandleArticle = () => {
           }
         )
         .then((res) => {
-          history.push(`/article/${res.data.articles.id}`);
-          console.log(res.data.articles.id);
+          history.push(`/articles/${res.data.articles.id}`);
+        })
+        .catch((e) => {
+          console.log(e);
         });
     });
   };
