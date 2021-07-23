@@ -1,7 +1,7 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
-      skip_before_action :authenticate_user, only: [:index,:show]
+      skip_before_action :authenticate_user
 
       def index
         articles = Article.all.as_json(include:[:user, :favorites])
@@ -44,7 +44,16 @@ module Api
         end
       end
 
+      def destroy
+        article = Article.find(params[:id])
+        article.destroy
+      end
+
       private
+
+    def set_id_params
+      params.require(:article).permit(:id)
+    end
 
     def article_params
       params.require(:article).permit(:title,:text)
@@ -55,8 +64,11 @@ module Api
     end
 
     def payload
+      # https://github.com/penguinwokrs/firebase-auth-rails
       # tokenの検証が成功すれば、@payloadに入る
       # https://github.com/fschuindt/firebase_id_token
+      # documents
+      # https://www.rubydoc.info/gems/firebase_id_token
       @payload ||= FirebaseIdToken::Signature.verify token
     end
 
