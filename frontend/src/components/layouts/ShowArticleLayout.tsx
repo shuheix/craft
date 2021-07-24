@@ -1,6 +1,6 @@
 import React, { useEffect, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { articleApi } from "../../constant/railsRoute";
+import { articleApi, indexURI, rootApi } from "../../constant/railsRoute";
 import {
   Box,
   Button,
@@ -9,14 +9,18 @@ import {
   Heading,
   Spinner,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { auth } from "../../firebase";
+import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 
 const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef(null);
   const history = useHistory();
 
   const onClickEditButton = () => {
@@ -29,8 +33,9 @@ const ShowArticleLayout: VFC = () => {
       axios({
         method: "DELETE",
         url: `${articleApi(articleId)}`,
-        headers: { Authorization: token },
-        data: { id: `${articleId}` },
+        data: { id: `${articleId}`, headers: { Authorization: token } },
+      }).then(() => {
+        history.push(indexURI);
       });
     });
   };
@@ -71,8 +76,16 @@ const ShowArticleLayout: VFC = () => {
             <Text minHeight="60vh" borderBottomRadius="xl">
               {text}
             </Text>
+            <DeleteArticleDialog
+              leastDestructiveRef={cancelRef}
+              isOpen={isOpen}
+              onClose={onClose}
+              isCentered
+              onClickDestroyButton={onClickDestroyButton}
+              title={title}
+            />
           </Box>
-          <Box>
+          <Flex flexDirection="column">
             <Button
               ml={3}
               mb={3}
@@ -86,15 +99,23 @@ const ShowArticleLayout: VFC = () => {
             </Button>
             <Button
               ml={3}
+              mb={3}
               size="lg"
               borderRadius="full"
               p={0}
               bgColor="white"
-              onClick={onClickDestroyButton}
+              onClick={onOpen}
             >
               <DeleteIcon />
             </Button>
-          </Box>
+            <Button
+              ml={3}
+              size="lg"
+              borderRadius="full"
+              p={0}
+              bgColor="white"
+            ></Button>
+          </Flex>
         </Flex>
       )}
     </Container>
