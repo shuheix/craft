@@ -9,7 +9,7 @@ type Props = {
   handleSignUpState: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const SignUp: VFC<Props> = (props) => {
+const SignUpParams: VFC<Props> = (props) => {
   const {
     username,
     email,
@@ -60,4 +60,4 @@ const SignUp: VFC<Props> = (props) => {
   );
 };
 
-export default SignUp;
+export default SignUpParams;
