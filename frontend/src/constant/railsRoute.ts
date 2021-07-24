@@ -6,3 +6,5 @@ export const rootApi = `${defaultApi}/articles`;
 // article controller
 export const articleApi = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}`;
+
+export const indexURI = "/articles";
