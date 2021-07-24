@@ -29,8 +29,7 @@ const ShowArticleLayout: VFC = () => {
       axios({
         method: "DELETE",
         url: `${articleApi(articleId)}`,
-        headers: { Authorization: token },
-        data: { id: `${articleId}` },
+        data: { id: `${articleId}`, headers: { Authorization: token } },
       });
     });
   };
