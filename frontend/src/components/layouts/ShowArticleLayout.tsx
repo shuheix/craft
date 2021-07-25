@@ -1,6 +1,6 @@
 import React, { useEffect, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { articleApi, indexURI, rootApi } from "../../constant/railsRoute";
+import { articleApi, indexURI } from "../../constant/railsRoute";
 import {
   Box,
   Button,
