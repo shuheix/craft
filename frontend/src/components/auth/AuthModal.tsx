@@ -14,6 +14,8 @@ import {
 import { useAuth } from "../../hooks/useAuth";
 import SignUpBody from "./modalContent/SignUpBody";
 import LoginBody from "./modalContent/LoginBody";
+import { useGoogleAuth } from "../../hooks/useGoogleAuth";
+import { useGuestAuth } from "../../hooks/useGuestAuth";
 
 const AuthModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,6 +28,8 @@ const AuthModal = () => {
     password,
     passwordConfirmation,
   } = useAuth();
+  const { googleLogin } = useGoogleAuth();
+  const { guestLogin } = useGuestAuth();
 
   return (
     <>
@@ -45,6 +49,8 @@ const AuthModal = () => {
                   email={email}
                   password={password}
                   handleSignUpState={handleSignUpState}
+                  googleLogin={googleLogin}
+                  guestLogin={guestLogin}
                 />
               </TabPanel>
               <TabPanel>

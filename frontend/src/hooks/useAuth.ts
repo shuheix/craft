@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useCallback } from "react";
+import { USERS_URI } from "../constant/railsRoute";
 import { auth } from "../firebase";
 
 export const useAuth = () => {
@@ -8,7 +9,7 @@ export const useAuth = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 
-  //onchangeイベントで発火、inputのvalueでState更新
+  // Email,Passwordを使用したサインイン
   const handleSignUpState = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       switch (event.target.name) {
@@ -32,27 +33,29 @@ export const useAuth = () => {
     },
     []
   );
-  //新規登録
+  // 新規登録
   const signUp = () => {
     auth.createUserWithEmailAndPassword(email, password).then(() => {
       auth.currentUser?.getIdToken(true).then((token) => {
-        console.log(token);
-        axios.post("http://localhost:3000/api/v1/users", {
-          token: token,
-          registration: { name: username },
-        });
+        axios
+          .post(USERS_URI, {
+            token: token,
+            registration: { name: username },
+          })
+          .then(() => {});
       });
     });
   };
-  //ログイン
+  // ログイン
   const login = () => {
-    auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
+    auth.signInWithEmailAndPassword(email, password).then(() => {
+      setEmail("");
+      setPassword("");
+      console.log("login成功");
     });
   };
 
-  //ログアウト
+  // ログアウト
   const logout = () => {
     auth.signOut();
   };
