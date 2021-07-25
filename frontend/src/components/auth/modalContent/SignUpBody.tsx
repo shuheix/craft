@@ -21,7 +21,7 @@ const SignUpBody: VFC<Props> = (props) => {
     passwordConfirmation,
   } = props;
   return (
-    <div>
+    <>
       <ModalHeader mx="auto">新規登録</ModalHeader>
       <ModalBody>
         <SignUpParams
@@ -37,7 +37,7 @@ const SignUpBody: VFC<Props> = (props) => {
           登録
         </Button>
       </ModalFooter>
-    </div>
+    </>
   );
 };
 
