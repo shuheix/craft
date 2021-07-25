@@ -9,17 +9,14 @@ import {
   InputLeftAddon,
   Spacer,
 } from "@chakra-ui/react";
-import React, { useContext, VFC } from "react";
+import React, { VFC } from "react";
 import { useHistory } from "react-router-dom";
 import { indexURI } from "../../constant/railsRoute";
-import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
-import TestButton from "../common/button/TestButton";
 import UserImg from "../user/UserImg";
 
 const Header: VFC = () => {
-  const { currentUser } = useContext(AuthContext);
   const history = useHistory();
   const goHome = () => {
     history.push(indexURI);
