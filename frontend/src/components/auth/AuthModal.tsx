@@ -23,7 +23,6 @@ const AuthModal = () => {
     handleSignUpState,
     signUp,
     login,
-    logout,
     username,
     email,
     password,
@@ -34,9 +33,8 @@ const AuthModal = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Button onClick={onOpen}>Login</Button>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
         <ModalOverlay />
         <ModalContent>
           <Tabs isFitted variant="enclosed" size="lg">
@@ -51,8 +49,11 @@ const AuthModal = () => {
                   email={email}
                   password={password}
                   handleSignUpState={handleSignUpState}
+<<<<<<< HEAD
                   googleLogin={googleLogin}
                   guestLogin={guestLogin}
+=======
+>>>>>>> main
                 />
               </TabPanel>
               <TabPanel>
