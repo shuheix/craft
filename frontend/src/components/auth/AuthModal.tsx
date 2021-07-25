@@ -49,11 +49,8 @@ const AuthModal = () => {
                   email={email}
                   password={password}
                   handleSignUpState={handleSignUpState}
-<<<<<<< HEAD
                   googleLogin={googleLogin}
                   guestLogin={guestLogin}
-=======
->>>>>>> main
                 />
               </TabPanel>
               <TabPanel>

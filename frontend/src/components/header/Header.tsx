@@ -1,7 +1,6 @@
-import { SearchIcon, SettingsIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Center,
   Container,
   Flex,
   Input,
