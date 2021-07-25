@@ -1,4 +1,4 @@
-import { Button, Flex, Input, TabPanel } from "@chakra-ui/react";
+import { Button, Flex, Input } from "@chakra-ui/react";
 import React, { VFC } from "react";
 
 type Props = {

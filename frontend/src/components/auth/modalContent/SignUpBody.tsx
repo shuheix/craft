@@ -1,10 +1,4 @@
-import {
-  Button,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Button, ModalBody, ModalFooter, ModalHeader } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import SignUpParams from "./SignUpParams";
 
