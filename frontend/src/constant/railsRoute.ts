@@ -7,10 +7,10 @@ export const rootApi = `${defaultApi}/articles`;
 export const articleApi = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}`;
 
-export const indexURI = "/articles";
-
 // rails_users_controller
 
 export const USERS_URI = `${defaultApi}/users`;
 
 // useHistory
+export const INDEX_ARTICLE_URI = "/articles";
+export const NEW_ARTICLE_URI = "/articles/new";

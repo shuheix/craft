@@ -1,6 +1,6 @@
 import React, { useEffect, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { articleApi, indexURI } from "../../constant/railsRoute";
+import { articleApi, INDEX_ARTICLE_URI } from "../../constant/railsRoute";
 import {
   Box,
   Button,
@@ -35,7 +35,7 @@ const ShowArticleLayout: VFC = () => {
         url: `${articleApi(articleId)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
       }).then(() => {
-        history.push(indexURI);
+        history.push(INDEX_ARTICLE_URI);
       });
     });
   };
