@@ -22,10 +22,10 @@ import { useAuth } from "../../hooks/useAuth";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
-import UserImg from "../user/UserImg";
+import TestButton from "../common/button/TestButton";
 
 const Header: VFC = () => {
-  const currentUser = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const history = useHistory();
   const goHome = () => {
     history.push(INDEX_ARTICLE_URI);
@@ -49,6 +49,7 @@ const Header: VFC = () => {
             <Box flex={1}>
               <AppLogo goHome={goHome} />
               <Spacer />
+              <TestButton />
             </Box>
             <Box flex={2}>
               <InputGroup>
@@ -58,12 +59,10 @@ const Header: VFC = () => {
               <Spacer />
             </Box>
             <Box flex={1}>
-              {currentUser.currentUser ? (
+              {currentUser ? (
                 <Flex flexDirection="row" justifyContent="flex-end">
                   <Menu>
-                    <MenuButton as={Button}>
-                      {currentUser.currentUser?.email}
-                    </MenuButton>
+                    <MenuButton as={Button}>{currentUser?.email}</MenuButton>
                     <MenuList>
                       <MenuGroup title="Profile">
                         <MenuItem>投稿の管理</MenuItem>
@@ -82,7 +81,6 @@ const Header: VFC = () => {
                 </Flex>
               ) : (
                 <Flex justifyContent="flex-end">
-                  <UserImg />
                   <AuthModal />
                 </Flex>
               )}
