@@ -1,6 +1,6 @@
-import React, { useEffect, VFC } from "react";
+import React, { useContext, useEffect, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { articleApi, indexURI } from "../../constant/railsRoute";
+import { articleApi, INDEX_ARTICLE_URI } from "../../constant/railsRoute";
 import {
   Box,
   Button,
@@ -16,10 +16,12 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { auth } from "../../firebase";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { currentUser } = useContext(AuthContext);
   const cancelRef = React.useRef(null);
   const history = useHistory();
 
@@ -35,7 +37,7 @@ const ShowArticleLayout: VFC = () => {
         url: `${articleApi(articleId)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
       }).then(() => {
-        history.push(indexURI);
+        history.push(INDEX_ARTICLE_URI);
       });
     });
   };
@@ -45,6 +47,7 @@ const ShowArticleLayout: VFC = () => {
     text,
     loading,
     error,
+    uid,
     fetchSingleArticle,
   } = useFetchSingleArticle();
 
@@ -85,36 +88,49 @@ const ShowArticleLayout: VFC = () => {
               title={title}
             />
           </Box>
+
           <Flex flexDirection="column">
-            <Button
-              ml={3}
-              mb={3}
-              size="lg"
-              borderRadius="full"
-              p={0}
-              bgColor="white"
-              onClick={onClickEditButton}
-            >
-              <EditIcon px={0} />
-            </Button>
-            <Button
-              ml={3}
-              mb={3}
-              size="lg"
-              borderRadius="full"
-              p={0}
-              bgColor="white"
-              onClick={onOpen}
-            >
-              <DeleteIcon />
-            </Button>
-            <Button
-              ml={3}
-              size="lg"
-              borderRadius="full"
-              p={0}
-              bgColor="white"
-            ></Button>
+            {currentUser?.uid === uid ? (
+              <>
+                <Button
+                  ml={3}
+                  mb={3}
+                  size="lg"
+                  borderRadius="full"
+                  p={0}
+                  bgColor="white"
+                  onClick={onClickEditButton}
+                >
+                  <EditIcon px={0} />
+                </Button>
+                <Button
+                  ml={3}
+                  mb={3}
+                  size="lg"
+                  borderRadius="full"
+                  p={0}
+                  bgColor="white"
+                  onClick={onOpen}
+                >
+                  <DeleteIcon />
+                </Button>
+                <Button
+                  ml={3}
+                  size="lg"
+                  borderRadius="full"
+                  p={0}
+                  bgColor="white"
+                ></Button>
+              </>
+            ) : (
+              <Button
+                ml={3}
+                size="lg"
+                borderRadius="full"
+                p={0}
+                bgColor="white"
+              ></Button>
+            )}
           </Flex>
         </Flex>
       )}

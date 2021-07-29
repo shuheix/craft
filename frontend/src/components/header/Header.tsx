@@ -1,34 +1,55 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Container,
   Flex,
   Input,
   InputGroup,
   InputLeftAddon,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList,
   Spacer,
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
+import React, { useContext, VFC } from "react";
 import { useHistory } from "react-router-dom";
-import { indexURI } from "../../constant/railsRoute";
+import { INDEX_ARTICLE_URI, NEW_ARTICLE_URI } from "../../constant/railsRoute";
+import { useAuth } from "../../hooks/useAuth";
+import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
-import UserImg from "../user/UserImg";
+import TestButton from "../common/button/TestButton";
 
 const Header: VFC = () => {
+  const { currentUser } = useContext(AuthContext);
   const history = useHistory();
   const goHome = () => {
-    history.push(indexURI);
+    history.push(INDEX_ARTICLE_URI);
   };
+
+  const goEdit = () => {
+    history.push(NEW_ARTICLE_URI);
+  };
+
+  const { logout } = useAuth();
 
   return (
     <>
       <Box height="65px" px={5} w="100%" bgColor="gray.50">
         <Container maxW="container.xl" height="100%">
-          <Flex alignItems="center" height="100%">
+          <Flex
+            alignItems="center"
+            height="100%"
+            justifyContent="space-between"
+          >
             <Box flex={1}>
               <AppLogo goHome={goHome} />
               <Spacer />
+              <TestButton />
             </Box>
             <Box flex={2}>
               <InputGroup>
@@ -38,10 +59,31 @@ const Header: VFC = () => {
               <Spacer />
             </Box>
             <Box flex={1}>
-              <Flex justifyContent="flex-end">
-                <UserImg />
-                <AuthModal />
-              </Flex>
+              {currentUser ? (
+                <Flex flexDirection="row" justifyContent="flex-end">
+                  <Menu>
+                    <MenuButton as={Button}>{currentUser?.email}</MenuButton>
+                    <MenuList>
+                      <MenuGroup title="Profile">
+                        <MenuItem>投稿の管理</MenuItem>
+                        <MenuItem>Payments </MenuItem>
+                      </MenuGroup>
+                      <MenuDivider />
+                      <MenuGroup title="Help">
+                        <MenuItem>#</MenuItem>
+                        <MenuItem onClick={logout}>ログアウト</MenuItem>
+                      </MenuGroup>
+                    </MenuList>
+                  </Menu>
+                  <Button ml={4} onClick={goEdit}>
+                    記事投稿
+                  </Button>
+                </Flex>
+              ) : (
+                <Flex justifyContent="flex-end">
+                  <AuthModal />
+                </Flex>
+              )}
             </Box>
           </Flex>
         </Container>
