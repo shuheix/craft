@@ -1,11 +1,7 @@
 export type UserType = {
   id: number;
   name: string;
-  email: string;
+  uid: string;
   createdAt: string;
   updatedAt: string;
-};
-
-export type UserApiType = {
-  users: UserType[];
 };
