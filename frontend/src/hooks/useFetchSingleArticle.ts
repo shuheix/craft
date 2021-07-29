@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { SingleArticleApi } from "../types/apiType";
+import { ArticleType } from "../types/articleType";
+import { UserType } from "../types/userType";
 
 export const useFetchSingleArticle = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -12,7 +13,9 @@ export const useFetchSingleArticle = () => {
   const fetchSingleArticle = useCallback((url: string) => {
     setLoading(true);
     axios
-      .get<SingleArticleApi>(url)
+      .get<{
+        articles: ArticleType & { user: UserType };
+      }>(url)
       .then((res) => {
         setText(res.data.articles.text);
         setTitle(res.data.articles.title);
