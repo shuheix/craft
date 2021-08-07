@@ -7,11 +7,11 @@ RSpec.describe "Api::V1::ArticlesControllers", type: :request do
         FactoryBot.create_list(:article,10)
       end
       it "ステータスコード「200 OK」を返す" do
-        get '/api/v1/articles'
+        get "/api/v1/articles"
         expect(response).to have_http_status(:ok)
       end
       it "成功時はJSONデータのレスポンスを返す" do
-        get '/api/v1/articles'
+        get "/api/v1/articles"
         expect(response.content_type).to eq "application/json; charset=utf-8"
       end
     end
@@ -35,6 +35,8 @@ RSpec.describe "Api::V1::ArticlesControllers", type: :request do
 
   describe "#create" do
     context "全てのパラメータが揃っているリクエストの場合" do
+      before do
+      end
       it "ステータスコード「200 OK」を返す" do
       end
       it "成功時のJSONデータのレスポンスを返す" do
