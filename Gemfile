@@ -28,6 +28,9 @@ gem 'rack-cors'
 # firebase Authenticationのトークン解析
 gem 'firebase-auth-rails'
 
+# 証明書をrakeタスクで入手
+gem 'whenever', require: false
+
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
