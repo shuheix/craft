@@ -22,7 +22,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
-import TestButton from "../common/button/TestButton";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -49,7 +48,6 @@ const Header: VFC = () => {
             <Box flex={1}>
               <AppLogo goHome={goHome} />
               <Spacer />
-              <TestButton />
             </Box>
             <Box flex={2}>
               <InputGroup>
