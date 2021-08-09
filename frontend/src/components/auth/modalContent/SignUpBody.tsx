@@ -1,4 +1,4 @@
-import { Button, ModalBody, ModalFooter, ModalHeader } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import SignUpParams from "./SignUpParams";
 
@@ -22,8 +22,7 @@ const SignUpBody: VFC<Props> = (props) => {
   } = props;
   return (
     <>
-      <ModalHeader mx="auto">新規登録</ModalHeader>
-      <ModalBody>
+      <Flex flexDirection="column" alignItems="flex-end">
         <SignUpParams
           username={username}
           email={email}
@@ -31,12 +30,10 @@ const SignUpBody: VFC<Props> = (props) => {
           passwordConfirmation={passwordConfirmation}
           handleSignUpState={handleSignUpState}
         />
-      </ModalBody>
-      <ModalFooter>
         <Button colorScheme="blue" mr={3} onClick={signUp} mx="auto" w="xs">
           登録
         </Button>
-      </ModalFooter>
+      </Flex>
     </>
   );
 };

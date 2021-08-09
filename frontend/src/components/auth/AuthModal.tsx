@@ -23,6 +23,7 @@ const AuthModal = () => {
     handleSignUpState,
     signUp,
     login,
+    stateReset,
     username,
     email,
     password,
@@ -39,15 +40,15 @@ const AuthModal = () => {
         <ModalContent>
           <Tabs isFitted variant="enclosed" size="lg">
             <TabList>
-              <Tab>Login</Tab>
-              <Tab>新規登録</Tab>
+              <Tab onClick={stateReset}>Login</Tab>
+              <Tab onClick={stateReset}>新規登録</Tab>
             </TabList>
             <TabPanels h="400px">
               <TabPanel>
                 <LoginBody
-                  login={login}
                   email={email}
                   password={password}
+                  login={login}
                   handleSignUpState={handleSignUpState}
                   googleLogin={googleLogin}
                   guestLogin={guestLogin}
@@ -55,12 +56,12 @@ const AuthModal = () => {
               </TabPanel>
               <TabPanel>
                 <SignUpBody
-                  handleSignUpState={handleSignUpState}
-                  signUp={signUp}
                   username={username}
                   email={email}
                   password={password}
                   passwordConfirmation={passwordConfirmation}
+                  handleSignUpState={handleSignUpState}
+                  signUp={signUp}
                 />
               </TabPanel>
             </TabPanels>
