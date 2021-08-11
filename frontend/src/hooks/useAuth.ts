@@ -14,7 +14,7 @@ export const useAuth = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       switch (event.target.name) {
         case "username": {
-          // setUsername(event.target.value);
+          setUsername(event.target.value);
           break;
         }
         case "email": {
