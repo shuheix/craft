@@ -8,8 +8,8 @@ export const articleApi = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}`;
 
 // rails_users_controller
-
 export const USERS_URI = `${defaultApi}/users`;
+export const SHOW_USERS_URI = (usersId: string) => `${USERS_URI}/${usersId}`;
 
 // useHistory
 export const INDEX_ARTICLE_URI = "/articles";

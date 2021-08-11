@@ -7,85 +7,46 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, VFC } from "react";
+import axios from "axios";
+import React, { useEffect, useState, VFC } from "react";
+import { useParams } from "react-router-dom";
+import { SHOW_USERS_URI } from "../../constant/railsRoute";
+import { ArticleType } from "../../types/articleType";
+import { UserType } from "../../types/userType";
+import UserImg from "../user/UserImg";
 
 const ShowUserPage: VFC = () => {
+  const [userArticles, setUserArticles] = useState<ArticleType[]>([]);
+  const { userId } = useParams<{ userId: string }>();
+
+  useEffect(() => {
+    axios
+      .get<{ articles: ArticleType[]; user: UserType }>(SHOW_USERS_URI(userId))
+      .then((res) => {
+        setUserArticles(res.data.articles);
+      });
+  }, [userId]);
   return (
     <div>
       <Container maxW="container.xl">
         <Flex mt={4}>
           <Box flex="1" bgColor="green.100" h="400px" mr={4}>
-            <Flex flexDirection="column" alignItems="center" mt={4}>
-              <Box>写真</Box>
-              <Box>status</Box>
-              <Button>プロフ編集</Button>
+            <Flex flexDirection="column" mt={4} h="400px">
+              <Box flex="4">
+                <UserImg />
+              </Box>
+              <Box flex="1">status</Box>
+              <Button flex="1">プロフ編集</Button>
             </Flex>
           </Box>
           <Box flex="3">
             <Stack spacing={4}>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
-              <Box shadow="md" p={5} borderWidth={1}>
-                <Heading fontSize="xl">ArticleTitle</Heading>
-                <Text>
-                  The future can be even brighter but a goal without a plan is
-                  just a wish
-                </Text>
-              </Box>
+              {userArticles.map((articles) => (
+                <Box shadow="md" p={5} borderWidth={1} key={articles.id}>
+                  <Heading fontSize="xl">{articles.title}</Heading>
+                  <Text>{articles.text}</Text>
+                </Box>
+              ))}
             </Stack>
           </Box>
         </Flex>
