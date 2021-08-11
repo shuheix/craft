@@ -1,7 +1,7 @@
 import { Box, Image } from "@chakra-ui/react";
-import React from "react";
+import React, { VFC } from "react";
 
-const UserImg = () => {
+const UserImg: VFC = () => {
   return (
     <Box>
       <Image
