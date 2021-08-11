@@ -14,3 +14,4 @@ export const SHOW_USERS_URI = (usersId: string) => `${USERS_URI}/${usersId}`;
 // useHistory
 export const INDEX_ARTICLE_URI = "/articles";
 export const NEW_ARTICLE_URI = "/articles/new";
+export const SHOW_ARTICLE_URI = (articleId: string) => `/articles/${articleId}`;

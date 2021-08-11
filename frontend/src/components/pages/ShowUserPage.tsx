@@ -9,8 +9,12 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState, VFC } from "react";
-import { useParams } from "react-router-dom";
-import { SHOW_USERS_URI } from "../../constant/railsRoute";
+import { useHistory, useParams } from "react-router-dom";
+import {
+  articleApi,
+  SHOW_ARTICLE_URI,
+  SHOW_USERS_URI,
+} from "../../constant/railsRoute";
 import { ArticleType } from "../../types/articleType";
 import { UserType } from "../../types/userType";
 import UserImg from "../user/UserImg";
@@ -18,6 +22,8 @@ import UserImg from "../user/UserImg";
 const ShowUserPage: VFC = () => {
   const [userArticles, setUserArticles] = useState<ArticleType[]>([]);
   const { userId } = useParams<{ userId: string }>();
+
+  const history = useHistory();
 
   useEffect(() => {
     axios
@@ -42,7 +48,17 @@ const ShowUserPage: VFC = () => {
           <Box flex="3">
             <Stack spacing={4}>
               {userArticles.map((articles) => (
-                <Box shadow="md" p={5} borderWidth={1} key={articles.id}>
+                <Box
+                  shadow="md"
+                  p={5}
+                  borderWidth={1}
+                  key={articles.id}
+                  onClick={() => history.push(SHOW_ARTICLE_URI(articles.id))}
+                  _hover={{
+                    boxShadow: "lg",
+                    cursor: "pointer",
+                  }}
+                >
                   <Heading fontSize="xl">{articles.title}</Heading>
                   <Text>{articles.text}</Text>
                 </Box>
