@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
 import { useHistory } from "react-router-dom";
-import { INDEX_ARTICLE_URI, NEW_ARTICLE_URI } from "../../constant/railsRoute";
+import { INDEX_ARTICLE_URL, NEW_ARTICLE_URL } from "../../constant/appHistory";
 import { useAuth } from "../../hooks/useAuth";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
@@ -27,11 +27,11 @@ const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
   const goHome = () => {
-    history.push(INDEX_ARTICLE_URI);
+    history.push(INDEX_ARTICLE_URL);
   };
 
   const goEdit = () => {
-    history.push(NEW_ARTICLE_URI);
+    history.push(NEW_ARTICLE_URL);
   };
 
   const { logout } = useAuth();

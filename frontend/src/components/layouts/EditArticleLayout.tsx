@@ -1,7 +1,7 @@
 import { Box, Container, Input, Spinner, Textarea } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { articleApi } from "../../constant/railsRoute";
+import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import { useIndexArticle } from "../../hooks/useIndexArticle";
 
 const EditArticleLayout = () => {
@@ -12,7 +12,7 @@ const EditArticleLayout = () => {
   const articleText = articles.map((article) => article.text);
 
   useEffect(() => {
-    fetchArticleApi(articleApi(articleId));
+    fetchArticleApi(SINGLE_ARTICLE_API(articleId));
   }, [fetchArticleApi, articleId]);
 
   if (error) return <div>Error!</div>;
