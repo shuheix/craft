@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useCallback } from "react";
 import { USERS_URI } from "../constant/railsRoute";
@@ -8,6 +9,8 @@ export const useAuth = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+
+  const toast = useToast();
 
   // Email,Passwordを使用したサインイン
   const handleSignUpState = useCallback(
@@ -48,16 +51,49 @@ export const useAuth = () => {
   };
   // ログイン
   const login = () => {
-    auth.signInWithEmailAndPassword(email, password).then(() => {
-      setEmail("");
-      setPassword("");
-      console.log("login成功");
-    });
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setEmail("");
+        setPassword("");
+        toast({
+          title: "ログインしました",
+          status: "success",
+          isClosable: true,
+          position: "bottom-right",
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "ログインに失敗しました",
+          description: "emailとパスワードが正しいかご確認ください",
+          status: "error",
+          isClosable: true,
+          position: "bottom-right",
+        });
+      });
   };
 
   // ログアウト
   const logout = () => {
-    auth.signOut();
+    auth
+      .signOut()
+      .then(() => {
+        toast({
+          title: "ログアウトしました",
+          status: "success",
+          isClosable: true,
+          position: "bottom-right",
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "予期せぬエラーが発生しました",
+          status: "error",
+          isClosable: true,
+          position: "bottom-right",
+        });
+      });
   };
 
   //
