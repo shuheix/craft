@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { articleApi, INDEX_ARTICLE_URI } from "../../constant/railsRoute";
+import { articleApi, SHOW_USER_URL } from "../../constant/railsRoute";
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   Spinner,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -24,6 +25,7 @@ const ShowArticleLayout: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const cancelRef = React.useRef(null);
   const history = useHistory();
+  const toast = useToast();
 
   const onClickEditButton = () => {
     history.push(`/articles/${articleId}/edit`);
@@ -36,9 +38,24 @@ const ShowArticleLayout: VFC = () => {
         method: "DELETE",
         url: `${articleApi(articleId)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
-      }).then(() => {
-        history.push(INDEX_ARTICLE_URI);
-      });
+      })
+        .then((res) => {
+          history.push(SHOW_USER_URL(userId));
+          toast({
+            title: "削除しました",
+            status: "success",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "エラー",
+            status: "error",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        });
     });
   };
 
@@ -48,6 +65,7 @@ const ShowArticleLayout: VFC = () => {
     loading,
     error,
     uid,
+    userId,
     fetchSingleArticle,
   } = useFetchSingleArticle();
 

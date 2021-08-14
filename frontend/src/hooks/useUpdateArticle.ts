@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useCallback } from "react";
 import { useHistory } from "react-router-dom";
@@ -17,6 +18,7 @@ export const useUpdateArticle = () => {
   } = useFetchSingleArticle();
 
   const history = useHistory();
+  const toast = useToast();
 
   const handleTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -42,13 +44,24 @@ export const useUpdateArticle = () => {
           )
           .then((res) => {
             history.push(`/articles/${res.data.articles.id}`);
+            toast({
+              title: "投稿しました",
+              status: "success",
+              isClosable: true,
+              position: "bottom-right",
+            });
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(() => {
+            toast({
+              title: "投稿に失敗しました",
+              status: "error",
+              isClosable: true,
+              position: "bottom-right",
+            });
           });
       });
     },
-    [history, text, title]
+    [history, text, title, toast]
   );
   return {
     title,
