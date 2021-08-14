@@ -17,7 +17,7 @@ const Router: VFC = () => {
     <Switch>
       <AuthProvider>
         <Header />
-        <Route exact path="/articles">
+        <Route exact path="/articles?page=:page">
           <Container maxW="container.xl">
             <Flex>
               <LeftAside />
