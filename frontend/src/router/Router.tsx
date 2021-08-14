@@ -10,6 +10,7 @@ import AuthProvider from "../providers/AuthProvider";
 import ShowArticlePage from "../components/pages/ShowArticlePage";
 import NewArticlePage from "../components/pages/NewArticlePage";
 import EditArticlePage from "../components/pages/EditArticlePage";
+import ShowUserPage from "../components/pages/ShowUserPage";
 
 const Router: VFC = () => {
   return (
@@ -33,6 +34,9 @@ const Router: VFC = () => {
         </Route>
         <Route path="/articles/:articleId/edit">
           <EditArticlePage />
+        </Route>
+        <Route path="/users/:userId">
+          <ShowUserPage />
         </Route>
         <Route path="/login">
           <LoginPage />

@@ -1,7 +1,14 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      skip_before_action :authenticate_user, only: [:create]
+      skip_before_action :authenticate_user, only: [:create,:show]
+
+      def show
+        user = User.find(params[:id])
+        articles = Article.where(user_id: user.id)
+        render json: { articles: articles, user: user }, status: :ok
+      end
+
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
         #find_or_initialize_by
