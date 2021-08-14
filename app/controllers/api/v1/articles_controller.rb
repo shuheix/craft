@@ -4,10 +4,12 @@ module Api
       skip_before_action :authenticate_user, only: [:index,:show,:destroy]
 
       def index
-        articles = Article.page(2).per(2).total_pages
+        articles = Article.page(params[:page]).per(8)
+        total_pages = articles.total_pages
         # articles = Article.all.as_json(include:[:user, :favorites])
         render json:{
-          articles: articles
+          articles: articles,
+          total_pages: total_pages
         },status: :ok
       end
 
