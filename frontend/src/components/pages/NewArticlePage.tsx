@@ -12,13 +12,15 @@ const NewArticlePage: VFC = () => {
   } = useCreateArticle();
 
   return (
-    <NewArticleBody
-      title={title}
-      text={text}
-      handleTitleValue={handleTitleValue}
-      handleTextareaValue={handleTextareaValue}
-      postArticle={postArticle}
-    />
+    <>
+      <NewArticleBody
+        title={title}
+        text={text}
+        handleTitleValue={handleTitleValue}
+        handleTextareaValue={handleTextareaValue}
+        postArticle={postArticle}
+      />
+    </>
   );
 };
 

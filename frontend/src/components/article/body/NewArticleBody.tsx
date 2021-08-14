@@ -16,6 +16,7 @@ const NewArticleBody: VFC<ArticleBodyType> = (props) => {
     handleTextareaValue,
     postArticle,
   } = props;
+
   return (
     <Container px={0} py={20}>
       <Input value={title} onChange={handleTitleValue} minH="50px" mb={5} />

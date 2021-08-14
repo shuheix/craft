@@ -9,6 +9,7 @@ export const useFetchSingleArticle = () => {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [uid, setUid] = useState("");
+  const [userId, setUserid] = useState("");
 
   const fetchSingleArticle = useCallback((url: string) => {
     setLoading(true);
@@ -20,6 +21,7 @@ export const useFetchSingleArticle = () => {
         setText(res.data.articles.text);
         setTitle(res.data.articles.title);
         setUid(res.data.articles.user.uid);
+        setUserid(res.data.articles.user.id);
         setLoading(false);
       })
       .catch(() => {
@@ -33,6 +35,7 @@ export const useFetchSingleArticle = () => {
     text,
     title,
     uid,
+    userId,
     setText,
     setTitle,
     fetchSingleArticle,
