@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user, only: [:index,:show,:destroy]
 
       def index
-        articles = Article.recent.page(1).per(8)
+        articles = Article.page(2).per(2).total_pages
         # articles = Article.all.as_json(include:[:user, :favorites])
         render json:{
           articles: articles
