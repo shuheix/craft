@@ -3,16 +3,17 @@ import React, { VFC } from "react";
 
 type Props = {
   name: string;
+  boxSize?: string;
 };
 
 const UserInformation: VFC<Props> = (props) => {
-  const { name } = props;
+  const { name, boxSize } = props;
   return (
     <Flex>
       <Image
         src="https://source.unsplash.com/random"
         alt="user_id"
-        boxSize="40px"
+        boxSize={boxSize}
         borderRadius="full"
         mt={1}
       />
