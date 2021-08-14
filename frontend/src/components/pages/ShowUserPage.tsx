@@ -10,11 +10,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useState, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  articleApi,
-  SHOW_ARTICLE_URI,
-  SHOW_USERS_URI,
-} from "../../constant/railsRoute";
+import { SHOW_ARTICLE_URI, SHOW_USERS_URI } from "../../constant/railsRoute";
 import { ArticleType } from "../../types/articleType";
 import { UserType } from "../../types/userType";
 import UserImg from "../user/UserImg";
