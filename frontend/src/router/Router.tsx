@@ -11,13 +11,14 @@ import ShowArticlePage from "../components/pages/ShowArticlePage";
 import NewArticlePage from "../components/pages/NewArticlePage";
 import EditArticlePage from "../components/pages/EditArticlePage";
 import ShowUserPage from "../components/pages/ShowUserPage";
+import Page404 from "../components/pages/Page404";
 
 const Router: VFC = () => {
   return (
     <Switch>
       <AuthProvider>
         <Header />
-        <Route exact path="/articles?page=:page">
+        <Route exact path="/articles">
           <Container maxW="container.xl">
             <Flex>
               <LeftAside />
@@ -42,6 +43,9 @@ const Router: VFC = () => {
           <LoginPage />
         </Route>
         <Route path="/test"></Route>
+        <Route>
+          <Page404 />
+        </Route>
       </AuthProvider>
     </Switch>
   );
