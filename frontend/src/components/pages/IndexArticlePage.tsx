@@ -1,7 +1,7 @@
 import { Box, Spinner, Wrap, WrapItem } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { INDEX_ARTICLES_API } from "../../constant/railsRoute";
 import { useIndexArticle } from "../../hooks/useIndexArticle";
 import ArticleCard from "../article/ArticleCard";
@@ -9,11 +9,12 @@ import ArticleCard from "../article/ArticleCard";
 const IndexArticlePage: VFC = () => {
   const { loading, articles, fetchArticleApi } = useIndexArticle();
   const history = useHistory();
-  const { page } = useParams<{ page: string }>();
+
+  const location = useLocation();
 
   useEffect(() => {
-    fetchArticleApi(INDEX_ARTICLES_API(page));
-  }, [fetchArticleApi, page]);
+    fetchArticleApi(INDEX_ARTICLES_API(location.search));
+  }, [fetchArticleApi, location.key, location.pathname, location.search]);
 
   return (
     <>
