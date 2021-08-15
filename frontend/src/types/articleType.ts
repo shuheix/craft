@@ -2,7 +2,8 @@ export type ArticleType = {
   id: string;
   title: string;
   text: string;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  user_name?: string;
 };

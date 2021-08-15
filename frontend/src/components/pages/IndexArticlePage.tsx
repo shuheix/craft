@@ -17,7 +17,6 @@ import LeftAside from "../aside/LeftAside";
 const IndexArticlePage: VFC = () => {
   const { loading, articles, fetchArticleApi } = useIndexArticle();
   const history = useHistory();
-
   const location = useLocation();
 
   useEffect(() => {
@@ -44,7 +43,11 @@ const IndexArticlePage: VFC = () => {
                     cursor: "pointer",
                   }}
                 >
-                  <ArticleCard title={article.title} />
+                  <ArticleCard
+                    title={article.title}
+                    username={article.user_name}
+                    createdAt={article.created_at}
+                  />
                 </WrapItem>
               ))}
             </Wrap>
