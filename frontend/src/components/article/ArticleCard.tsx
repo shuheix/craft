@@ -4,10 +4,12 @@ import UserInformation from "../user/UserInformation";
 
 type Props = {
   title: string;
+  createdAt: string;
+  username?: string;
 };
 
 const ArticleCard: VFC<Props> = (props) => {
-  const { title, username, created_at } = props;
+  const { title, username, createdAt } = props;
   return (
     <Flex
       w="200px"
@@ -24,7 +26,7 @@ const ArticleCard: VFC<Props> = (props) => {
         </Text>
       </Box>
       <Box pb={4}>
-        <UserInformation name="onos" boxSize="50px" />
+        <UserInformation name={username} createdAt={createdAt} boxSize="50px" />
       </Box>
     </Flex>
   );

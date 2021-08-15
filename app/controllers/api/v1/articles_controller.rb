@@ -5,7 +5,8 @@ module Api
 
       def index
         articles = Article.recent.joins(:user).select("articles.*, users.name as user_name").page(params[:page]).per(8)
-        render json: { articles: articles },status: :ok
+        total_pages = articles.total_pages
+        render json: { articles: articles, total_pages: total_pages },status: :ok
       end
 
       def show

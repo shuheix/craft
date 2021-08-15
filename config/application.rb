@@ -41,5 +41,8 @@ module Craft
         helper_specs: false,
         routing_specs: false
     end
+
+    #timezone変更
+    config.time_zone = 'Asia/Tokyo'
   end
 end
