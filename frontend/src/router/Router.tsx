@@ -1,8 +1,5 @@
-import { Container, Flex } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { Route, Switch } from "react-router-dom";
-import LeftAside from "../components/aside/LeftAside";
-import RightAside from "../components/aside/RightAside";
 import Header from "../components/header/Header";
 import IndexArticlePage from "../components/pages/IndexArticlePage";
 import LoginPage from "../components/pages/LoginPage";
@@ -19,13 +16,7 @@ const Router: VFC = () => {
       <AuthProvider>
         <Header />
         <Route exact path="/articles">
-          <Container maxW="container.xl">
-            <Flex>
-              <LeftAside />
-              <IndexArticlePage />
-              <RightAside />
-            </Flex>
-          </Container>
+          <IndexArticlePage />
         </Route>
         <Route path="/articles/new">
           <NewArticlePage />

@@ -1,7 +1,6 @@
 export const defaultApi = "http://localhost:3000/api/v1";
 
 // article controller
-
 export const INDEX_ARTICLES_API = (page: string | null): string =>
   `${defaultApi}/articles${page}`;
 

@@ -7,7 +7,7 @@ type Props = {
 };
 
 const ArticleCard: VFC<Props> = (props) => {
-  const { title } = props;
+  const { title, username, created_at } = props;
   return (
     <Flex
       w="200px"
@@ -24,7 +24,7 @@ const ArticleCard: VFC<Props> = (props) => {
         </Text>
       </Box>
       <Box pb={4}>
-        <UserInformation name="onos" />
+        <UserInformation name="onos" boxSize="50px" />
       </Box>
     </Flex>
   );
