@@ -12,7 +12,7 @@ const ArticleCard: VFC<Props> = (props) => {
   const { title, username, createdAt } = props;
   return (
     <Flex
-      w="200px"
+      w="220px"
       h="260px"
       shadow="md"
       borderRadius="10px"

@@ -7,7 +7,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
+import React, { useState, VFC } from "react";
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { INDEX_ARTICLES_API } from "../../constant/railsRoute";
@@ -23,6 +23,8 @@ const IndexArticlePage: VFC = () => {
   useEffect(() => {
     fetchArticleApi(INDEX_ARTICLES_API(location.search));
   }, [fetchArticleApi, location.key, location.pathname, location.search]);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   return (
     <>
@@ -56,8 +58,24 @@ const IndexArticlePage: VFC = () => {
                 </Wrap>
               </Box>
               <Flex justifyContent="flex-end" mt={4}>
-                <Button bgColor="gray.100">前のページへ</Button>
-                <Button ml={4}>次のページへ</Button>
+                <Button
+                  bgColor="gray.100"
+                  onClick={() => {
+                    setCurrentPage(currentPage - 1);
+                    history.push(`/articles?page=${currentPage}`);
+                  }}
+                >
+                  前のページへ
+                </Button>
+                <Button
+                  ml={4}
+                  onClick={() => {
+                    setCurrentPage(currentPage + 1);
+                    history.push(`/articles?page=${currentPage}`);
+                  }}
+                >
+                  次のページへ
+                </Button>
               </Flex>
             </Flex>
           )}
