@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Flex,
   Spinner,
@@ -33,24 +34,32 @@ const IndexArticlePage: VFC = () => {
               <Spinner />
             </Box>
           ) : (
-            <Wrap flex={1} justify="center">
-              {articles.map((article) => (
-                <WrapItem
-                  key={article.id}
-                  onClick={() => history.push(`/articles/${article.id}`)}
-                  _hover={{
-                    boxShadow: "xl",
-                    cursor: "pointer",
-                  }}
-                >
-                  <ArticleCard
-                    title={article.title}
-                    username={article.user_name}
-                    createdAt={article.created_at}
-                  />
-                </WrapItem>
-              ))}
-            </Wrap>
+            <Flex flexDirection="column" ml={10}>
+              <Box>
+                <Wrap flex={1} justify="flex-end" spacing="30px">
+                  {articles.map((article) => (
+                    <WrapItem
+                      key={article.id}
+                      onClick={() => history.push(`/articles/${article.id}`)}
+                      _hover={{
+                        boxShadow: "xl",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <ArticleCard
+                        title={article.title}
+                        username={article.user_name}
+                        createdAt={article.created_at}
+                      />
+                    </WrapItem>
+                  ))}
+                </Wrap>
+              </Box>
+              <Flex justifyContent="flex-end" mt={4}>
+                <Button bgColor="gray.100">前のページへ</Button>
+                <Button ml={4}>次のページへ</Button>
+              </Flex>
+            </Flex>
           )}
           {/* <RightAside /> */}
         </Flex>

@@ -62,13 +62,11 @@ const Header: VFC = () => {
                   <Menu>
                     <MenuButton as={Button}>{currentUser?.email}</MenuButton>
                     <MenuList>
-                      <MenuGroup title="Profile">
-                        <MenuItem>投稿の管理</MenuItem>
-                        <MenuItem>Payments </MenuItem>
+                      <MenuGroup>
+                        <MenuItem>マイページ</MenuItem>
                       </MenuGroup>
                       <MenuDivider />
                       <MenuGroup title="Help">
-                        <MenuItem>#</MenuItem>
                         <MenuItem onClick={logout}>ログアウト</MenuItem>
                       </MenuGroup>
                     </MenuList>
