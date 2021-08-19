@@ -16,7 +16,7 @@ import ArticleCard from "../article/ArticleCard";
 import LeftAside from "../aside/LeftAside";
 
 const IndexArticlePage: VFC = () => {
-  const { loading, articles, fetchArticleApi } = useIndexArticle();
+  const { loading, articles, fetchArticleApi, totalPage } = useIndexArticle();
   const history = useHistory();
   const location = useLocation();
 
@@ -58,24 +58,28 @@ const IndexArticlePage: VFC = () => {
                 </Wrap>
               </Box>
               <Flex justifyContent="flex-end" mt={4}>
-                <Button
-                  bgColor="gray.100"
-                  onClick={() => {
-                    setCurrentPage(currentPage - 1);
-                    history.push(`/articles?page=${currentPage}`);
-                  }}
-                >
-                  前のページへ
-                </Button>
-                <Button
-                  ml={4}
-                  onClick={() => {
-                    setCurrentPage(currentPage + 1);
-                    history.push(`/articles?page=${currentPage}`);
-                  }}
-                >
-                  次のページへ
-                </Button>
+                {currentPage !== 1 && (
+                  <Button
+                    bgColor="gray.100"
+                    onClick={() => {
+                      setCurrentPage(currentPage - 1);
+                      history.push(`/articles?page=${currentPage}`);
+                    }}
+                  >
+                    戻る
+                  </Button>
+                )}
+                {currentPage !== totalPage && (
+                  <Button
+                    ml={4}
+                    onClick={() => {
+                      setCurrentPage(currentPage + 1);
+                      history.push(`/articles?page=${currentPage}`);
+                    }}
+                  >
+                    次のページへ
+                  </Button>
+                )}
               </Flex>
             </Flex>
           )}
