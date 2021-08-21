@@ -9,7 +9,7 @@ export const useFetchSingleArticle = () => {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [uid, setUid] = useState("");
-  const [userId, setUserid] = useState("");
+  const [userId, setUserid] = useState<number>();
 
   const fetchSingleArticle = useCallback((url: string) => {
     setLoading(true);

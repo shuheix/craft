@@ -14,6 +14,7 @@ import { INDEX_ARTICLES_API } from "../../constant/railsRoute";
 import { useIndexArticle } from "../../hooks/useIndexArticle";
 import ArticleCard from "../article/ArticleCard";
 import LeftAside from "../aside/LeftAside";
+import Header from "../header/Header";
 
 const IndexArticlePage: VFC = () => {
   const { loading, articles, fetchArticleApi, totalPage } = useIndexArticle();
@@ -28,6 +29,7 @@ const IndexArticlePage: VFC = () => {
 
   return (
     <>
+      <Header />
       <Container maxW="container.xl">
         <Flex>
           <LeftAside />

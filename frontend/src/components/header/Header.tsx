@@ -34,6 +34,11 @@ const Header: VFC = () => {
     history.push(NEW_ARTICLE_URL);
   };
 
+  const goUserPage = () => {
+    const uid = currentUser?.uid;
+    history.push(`/users/${uid}`);
+  };
+
   const { logout } = useAuth();
 
   return (
@@ -60,10 +65,12 @@ const Header: VFC = () => {
               {currentUser ? (
                 <Flex flexDirection="row" justifyContent="flex-end">
                   <Menu>
-                    <MenuButton as={Button}>{currentUser?.email}</MenuButton>
+                    <MenuButton as={Button}>
+                      {currentUser.displayName}
+                    </MenuButton>
                     <MenuList>
                       <MenuGroup>
-                        <MenuItem>マイページ</MenuItem>
+                        <MenuItem onClick={goUserPage}>マイページ</MenuItem>
                       </MenuGroup>
                       <MenuDivider />
                       <MenuGroup title="Help">

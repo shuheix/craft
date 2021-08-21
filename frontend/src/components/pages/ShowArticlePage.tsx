@@ -4,9 +4,11 @@ import ShowArticleLayout from "../layouts/ShowArticleLayout";
 
 const ArticlePage: VFC = () => {
   return (
-    <Box bgColor="teal.50">
-      <ShowArticleLayout />
-    </Box>
+    <>
+      <Box bgColor="teal.50" minH="100vh">
+        <ShowArticleLayout />
+      </Box>
+    </>
   );
 };
 
