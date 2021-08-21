@@ -9,6 +9,8 @@ import {
 import React, { VFC } from "react";
 import { useForm } from "react-hook-form";
 
+import { useCreateArticle } from "../../hooks/useCreateArticle";
+
 const NewArticlePage: VFC = () => {
   type InputValue = {
     title: string;
@@ -21,9 +23,11 @@ const NewArticlePage: VFC = () => {
     formState: { errors },
   } = useForm<InputValue>();
 
-  console.log(errors.title?.message);
+  const { postArticle, loading } = useCreateArticle();
 
-  const onSubmit = (data: InputValue) => alert(data.text);
+  const onSubmit = (data: InputValue) => {
+    postArticle(data.title, data.text);
+  };
 
   return (
     <>
@@ -43,14 +47,13 @@ const NewArticlePage: VFC = () => {
             <FormErrorMessage>
               {errors.text && errors.text?.message}
             </FormErrorMessage>
-
             <Textarea
               id="text"
               {...register("text", { required: "内容が未入力です" })}
               rows={20}
             />
           </FormControl>
-          <Button type="submit" mt={4}>
+          <Button type="submit" mt={4} isLoading={loading}>
             投稿
           </Button>
         </form>
