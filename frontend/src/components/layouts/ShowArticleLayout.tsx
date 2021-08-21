@@ -76,7 +76,7 @@ const ShowArticleLayout: VFC = () => {
   if (error) return <p>error!</p>;
 
   return (
-    <Container px={0} py={20}>
+    <Container px={0} py={20} maxW="container.lg">
       {loading ? (
         <Box>
           <Spinner />
@@ -91,10 +91,10 @@ const ShowArticleLayout: VFC = () => {
             border="1px"
             borderColor="gray.100"
           >
-            <Heading height="20vh" borderTopRadius="xl">
+            <Heading height="10vh" borderTopRadius="xl" p={5}>
               {title}
             </Heading>
-            <Text minHeight="60vh" borderBottomRadius="xl">
+            <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
               {text}
             </Text>
             <DeleteArticleDialog
@@ -106,7 +106,6 @@ const ShowArticleLayout: VFC = () => {
               title={title}
             />
           </Box>
-
           <Flex flexDirection="column">
             {currentUser?.uid === uid ? (
               <>

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   FormControl,
@@ -28,6 +29,7 @@ const NewArticlePage: VFC = () => {
   const onSubmit = (data: InputValue) => {
     postArticle(data.title, data.text);
   };
+  console.log(errors);
 
   return (
     <>
@@ -35,12 +37,15 @@ const NewArticlePage: VFC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.title || !!errors.text}>
             <FormErrorMessage>
-              {errors.title && errors.title?.message}
+              <Box>{errors.title && errors.title?.message}</Box>
             </FormErrorMessage>
             <Input
               id="title"
               placeholder="タイトル"
-              {...register("title", { required: "タイトルが未入力です" })}
+              {...register("title", {
+                required: "タイトルが未入力です",
+                maxLength: { value: 30, message: "タイトルは最大30文字です" },
+              })}
               minH="50px"
               mb={10}
             />
@@ -49,7 +54,13 @@ const NewArticlePage: VFC = () => {
             </FormErrorMessage>
             <Textarea
               id="text"
-              {...register("text", { required: "内容が未入力です" })}
+              {...register("text", {
+                required: "内容が未入力です",
+                maxLength: {
+                  value: 10000,
+                  message: "投稿内容は、最大10000文字です",
+                },
+              })}
               rows={20}
             />
           </FormControl>
