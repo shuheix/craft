@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useCallback } from "react";
-import { USERS_URI } from "../constant/railsRoute";
+import { USERS_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 
 export const useAuth = () => {
@@ -41,7 +41,7 @@ export const useAuth = () => {
     auth.createUserWithEmailAndPassword(email, password).then(() => {
       auth.currentUser?.getIdToken(true).then((token) => {
         axios
-          .post(USERS_URI, {
+          .post(USERS_API, {
             token: token,
             registration: { name: username },
           })

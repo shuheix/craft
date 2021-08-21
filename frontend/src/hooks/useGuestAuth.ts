@@ -1,5 +1,5 @@
 import axios from "axios";
-import { USERS_URI } from "../constant/railsRoute";
+import { USERS_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 
 export const useGuestAuth = () => {
@@ -7,7 +7,7 @@ export const useGuestAuth = () => {
     auth.signInAnonymously().then(() => {
       auth.currentUser?.getIdToken(true).then((token) => {
         console.log(token);
-        axios.post(USERS_URI, {
+        axios.post(USERS_API, {
           token: token,
           registration: { name: "ゲストユーザー" },
         });

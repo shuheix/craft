@@ -30,6 +30,7 @@ gem 'firebase-auth-rails'
 
 # 証明書をrakeタスクで入手
 gem 'whenever', require: false
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'

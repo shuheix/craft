@@ -2,12 +2,13 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 import React, { VFC } from "react";
 
 type Props = {
-  name: string;
+  name?: string;
   boxSize?: string;
+  createdAt: string;
 };
 
 const UserInformation: VFC<Props> = (props) => {
-  const { name, boxSize } = props;
+  const { name, boxSize, createdAt } = props;
   return (
     <Flex>
       <Image
@@ -19,7 +20,7 @@ const UserInformation: VFC<Props> = (props) => {
       />
       <Box pl={2}>
         <p>{name}</p>
-        <p>status</p>
+        <p>{createdAt}</p>
       </Box>
     </Flex>
   );
