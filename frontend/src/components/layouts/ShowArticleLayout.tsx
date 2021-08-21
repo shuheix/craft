@@ -40,8 +40,8 @@ const ShowArticleLayout: VFC = () => {
         url: `${SINGLE_ARTICLE_API(articleId)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
       })
-        .then((res) => {
-          history.push(SHOW_USERS_API(userId));
+        .then(() => {
+          history.push(SHOW_USERS_API(`${userId}`));
           toast({
             title: "削除しました",
             status: "success",
