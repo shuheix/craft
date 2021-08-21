@@ -13,7 +13,7 @@ const ArticleCard: VFC<Props> = (props) => {
   return (
     <Flex
       w="220px"
-      h="260px"
+      h="250px"
       shadow="md"
       borderRadius="10px"
       flexDirection="column"
