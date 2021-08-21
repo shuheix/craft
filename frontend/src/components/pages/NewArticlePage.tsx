@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Container,
   FormControl,
@@ -11,6 +10,7 @@ import React, { VFC } from "react";
 import { useForm } from "react-hook-form";
 
 import { useCreateArticle } from "../../hooks/useCreateArticle";
+import Header from "../header/Header";
 
 const NewArticlePage: VFC = () => {
   type InputValue = {
@@ -33,11 +33,12 @@ const NewArticlePage: VFC = () => {
 
   return (
     <>
+      <Header />
       <Container px={0} py={20} maxW="container.lg">
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.title || !!errors.text}>
             <FormErrorMessage>
-              <Box>{errors.title && errors.title?.message}</Box>
+              {errors.title && errors.title?.message}
             </FormErrorMessage>
             <Input
               id="title"

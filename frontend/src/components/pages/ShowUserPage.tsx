@@ -13,6 +13,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { SINGLE_ARTICLE_API, SHOW_USERS_API } from "../../constant/railsRoute";
 import { ArticleType } from "../../types/articleType";
 import { UserType } from "../../types/userType";
+import Header from "../header/Header";
 import UserImg from "../user/UserImg";
 
 const ShowUserPage: VFC = () => {
@@ -29,7 +30,8 @@ const ShowUserPage: VFC = () => {
       });
   }, [userId]);
   return (
-    <div>
+    <>
+      <Header />
       <Container maxW="container.xl">
         <Flex mt={4}>
           <Box flex="1" bgColor="green.100" h="400px" mr={4}>
@@ -63,7 +65,7 @@ const ShowUserPage: VFC = () => {
           </Box>
         </Flex>
       </Container>
-    </div>
+    </>
   );
 };
 

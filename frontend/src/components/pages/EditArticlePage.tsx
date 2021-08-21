@@ -10,6 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useUpdateArticle } from "../../hooks/useUpdateArticle";
+import Header from "../header/Header";
 
 const EditArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -30,23 +31,31 @@ const EditArticleLayout: VFC = () => {
 
   if (error) return <div>Error!</div>;
   return (
-    <Container px={0} py={20}>
-      {loading ? (
-        <Box>
-          <Spinner />
-        </Box>
-      ) : (
-        <Box>
-          <Input value={title} onChange={handleTitleValue} minH="50px" mb={5} />
-          <Textarea
-            defaultValue={text}
-            onChange={handleTextareaValue}
-            rows={25}
-          />
-          <Button onClick={() => postArticle(articleId)}>投稿</Button>
-        </Box>
-      )}
-    </Container>
+    <>
+      <Header />
+      <Container px={0} py={20} maxW="container.lg">
+        {loading ? (
+          <Box>
+            <Spinner />
+          </Box>
+        ) : (
+          <Box>
+            <Input
+              value={title}
+              onChange={handleTitleValue}
+              minH="50px"
+              mb={5}
+            />
+            <Textarea
+              defaultValue={text}
+              onChange={handleTextareaValue}
+              rows={25}
+            />
+            <Button onClick={() => postArticle(articleId)}>投稿</Button>
+          </Box>
+        )}
+      </Container>
+    </>
   );
 };
 

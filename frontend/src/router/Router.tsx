@@ -1,6 +1,5 @@
 import React, { VFC } from "react";
 import { Route, Switch } from "react-router-dom";
-import Header from "../components/header/Header";
 import IndexArticlePage from "../components/pages/IndexArticlePage";
 import LoginPage from "../components/pages/LoginPage";
 import AuthProvider from "../providers/AuthProvider";
@@ -14,7 +13,6 @@ const Router: VFC = () => {
   return (
     <Switch>
       <AuthProvider>
-        <Header />
         <Route exact path="/articles">
           <IndexArticlePage />
         </Route>
