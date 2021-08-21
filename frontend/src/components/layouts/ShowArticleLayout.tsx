@@ -18,6 +18,7 @@ import axios from "axios";
 import { auth } from "../../firebase";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import { AuthContext } from "../../providers/AuthProvider";
+import Header from "../header/Header";
 
 const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -76,61 +77,72 @@ const ShowArticleLayout: VFC = () => {
   if (error) return <p>error!</p>;
 
   return (
-    <Container px={0} py={20} maxW="container.lg">
-      {loading ? (
-        <Box>
-          <Spinner />
-        </Box>
-      ) : (
-        <Flex>
-          <Box
-            w="100%"
-            bgColor="white"
-            boxShadow="xl"
-            borderRadius="2xl"
-            border="1px"
-            borderColor="gray.100"
-          >
-            <Heading height="10vh" borderTopRadius="xl" p={5}>
-              {title}
-            </Heading>
-            <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-              {text}
-            </Text>
-            <DeleteArticleDialog
-              leastDestructiveRef={cancelRef}
-              isOpen={isOpen}
-              onClose={onClose}
-              isCentered
-              onClickDestroyButton={onClickDestroyButton}
-              title={title}
-            />
+    <>
+      <Header />
+      <Container px={0} py={20} maxW="container.lg">
+        {loading ? (
+          <Box>
+            <Spinner />
           </Box>
-          <Flex flexDirection="column">
-            {currentUser?.uid === uid ? (
-              <>
-                <Button
-                  ml={3}
-                  mb={3}
-                  size="lg"
-                  borderRadius="full"
-                  p={0}
-                  bgColor="white"
-                  onClick={onClickEditButton}
-                >
-                  <EditIcon px={0} />
-                </Button>
-                <Button
-                  ml={3}
-                  mb={3}
-                  size="lg"
-                  borderRadius="full"
-                  p={0}
-                  bgColor="white"
-                  onClick={onOpen}
-                >
-                  <DeleteIcon />
-                </Button>
+        ) : (
+          <Flex>
+            <Box
+              w="100%"
+              bgColor="white"
+              boxShadow="xl"
+              borderRadius="2xl"
+              border="1px"
+              borderColor="gray.100"
+            >
+              <Heading height="10vh" borderTopRadius="xl" p={5}>
+                {title}
+              </Heading>
+              <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
+                {text}
+              </Text>
+              <DeleteArticleDialog
+                leastDestructiveRef={cancelRef}
+                isOpen={isOpen}
+                onClose={onClose}
+                isCentered
+                onClickDestroyButton={onClickDestroyButton}
+                title={title}
+              />
+            </Box>
+            <Flex flexDirection="column">
+              {currentUser?.uid === uid ? (
+                <>
+                  <Button
+                    ml={3}
+                    mb={3}
+                    size="lg"
+                    borderRadius="full"
+                    p={0}
+                    bgColor="white"
+                    onClick={onClickEditButton}
+                  >
+                    <EditIcon px={0} />
+                  </Button>
+                  <Button
+                    ml={3}
+                    mb={3}
+                    size="lg"
+                    borderRadius="full"
+                    p={0}
+                    bgColor="white"
+                    onClick={onOpen}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                  <Button
+                    ml={3}
+                    size="lg"
+                    borderRadius="full"
+                    p={0}
+                    bgColor="white"
+                  ></Button>
+                </>
+              ) : (
                 <Button
                   ml={3}
                   size="lg"
@@ -138,20 +150,12 @@ const ShowArticleLayout: VFC = () => {
                   p={0}
                   bgColor="white"
                 ></Button>
-              </>
-            ) : (
-              <Button
-                ml={3}
-                size="lg"
-                borderRadius="full"
-                p={0}
-                bgColor="white"
-              ></Button>
-            )}
+              )}
+            </Flex>
           </Flex>
-        </Flex>
-      )}
-    </Container>
+        )}
+      </Container>
+    </>
   );
 };
 

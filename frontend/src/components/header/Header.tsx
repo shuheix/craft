@@ -60,7 +60,9 @@ const Header: VFC = () => {
               {currentUser ? (
                 <Flex flexDirection="row" justifyContent="flex-end">
                   <Menu>
-                    <MenuButton as={Button}>{currentUser?.email}</MenuButton>
+                    <MenuButton as={Button}>
+                      {currentUser.displayName}
+                    </MenuButton>
                     <MenuList>
                       <MenuGroup>
                         <MenuItem>マイページ</MenuItem>

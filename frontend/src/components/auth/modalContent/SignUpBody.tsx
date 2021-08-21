@@ -30,7 +30,14 @@ const SignUpBody: VFC<Props> = (props) => {
           passwordConfirmation={passwordConfirmation}
           handleSignUpState={handleSignUpState}
         />
-        <Button colorScheme="blue" mr={3} onClick={signUp} mx="auto" w="xs">
+        <Button
+          colorScheme="blue"
+          mr={3}
+          onClick={signUp}
+          mx="auto"
+          w="xs"
+          isLoading
+        >
           登録
         </Button>
       </Flex>
