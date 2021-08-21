@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user, only: [:create,:show]
 
       def show
-        user = User.find(params[:id])
+        user = User.find_by(uid: params[:id])
         articles = Article.where(user_id: user.id)
         render json: { articles: articles, user: user }, status: :ok
       end
@@ -14,6 +14,7 @@ module Api
         #find_or_initialize_by
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))
         if @user.save
+          pp @user
           render json: @user, status: :ok
         else
           render json: @user.errors, status: :unprocessable_entity

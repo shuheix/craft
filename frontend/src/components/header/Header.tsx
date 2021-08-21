@@ -34,6 +34,11 @@ const Header: VFC = () => {
     history.push(NEW_ARTICLE_URL);
   };
 
+  const goUserPage = () => {
+    const uid = currentUser?.uid;
+    history.push(`/users/${uid}`);
+  };
+
   const { logout } = useAuth();
 
   return (
@@ -65,7 +70,7 @@ const Header: VFC = () => {
                     </MenuButton>
                     <MenuList>
                       <MenuGroup>
-                        <MenuItem>マイページ</MenuItem>
+                        <MenuItem onClick={goUserPage}>マイページ</MenuItem>
                       </MenuGroup>
                       <MenuDivider />
                       <MenuGroup title="Help">
