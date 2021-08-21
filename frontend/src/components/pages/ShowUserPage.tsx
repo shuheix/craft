@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useState, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { SHOW_ARTICLE_URI, SHOW_USERS_URI } from "../../constant/railsRoute";
+import { SINGLE_ARTICLE_API, SHOW_USERS_API } from "../../constant/railsRoute";
 import { ArticleType } from "../../types/articleType";
 import { UserType } from "../../types/userType";
 import UserImg from "../user/UserImg";
@@ -23,7 +23,7 @@ const ShowUserPage: VFC = () => {
 
   useEffect(() => {
     axios
-      .get<{ articles: ArticleType[]; user: UserType }>(SHOW_USERS_URI(userId))
+      .get<{ articles: ArticleType[]; user: UserType }>(SHOW_USERS_API(userId))
       .then((res) => {
         setUserArticles(res.data.articles);
       });
@@ -49,7 +49,7 @@ const ShowUserPage: VFC = () => {
                   p={5}
                   borderWidth={1}
                   key={articles.id}
-                  onClick={() => history.push(SHOW_ARTICLE_URI(articles.id))}
+                  onClick={() => history.push(SINGLE_ARTICLE_API(articles.id))}
                   _hover={{
                     boxShadow: "lg",
                     cursor: "pointer",

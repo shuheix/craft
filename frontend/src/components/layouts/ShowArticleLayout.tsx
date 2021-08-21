@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { articleApi, SHOW_USER_URL } from "../../constant/railsRoute";
+import { SHOW_USERS_API, SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import {
   Box,
   Button,
@@ -36,11 +36,11 @@ const ShowArticleLayout: VFC = () => {
       console.log(token);
       axios({
         method: "DELETE",
-        url: `${articleApi(articleId)}`,
+        url: `${SINGLE_ARTICLE_API(articleId)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
       })
         .then((res) => {
-          history.push(SHOW_USER_URL(userId));
+          history.push(SHOW_USERS_API(userId));
           toast({
             title: "削除しました",
             status: "success",
@@ -70,7 +70,7 @@ const ShowArticleLayout: VFC = () => {
   } = useFetchSingleArticle();
 
   useEffect(() => {
-    fetchSingleArticle(articleApi(articleId));
+    fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
   }, [articleId, fetchSingleArticle]);
 
   if (error) return <p>error!</p>;

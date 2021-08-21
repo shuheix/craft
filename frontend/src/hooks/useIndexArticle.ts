@@ -6,20 +6,21 @@ export const useIndexArticle = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [articles, setArticles] = useState<ArticleType[]>([]);
+  const [totalPage, setTotalPages] = useState<number>();
 
   const fetchArticleApi = useCallback((url: string) => {
     setLoading(true);
     axios
-      .get<{ articles: ArticleType[] }>(url)
+      .get<{ articles: ArticleType[]; total_pages: number }>(url)
       .then((res) => {
         setLoading(false);
-        const articleData = res.data.articles;
-        setArticles(articleData);
+        setArticles(res.data.articles);
+        setTotalPages(res.data.total_pages);
       })
       .catch(() => {
         setLoading(false);
         setError(true);
       });
   }, []);
-  return { loading, error, articles, fetchArticleApi };
+  return { loading, error, articles, fetchArticleApi, totalPage };
 };
