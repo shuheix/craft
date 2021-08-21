@@ -6,23 +6,13 @@ import { auth } from "../firebase";
 import { ArticleType } from "../types/articleType";
 
 export const useCreateArticle = () => {
-  const [title, setTitle] = useState<string>("");
-  const [text, setText] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>();
   const history = useHistory();
   const toast = useToast();
 
-  const handleTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleTextareaValue = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setText(event.target.value);
-  };
-
-  const postArticle = () => {
+  const postArticle = (title: string, text: string) => {
     auth.currentUser?.getIdToken(true).then((token) => {
+      setLoading(true);
       axios
         .post<{ articles: ArticleType }>(
           "http://localhost:3000/api/v1/articles",
@@ -33,6 +23,7 @@ export const useCreateArticle = () => {
           }
         )
         .then((res) => {
+          setLoading(false);
           history.push(`/articles/${res.data.articles.id}`);
           toast({
             title: "投稿しました",
@@ -42,6 +33,7 @@ export const useCreateArticle = () => {
           });
         })
         .catch(() => {
+          setLoading(false);
           toast({
             title: "投稿に失敗しました",
             status: "error",
@@ -51,5 +43,5 @@ export const useCreateArticle = () => {
         });
     });
   };
-  return { title, text, handleTitleValue, handleTextareaValue, postArticle };
+  return { loading, postArticle };
 };
