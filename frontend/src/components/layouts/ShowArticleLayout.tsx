@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, VFC } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useEffect, VFC } from "react";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { SHOW_USERS_API, SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import {
   Box,
@@ -9,26 +9,26 @@ import {
   Heading,
   Spinner,
   Text,
+  Textarea,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { auth } from "../../firebase";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
-import { AuthContext } from "../../providers/AuthProvider";
 import Header from "../header/Header";
+import ButtonKit from "../article/ButtonKit";
+import { useForm } from "react-hook-form";
 
 const ShowArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { currentUser } = useContext(AuthContext);
   const cancelRef = React.useRef(null);
   const history = useHistory();
   const toast = useToast();
 
-  const onClickEditButton = () => {
+  const onClickEditButton = (): void => {
     history.push(`/articles/${articleId}/edit`);
   };
 
@@ -70,12 +70,28 @@ const ShowArticleLayout: VFC = () => {
     fetchSingleArticle,
   } = useFetchSingleArticle();
 
+  const { register, handleSubmit } = useForm<Comment>();
+
+  type Comment = {
+    text: string;
+  };
+  const onSubmit = (data: Comment) => {
+    auth.currentUser?.getIdToken(true).then((token) => {
+      axios.post(
+        `http://localhost:3000/api/v1/articles/${articleId}/comments`,
+        {
+          headers: { Authorization: token },
+          text: data.text,
+        }
+      );
+    });
+  };
+
   useEffect(() => {
     fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
   }, [articleId, fetchSingleArticle]);
 
   if (error) return <p>error!</p>;
-
   return (
     <>
       <Header />
@@ -85,74 +101,58 @@ const ShowArticleLayout: VFC = () => {
             <Spinner />
           </Box>
         ) : (
-          <Flex>
-            <Box
-              w="100%"
-              bgColor="white"
-              boxShadow="xl"
-              borderRadius="2xl"
-              border="1px"
-              borderColor="gray.100"
-            >
-              <Heading height="10vh" borderTopRadius="xl" p={5}>
-                {title}
-              </Heading>
-              <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                {text}
-              </Text>
-              <DeleteArticleDialog
-                leastDestructiveRef={cancelRef}
-                isOpen={isOpen}
-                onClose={onClose}
-                isCentered
-                onClickDestroyButton={onClickDestroyButton}
-                title={title}
+          <>
+            <Flex>
+              <Box
+                w="100%"
+                bgColor="white"
+                boxShadow="xl"
+                borderRadius="2xl"
+                border="1px"
+                borderColor="gray.100"
+              >
+                <Heading height="10vh" borderTopRadius="xl" p={5}>
+                  {title}
+                </Heading>
+                <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
+                  {text}
+                </Text>
+                <DeleteArticleDialog
+                  leastDestructiveRef={cancelRef}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  isCentered
+                  onClickDestroyButton={onClickDestroyButton}
+                  title={title}
+                />
+              </Box>
+              <ButtonKit
+                onOpen={onOpen}
+                uid={uid}
+                onClickEditButton={onClickEditButton}
               />
-            </Box>
-            <Flex flexDirection="column">
-              {currentUser?.uid === uid ? (
-                <>
-                  <Button
-                    ml={3}
-                    mb={3}
-                    size="lg"
-                    borderRadius="full"
-                    p={0}
-                    bgColor="white"
-                    onClick={onClickEditButton}
-                  >
-                    <EditIcon px={0} />
-                  </Button>
-                  <Button
-                    ml={3}
-                    mb={3}
-                    size="lg"
-                    borderRadius="full"
-                    p={0}
-                    bgColor="white"
-                    onClick={onOpen}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                  <Button
-                    ml={3}
-                    size="lg"
-                    borderRadius="full"
-                    p={0}
-                    bgColor="white"
-                  ></Button>
-                </>
-              ) : (
-                <Button
-                  ml={3}
-                  size="lg"
-                  borderRadius="full"
-                  p={0}
-                  bgColor="white"
-                ></Button>
-              )}
             </Flex>
-          </Flex>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Textarea
+                resize="none"
+                mt={10}
+                bgColor="white"
+                row={15}
+                boxShadow="sm"
+                id="text"
+                borderRadius="2xl"
+                pr={10}
+                {...register("text", {
+                  required: "内容が記載されていません",
+                  maxLength: {
+                    value: 1000,
+                    message: "コメントは最大1000文字までです",
+                  },
+                })}
+              />
+              <Button type="submit">投稿</Button>
+            </form>
+          </>
         )}
       </Container>
     </>
