@@ -1,5 +1,5 @@
 import React, { useEffect, VFC } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { SHOW_USERS_API, SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import {
   Avatar,
