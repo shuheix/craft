@@ -2,12 +2,16 @@ import React, { useEffect, VFC } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { SHOW_USERS_API, SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import {
+  Avatar,
   Box,
   Button,
   Container,
+  Divider,
   Flex,
   Heading,
+  HStack,
   Spinner,
+  Stack,
   Text,
   Textarea,
   useDisclosure,
@@ -103,28 +107,79 @@ const ShowArticleLayout: VFC = () => {
         ) : (
           <>
             <Flex>
-              <Box
-                w="100%"
-                bgColor="white"
-                boxShadow="xl"
-                borderRadius="2xl"
-                border="1px"
-                borderColor="gray.100"
-              >
-                <Heading height="10vh" borderTopRadius="xl" p={5}>
-                  {title}
-                </Heading>
-                <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                  {text}
-                </Text>
-                <DeleteArticleDialog
-                  leastDestructiveRef={cancelRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  isCentered
-                  onClickDestroyButton={onClickDestroyButton}
-                  title={title}
-                />
+              <Box w="100%">
+                <Box
+                  w="100%"
+                  bgColor="white"
+                  boxShadow="xl"
+                  borderRadius="2xl"
+                  border="1px"
+                  borderColor="gray.100"
+                  mb={10}
+                >
+                  <Heading height="10vh" borderTopRadius="xl" p={5}>
+                    {title}
+                  </Heading>
+                  <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
+                    {text}
+                  </Text>
+                </Box>
+                <Box mb={5}>
+                  <Heading size="md" pl={2} mb={1}>
+                    コメント
+                  </Heading>
+                  <Divider colorScheme="whiteAlpha" />
+                </Box>
+                <Stack>
+                  <HStack bgColor="white" borderRadius="md">
+                    <Avatar />
+                    <Stack>
+                      <Heading />
+                      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
+                        コメント内容がここにくる予定 a
+                      </Text>
+                    </Stack>
+                  </HStack>
+                  <HStack bgColor="white" borderRadius="md">
+                    <Avatar />
+                    <Stack>
+                      <Heading />
+                      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
+                        コメント内容がここにくる予定 a
+                      </Text>
+                    </Stack>
+                  </HStack>
+                  <HStack bgColor="white" borderRadius="md">
+                    <Avatar />
+                    <Stack>
+                      <Heading />
+                      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
+                        コメント内容がここにくる予定 a
+                      </Text>
+                    </Stack>
+                  </HStack>
+                </Stack>
+                <Box mt={10}>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <Textarea
+                      resize="none"
+                      bgColor="white"
+                      row={15}
+                      boxShadow="sm"
+                      id="text"
+                      borderRadius="2xl"
+                      pr={10}
+                      {...register("text", {
+                        required: "内容が記載されていません",
+                        maxLength: {
+                          value: 1000,
+                          message: "コメントは最大1000文字までです",
+                        },
+                      })}
+                    />
+                    <Button type="submit">投稿</Button>
+                  </form>
+                </Box>
               </Box>
               <ButtonKit
                 onOpen={onOpen}
@@ -132,26 +187,14 @@ const ShowArticleLayout: VFC = () => {
                 onClickEditButton={onClickEditButton}
               />
             </Flex>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Textarea
-                resize="none"
-                mt={10}
-                bgColor="white"
-                row={15}
-                boxShadow="sm"
-                id="text"
-                borderRadius="2xl"
-                pr={10}
-                {...register("text", {
-                  required: "内容が記載されていません",
-                  maxLength: {
-                    value: 1000,
-                    message: "コメントは最大1000文字までです",
-                  },
-                })}
-              />
-              <Button type="submit">投稿</Button>
-            </form>
+            <DeleteArticleDialog
+              leastDestructiveRef={cancelRef}
+              isOpen={isOpen}
+              onClose={onClose}
+              isCentered
+              onClickDestroyButton={onClickDestroyButton}
+              title={title}
+            />
           </>
         )}
       </Container>
