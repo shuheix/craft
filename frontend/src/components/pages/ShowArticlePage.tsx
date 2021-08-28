@@ -1,4 +1,11 @@
-import { Box, Container, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Container,
+  Flex,
+  Spinner,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
 import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
@@ -34,7 +41,9 @@ const ArticlePage: VFC = () => {
         <Container px={0} py={20} maxW="container.lg">
           {loading ? (
             <>
-              <Spinner />
+              <Center>
+                <Spinner />
+              </Center>
             </>
           ) : (
             <>
