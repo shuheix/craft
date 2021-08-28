@@ -23,6 +23,7 @@ import { auth } from "../../firebase";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/ButtonKit";
+import CommentList from "../article/comment/CommentList";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import Header from "../header/Header";
 
@@ -105,33 +106,7 @@ const ArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
-                  <Box mb={5}>
-                    <Heading size="md" pl={2} mb={1}>
-                      コメント
-                    </Heading>
-                    <Divider colorScheme="whiteAlpha" />
-                  </Box>
-                  <Stack>
-                    {data?.articles.comments.map((comment) => (
-                      <HStack
-                        bgColor="white"
-                        borderRadius="md"
-                        key={comment.id}
-                      >
-                        <Avatar />
-                        <Stack>
-                          <Heading />
-                          <Text
-                            borderBottomRadius="xl"
-                            p={6}
-                            whiteSpace="pre-line"
-                          >
-                            {comment.text}
-                          </Text>
-                        </Stack>
-                      </HStack>
-                    ))}
-                  </Stack>
+                  <CommentList data={data} />
                   <Box mt={10}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <Textarea
