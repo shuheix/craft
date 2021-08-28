@@ -4,7 +4,7 @@ import React, { useContext, VFC } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 type Props = {
-  uid: string;
+  uid: string | undefined;
   onOpen: () => void;
   onClickEditButton: () => void;
 };

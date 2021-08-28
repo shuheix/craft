@@ -11,19 +11,16 @@ import {
 } from "@chakra-ui/react";
 import { useUpdateArticle } from "../../hooks/useUpdateArticle";
 import Header from "../header/Header";
+import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 
 const EditArticleLayout: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const {
-    title,
-    text,
-    loading,
-    error,
     handleTextareaValue,
     handleTitleValue,
-    fetchSingleArticle,
     postArticle,
   } = useUpdateArticle();
+  const { fetchSingleArticle, loading, error, data } = useFetchSingleArticle();
 
   useEffect(() => {
     fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
@@ -41,13 +38,13 @@ const EditArticleLayout: VFC = () => {
         ) : (
           <Box>
             <Input
-              value={title}
+              value={data?.articles.title}
               onChange={handleTitleValue}
               minH="50px"
               mb={5}
             />
             <Textarea
-              defaultValue={text}
+              defaultValue={data?.articles.text}
               onChange={handleTextareaValue}
               rows={25}
             />

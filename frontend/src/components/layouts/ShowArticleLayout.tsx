@@ -45,7 +45,7 @@ const ShowArticleLayout: VFC = () => {
         data: { id: `${articleId}`, headers: { Authorization: token } },
       })
         .then(() => {
-          history.push(SHOW_USERS_API(`${userId}`));
+          history.push(SHOW_USERS_API(`${data?.articles.user_id}`));
           toast({
             title: "削除しました",
             status: "success",
@@ -64,15 +64,7 @@ const ShowArticleLayout: VFC = () => {
     });
   };
 
-  const {
-    title,
-    text,
-    loading,
-    error,
-    uid,
-    userId,
-    fetchSingleArticle,
-  } = useFetchSingleArticle();
+  const { data, error, loading, fetchSingleArticle } = useFetchSingleArticle();
 
   const { register, handleSubmit } = useForm<Comment>();
 
@@ -81,13 +73,14 @@ const ShowArticleLayout: VFC = () => {
   };
   const onSubmit = (data: Comment) => {
     auth.currentUser?.getIdToken(true).then((token) => {
-      axios.post(
-        `http://localhost:3000/api/v1/articles/${articleId}/comments`,
-        {
+      axios
+        .post(`http://localhost:3000/api/v1/articles/${articleId}/comments`, {
           headers: { Authorization: token },
           text: data.text,
-        }
-      );
+        })
+        .then(() => {
+          fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
+        });
     });
   };
 
@@ -96,6 +89,7 @@ const ShowArticleLayout: VFC = () => {
   }, [articleId, fetchSingleArticle]);
 
   if (error) return <p>error!</p>;
+
   return (
     <>
       <Header />
@@ -118,10 +112,10 @@ const ShowArticleLayout: VFC = () => {
                   mb={10}
                 >
                   <Heading height="10vh" borderTopRadius="xl" p={5}>
-                    {title}
+                    {data?.articles.title}
                   </Heading>
                   <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                    {text}
+                    {data?.articles.text}
                   </Text>
                 </Box>
                 <Box mb={5}>
@@ -131,40 +125,28 @@ const ShowArticleLayout: VFC = () => {
                   <Divider colorScheme="whiteAlpha" />
                 </Box>
                 <Stack>
-                  <HStack bgColor="white" borderRadius="md">
-                    <Avatar />
-                    <Stack>
-                      <Heading />
-                      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                        コメント内容がここにくる予定 a
-                      </Text>
-                    </Stack>
-                  </HStack>
-                  <HStack bgColor="white" borderRadius="md">
-                    <Avatar />
-                    <Stack>
-                      <Heading />
-                      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                        コメント内容がここにくる予定 a
-                      </Text>
-                    </Stack>
-                  </HStack>
-                  <HStack bgColor="white" borderRadius="md">
-                    <Avatar />
-                    <Stack>
-                      <Heading />
-                      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                        コメント内容がここにくる予定 a
-                      </Text>
-                    </Stack>
-                  </HStack>
+                  {data?.articles.comments.map((comment) => (
+                    <HStack bgColor="white" borderRadius="md" key={comment.id}>
+                      <Avatar />
+                      <Stack>
+                        <Heading />
+                        <Text
+                          borderBottomRadius="xl"
+                          p={6}
+                          whiteSpace="pre-line"
+                        >
+                          {comment.text}
+                        </Text>
+                      </Stack>
+                    </HStack>
+                  ))}
                 </Stack>
                 <Box mt={10}>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <Textarea
                       resize="none"
                       bgColor="white"
-                      row={15}
+                      row={20}
                       boxShadow="sm"
                       id="text"
                       borderRadius="2xl"
@@ -183,7 +165,7 @@ const ShowArticleLayout: VFC = () => {
               </Box>
               <ButtonKit
                 onOpen={onOpen}
-                uid={uid}
+                uid={data?.articles.user.uid}
                 onClickEditButton={onClickEditButton}
               />
             </Flex>
@@ -193,7 +175,7 @@ const ShowArticleLayout: VFC = () => {
               onClose={onClose}
               isCentered
               onClickDestroyButton={onClickDestroyButton}
-              title={title}
+              title={data?.articles.title}
             />
           </>
         )}
