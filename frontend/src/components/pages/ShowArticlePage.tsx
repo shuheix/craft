@@ -1,25 +1,19 @@
 import {
-  Avatar,
   Box,
   Button,
   Container,
-  Divider,
   Flex,
-  Heading,
-  HStack,
   Spinner,
-  Stack,
   Textarea,
   useDisclosure,
-  useToast,
-  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, VFC } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useHistory } from "react-router-dom";
-import { SINGLE_ARTICLE_API, SHOW_USERS_API } from "../../constant/railsRoute";
+import { useParams } from "react-router-dom";
+import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import { auth } from "../../firebase";
+import { useArticle } from "../../hooks/useArticle";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/ButtonKit";
@@ -31,44 +25,12 @@ const ArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
-  const history = useHistory();
-  const toast = useToast();
-
-  const onClickEditButton = (): void => {
-    history.push(`/articles/${articleId}/edit`);
-  };
-
-  const onClickDestroyButton = () => {
-    auth.currentUser?.getIdToken(true).then((token) => {
-      console.log(token);
-      axios({
-        method: "DELETE",
-        url: `${SINGLE_ARTICLE_API(articleId)}`,
-        data: { id: `${articleId}`, headers: { Authorization: token } },
-      })
-        .then(() => {
-          history.push(SHOW_USERS_API(`${data?.articles.user_id}`));
-          toast({
-            title: "削除しました",
-            status: "success",
-            isClosable: true,
-            position: "bottom-right",
-          });
-        })
-        .catch(() => {
-          toast({
-            title: "エラー",
-            status: "error",
-            isClosable: true,
-            position: "bottom-right",
-          });
-        });
-    });
-  };
-
   const { data, error, loading, fetchSingleArticle } = useFetchSingleArticle();
-
   const { register, handleSubmit } = useForm<Comment>();
+  const { onClickDestroyButton, onClickEditButton } = useArticle(
+    articleId,
+    data
+  );
 
   type Comment = {
     text: string;
@@ -98,9 +60,9 @@ const ArticlePage: VFC = () => {
         <Header />
         <Container px={0} py={20} maxW="container.lg">
           {loading ? (
-            <Box>
+            <>
               <Spinner />
-            </Box>
+            </>
           ) : (
             <>
               <Flex>
