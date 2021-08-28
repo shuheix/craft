@@ -14,13 +14,16 @@ import Header from "../header/Header";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 
 const EditArticleLayout: VFC = () => {
+  const { fetchSingleArticle, loading, error, data } = useFetchSingleArticle();
   const { articleId } = useParams<{ articleId: string }>();
   const {
     handleTextareaValue,
     handleTitleValue,
     postArticle,
-  } = useUpdateArticle();
-  const { fetchSingleArticle, loading, error, data } = useFetchSingleArticle();
+  } = useUpdateArticle({
+    title: data?.articles.title,
+    text: data?.articles.text,
+  });
 
   useEffect(() => {
     fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
@@ -38,7 +41,7 @@ const EditArticleLayout: VFC = () => {
         ) : (
           <Box>
             <Input
-              value={data?.articles.title}
+              defaultValue={data?.articles.title}
               onChange={handleTitleValue}
               minH="50px"
               mb={5}

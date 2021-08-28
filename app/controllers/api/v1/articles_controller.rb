@@ -30,7 +30,7 @@ module Api
 
       def update
         article = Article.find(params[:id])
-        if article.update(article_params)
+        if article.update!(article_params)
           render json: {
             articles: article,
           },status: :ok
