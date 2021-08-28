@@ -10,9 +10,9 @@ module Api
       end
 
       def show
-        article = Article.find(params[:id]).as_json(include:[:user, :favorites])
+        article = Article.find(params[:id]).as_json(include:[:user, :favorites, :comments])
         render json: {
-          articles: article
+          articles: article,
         },status: :ok
       end
 
