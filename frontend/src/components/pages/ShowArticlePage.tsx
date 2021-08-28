@@ -21,6 +21,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { SINGLE_ARTICLE_API, SHOW_USERS_API } from "../../constant/railsRoute";
 import { auth } from "../../firebase";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
+import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/ButtonKit";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import Header from "../header/Header";
@@ -103,22 +104,7 @@ const ArticlePage: VFC = () => {
             <>
               <Flex>
                 <Box w="100%">
-                  <Box
-                    w="100%"
-                    bgColor="white"
-                    boxShadow="xl"
-                    borderRadius="2xl"
-                    border="1px"
-                    borderColor="gray.100"
-                    mb={10}
-                  >
-                    <Heading height="10vh" borderTopRadius="xl" p={5}>
-                      {data?.articles.title}
-                    </Heading>
-                    <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                      {data?.articles.text}
-                    </Text>
-                  </Box>
+                  <ShowArticleBody data={data} />
                   <Box mb={5}>
                     <Heading size="md" pl={2} mb={1}>
                       コメント
