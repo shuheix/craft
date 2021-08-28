@@ -1,7 +1,7 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
-      skip_before_action :authenticate_user, only: [:index,:show,:destroy]
+      skip_before_action :authenticate_user, only: [:index,:show]
 
       def index
         articles = Article.recent.joins(:user).select("articles.*, users.name as user_name").page(params[:page]).per(12)
@@ -10,9 +10,9 @@ module Api
       end
 
       def show
-        article = Article.find(params[:id]).as_json(include:[:user, :favorites])
+        article = Article.find(params[:id]).as_json(include:[:user, :favorites, :comments])
         render json: {
-          articles: article
+          articles: article,
         },status: :ok
       end
 
