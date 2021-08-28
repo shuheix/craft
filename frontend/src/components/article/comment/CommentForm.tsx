@@ -8,13 +8,12 @@ import { useFetchSingleArticle } from "../../../hooks/useFetchSingleArticle";
 type Comment = {
   text: string;
 };
-
 type Props = {
   articleId: string;
 };
 const CommentForm: VFC<Props> = (props) => {
   const { articleId } = props;
-  const { register, handleSubmit } = useForm<Comment>();
+  const { register, handleSubmit, formState } = useForm<Comment>();
   const { fetchSingleArticle } = useFetchSingleArticle();
   const onSubmit = (data: Comment) => {
     auth.currentUser?.getIdToken(true).then((token) => {
@@ -48,7 +47,9 @@ const CommentForm: VFC<Props> = (props) => {
             },
           })}
         />
-        <Button type="submit">投稿</Button>
+        <Button type="submit" isLoading={formState.isSubmitting}>
+          投稿
+        </Button>
       </form>
     </Box>
   );
