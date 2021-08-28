@@ -5,14 +5,14 @@ import { useHistory } from "react-router-dom";
 import { auth } from "../firebase";
 
 type postType = {
-  title: string | null;
-  text: string | null;
+  title: string | null | undefined;
+  text: string | null | undefined;
 };
 
-export const useUpdateArticle = () => {
+export const useUpdateArticle = (initialValue: postType) => {
   const [postData, setPostData] = useState<postType>({
-    title: null,
-    text: null,
+    title: initialValue.title,
+    text: initialValue.text,
   });
   const history = useHistory();
   const toast = useToast();
