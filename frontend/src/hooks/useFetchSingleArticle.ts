@@ -5,7 +5,6 @@ import { ArticleApiType } from "../types/apiType";
 export const useFetchSingleArticle = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-
   const [data, setData] = useState<ArticleApiType | null>(null);
 
   const fetchSingleArticle = useCallback((url: string) => {

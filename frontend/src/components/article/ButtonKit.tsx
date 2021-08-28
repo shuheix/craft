@@ -1,5 +1,5 @@
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Button, Flex, UseDisclosureProps } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
