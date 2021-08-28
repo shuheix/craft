@@ -54,6 +54,7 @@ const NewArticlePage: VFC = () => {
               {errors.text && errors.text?.message}
             </FormErrorMessage>
             <Textarea
+              resize="none"
               id="text"
               {...register("text", {
                 required: "内容が未入力です",

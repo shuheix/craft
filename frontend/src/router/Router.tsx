@@ -31,7 +31,6 @@ const Router: VFC = () => {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="/test"></Route>
         {/* <Route>
           <Page404 />
         </Route> */}

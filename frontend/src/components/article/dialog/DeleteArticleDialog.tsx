@@ -16,7 +16,7 @@ type Props = {
   isOpen: boolean;
   isCentered?: boolean | undefined;
   onClickDestroyButton: () => void;
-  title: string;
+  title: string | undefined;
 };
 
 const DeleteArticleDialog: VFC<Props> = (props) => {
