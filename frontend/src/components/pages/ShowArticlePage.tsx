@@ -3,8 +3,13 @@ import {
   Center,
   Container,
   Flex,
+  Heading,
+  HStack,
   Spinner,
   useDisclosure,
+  Avatar,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
@@ -16,6 +21,7 @@ import ButtonKit from "../article/ButtonKit";
 import CommentForm from "../article/comment/CommentForm";
 import CommentList from "../article/comment/CommentList";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
+import TagList from "../article/TagList";
 import Header from "../header/Header";
 
 const ArticlePage: VFC = () => {
@@ -53,11 +59,27 @@ const ArticlePage: VFC = () => {
                   <CommentList data={data} />
                   <CommentForm articleId={articleId} />
                 </Box>
-                <ButtonKit
-                  onOpen={onOpen}
-                  uid={data?.articles.user.uid}
-                  onClickEditButton={onClickEditButton}
-                />
+                <Box maxW="300px">
+                  <HStack
+                    bgColor="white"
+                    borderRadius="2xl"
+                    p={5}
+                    ml={5}
+                    mb={5}
+                  >
+                    <Avatar size="md" />
+                    <VStack>
+                      <Heading>name</Heading>
+                      <Text>日付</Text>
+                    </VStack>
+                  </HStack>
+                  <TagList />
+                  <ButtonKit
+                    onOpen={onOpen}
+                    uid={data?.articles.user.uid}
+                    onClickEditButton={onClickEditButton}
+                  />
+                </Box>
               </Flex>
               <DeleteArticleDialog
                 leastDestructiveRef={cancelRef}

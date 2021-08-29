@@ -1,5 +1,5 @@
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Button, Flex } from "@chakra-ui/react";
+import { EditIcon, DeleteIcon, StarIcon } from "@chakra-ui/icons";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
@@ -14,14 +14,14 @@ const ButtonKit: VFC<Props> = (props) => {
   const { uid, onClickEditButton, onOpen } = props;
   return (
     <>
-      <Flex flexDirection="column">
+      <Box ml={2}>
         {currentUser?.uid === uid ? (
           <>
             <Button
+              size="lg"
               ml={3}
               mb={3}
-              size="lg"
-              borderRadius="full"
+              borderRadius="2xl"
               p={0}
               bgColor="white"
               onClick={onClickEditButton}
@@ -29,34 +29,30 @@ const ButtonKit: VFC<Props> = (props) => {
               <EditIcon px={0} />
             </Button>
             <Button
+              size="lg"
               ml={3}
               mb={3}
-              size="lg"
-              borderRadius="full"
+              borderRadius="2xl"
               p={0}
               bgColor="white"
               onClick={onOpen}
             >
               <DeleteIcon />
             </Button>
-            <Button
-              ml={3}
-              size="lg"
-              borderRadius="full"
-              p={0}
-              bgColor="white"
-            ></Button>
           </>
         ) : (
           <Button
-            ml={3}
             size="lg"
-            borderRadius="full"
+            ml={3}
+            mb={3}
+            borderRadius="2xl"
             p={0}
             bgColor="white"
-          ></Button>
+          >
+            <StarIcon color="gray.200" />
+          </Button>
         )}
-      </Flex>
+      </Box>
     </>
   );
 };

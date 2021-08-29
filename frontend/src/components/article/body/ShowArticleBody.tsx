@@ -9,22 +9,24 @@ type Props = {
 const ShowArticleBody: VFC<Props> = (props) => {
   const { data } = props;
   return (
-    <Box
-      w="100%"
-      bgColor="white"
-      boxShadow="xl"
-      borderRadius="2xl"
-      border="1px"
-      borderColor="gray.100"
-      mb={10}
-    >
-      <Heading height="10vh" borderTopRadius="xl" p={5}>
-        {data?.articles.title}
-      </Heading>
-      <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-        {data?.articles.text}
-      </Text>
-    </Box>
+    <>
+      <Box mb={5}>
+        <Box shadow="sm" borderRadius="2xl" mb={5} bgColor="white">
+          <Heading height="10vh" borderTopRadius="xl" p={5}>
+            {data?.articles.title}
+          </Heading>
+        </Box>
+        <Text
+          bgColor="white"
+          borderBottomRadius="xl"
+          p={6}
+          whiteSpace="pre-line"
+          borderRadius="2xl"
+        >
+          {data?.articles.text}
+        </Text>
+      </Box>
+    </>
   );
 };
 
