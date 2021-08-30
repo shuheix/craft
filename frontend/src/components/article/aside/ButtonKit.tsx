@@ -1,17 +1,28 @@
 import { EditIcon, DeleteIcon, StarIcon } from "@chakra-ui/icons";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, IconButton } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { ArticleApiType } from "../../../types/apiType";
 
 type Props = {
   uid: string | undefined;
   onOpen: () => void;
   onClickEditButton: () => void;
+  createFavorite: () => void;
+  destroyFavorite: () => void;
+  data: ArticleApiType | null;
 };
 
 const ButtonKit: VFC<Props> = (props) => {
   const { currentUser } = useContext(AuthContext);
-  const { uid, onClickEditButton, onOpen } = props;
+  const {
+    uid,
+    onClickEditButton,
+    onOpen,
+    createFavorite,
+    destroyFavorite,
+    data,
+  } = props;
   return (
     <>
       <Box ml={2}>
@@ -40,16 +51,20 @@ const ButtonKit: VFC<Props> = (props) => {
               <DeleteIcon />
             </Button>
           </>
-        ) : (
-          <Button
-            size="lg"
-            ml={3}
-            mb={3}
-            borderRadius="2xl"
-            p={0}
+        ) : data?.articles.favorites.find(
+            (item) => item.uid === currentUser?.uid
+          ) ? (
+          <IconButton
             bgColor="white"
-          >
-            <StarIcon color="gray.200" />
+            onClick={destroyFavorite}
+            color="yellow.200"
+            aria-label="favorite"
+            icon={<StarIcon />}
+            fontSize="20px"
+          />
+        ) : (
+          <Button onClick={createFavorite} color="grey.200">
+            1
           </Button>
         )}
       </Box>
