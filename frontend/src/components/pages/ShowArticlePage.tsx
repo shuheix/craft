@@ -3,13 +3,8 @@ import {
   Center,
   Container,
   Flex,
-  Heading,
-  HStack,
   Spinner,
   useDisclosure,
-  Avatar,
-  Text,
-  VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
@@ -17,18 +12,21 @@ import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import { useArticle } from "../../hooks/useArticle";
 import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
 import ShowArticleBody from "../article/body/ShowArticleBody";
-import ButtonKit from "../article/ButtonKit";
+import ButtonKit from "../article/aside/ButtonKit";
 import CommentForm from "../article/comment/CommentForm";
 import CommentList from "../article/comment/CommentList";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import TagList from "../article/TagList";
 import Header from "../header/Header";
+import ArticleUser from "../article/aside/ArticleUser";
+import { useFavorite } from "../../hooks/useFavorite";
 
 const ArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const { data, error, loading, fetchSingleArticle } = useFetchSingleArticle();
+  const { createFavorite, destroyFavorite } = useFavorite(articleId);
   const { onClickDestroyButton, onClickEditButton } = useArticle(
     articleId,
     data
@@ -60,24 +58,15 @@ const ArticlePage: VFC = () => {
                   <CommentForm articleId={articleId} />
                 </Box>
                 <Box maxW="300px">
-                  <HStack
-                    bgColor="white"
-                    borderRadius="2xl"
-                    p={5}
-                    ml={5}
-                    mb={5}
-                  >
-                    <Avatar size="md" />
-                    <VStack>
-                      <Heading>name</Heading>
-                      <Text>日付</Text>
-                    </VStack>
-                  </HStack>
+                  <ArticleUser data={data} />
                   <TagList />
                   <ButtonKit
                     onOpen={onOpen}
                     uid={data?.articles.user.uid}
                     onClickEditButton={onClickEditButton}
+                    data={data}
+                    createFavorite={createFavorite}
+                    destroyFavorite={destroyFavorite}
                   />
                 </Box>
               </Flex>

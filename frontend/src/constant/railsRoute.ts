@@ -10,3 +10,7 @@ export const SINGLE_ARTICLE_API = (articleId: string): string =>
 // rails_users_controller
 export const USERS_API = `${defaultApi}/users`;
 export const SHOW_USERS_API = (usersId: string) => `${USERS_API}/${usersId}`;
+
+// favorites_controller
+export const FAVORITES_API = (articleId: string): string =>
+  `${defaultApi}/articles/${articleId}/favorites`;

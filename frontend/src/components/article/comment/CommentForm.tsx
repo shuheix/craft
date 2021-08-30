@@ -1,4 +1,4 @@
-import { Box, Textarea, Button } from "@chakra-ui/react";
+import { Box, Textarea, Button, Spacer, HStack } from "@chakra-ui/react";
 import axios from "axios";
 import React, { VFC } from "react";
 import { useForm } from "react-hook-form";
@@ -47,9 +47,12 @@ const CommentForm: VFC<Props> = (props) => {
             },
           })}
         />
-        <Button type="submit" isLoading={formState.isSubmitting}>
-          投稿
-        </Button>
+        <HStack>
+          <Spacer />
+          <Button type="submit" isLoading={formState.isSubmitting}>
+            投稿
+          </Button>
+        </HStack>
       </form>
     </Box>
   );

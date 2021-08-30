@@ -10,7 +10,6 @@ export const useArticle = (articleId: string, data: ArticleApiType | null) => {
   const toast = useToast();
   const onClickDestroyButton = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
-      console.log(token);
       axios({
         method: "DELETE",
         url: `${SINGLE_ARTICLE_API(`${articleId}`)}`,
