@@ -3,7 +3,9 @@ import {
   Center,
   Container,
   Flex,
+  IconButton,
   Spinner,
+  useBoolean,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, VFC } from "react";
@@ -20,6 +22,7 @@ import TagList from "../article/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import { useFavorite } from "../../hooks/useFavorite";
+import { StarIcon } from "@chakra-ui/icons";
 
 const ArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -27,10 +30,13 @@ const ArticlePage: VFC = () => {
   const cancelRef = React.useRef(null);
   const { data, error, loading, fetchSingleArticle } = useFetchSingleArticle();
   const { createFavorite, destroyFavorite } = useFavorite(articleId);
+
   const { onClickDestroyButton, onClickEditButton } = useArticle(
     articleId,
     data
   );
+
+  const [favorite, setFavorite] = useBoolean();
 
   useEffect(() => {
     fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
@@ -67,6 +73,13 @@ const ArticlePage: VFC = () => {
                     data={data}
                     createFavorite={createFavorite}
                     destroyFavorite={destroyFavorite}
+                  />
+                  <IconButton
+                    aria-label="favorite"
+                    icon={<StarIcon fontSize="20px" />}
+                    onClick={() => setFavorite.toggle()}
+                    bgColor="white"
+                    color={favorite ? "yellow.300" : "gray.300"}
                   />
                 </Box>
               </Flex>
