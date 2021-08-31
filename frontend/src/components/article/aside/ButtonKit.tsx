@@ -35,6 +35,7 @@ const ButtonKit: VFC<Props> = (props) => {
               borderRadius="2xl"
               p={0}
               bgColor="white"
+              color="blue.500"
               onClick={onClickEditButton}
             >
               <EditIcon px={0} />
@@ -47,6 +48,7 @@ const ButtonKit: VFC<Props> = (props) => {
               p={0}
               bgColor="white"
               onClick={onOpen}
+              color="red.500"
             >
               <DeleteIcon />
             </Button>
