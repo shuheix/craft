@@ -4,8 +4,8 @@ module Api
       skip_before_action :authenticate_user, only: [:index,:show]
 
       def index
-        @comment = Comment.all.where(article_id: params[:article_id]).recent
-        render json: @comment
+        comments = Comment.recent
+        render json: comments
       end
 
       def create
