@@ -5,7 +5,10 @@ import { SINGLE_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 import { ArticleApiType } from "../types/apiType";
 
-export const useArticle = (articleId: string, data: ArticleApiType | null) => {
+export const useArticle = (
+  articleId: string,
+  data: ArticleApiType | null | undefined
+) => {
   const history = useHistory();
   const toast = useToast();
   const onClickDestroyButton = () => {

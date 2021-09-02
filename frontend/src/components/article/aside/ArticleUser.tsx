@@ -3,7 +3,7 @@ import React, { VFC } from "react";
 import { ArticleApiType } from "../../../types/apiType";
 
 type Props = {
-  data: ArticleApiType | null;
+  data: ArticleApiType | null | undefined;
 };
 const ArticleUser: VFC<Props> = (props) => {
   const { data } = props;

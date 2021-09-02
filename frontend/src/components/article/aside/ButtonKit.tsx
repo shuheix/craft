@@ -10,7 +10,7 @@ type Props = {
   onClickEditButton: () => void;
   createFavorite: () => void;
   destroyFavorite: () => void;
-  data: ArticleApiType | null;
+  data: ArticleApiType | null | undefined;
 };
 
 const ButtonKit: VFC<Props> = (props) => {
