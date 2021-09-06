@@ -32,9 +32,9 @@ const ArticlePage: VFC = () => {
   const cancelRef = React.useRef(null);
   const { createFavorite, destroyFavorite } = useFavorite(articleId);
 
-  const fetchArticle = (url: string) =>
-    axios.get<ArticleApiType | null | undefined>(url).then((res) => res.data);
-  const { data, error } = useSWR(SINGLE_ARTICLE_API(articleId), fetchArticle);
+  const { data, error } = useSWR(SINGLE_ARTICLE_API(articleId), (url: string) =>
+    axios.get<ArticleApiType | null | undefined>(url).then((res) => res.data)
+  );
   const [favorite, setFavorite] = useBoolean();
 
   const { onClickDestroyButton, onClickEditButton } = useArticle(
