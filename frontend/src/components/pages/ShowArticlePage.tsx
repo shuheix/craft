@@ -14,8 +14,8 @@ import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import { useArticle } from "../../hooks/useArticle";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/aside/ButtonKit";
-import CommentForm from "../article/comment/CommentForm";
-import CommentList from "../article/comment/CommentList";
+// import CommentForm from "../article/comment/CommentForm";
+// import CommentList from "../article/comment/CommentList";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import TagList from "../article/TagList";
 import Header from "../header/Header";
@@ -25,6 +25,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import useSWR from "swr";
 import axios from "axios";
 import { ArticleApiType } from "../../types/apiType";
+import CommentSet from "../article/comment/CommentSet";
 
 const ArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -60,8 +61,9 @@ const ArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
-                  <CommentList data={data} />
-                  <CommentForm articleId={articleId} />
+                  <CommentSet articleId={articleId} />
+                  {/* <CommentList articleId={articleId} />
+                  <CommentForm articleId={articleId} /> */}
                 </Box>
                 <Box maxW="300px">
                   <ArticleUser data={data} />
