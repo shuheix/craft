@@ -15,6 +15,5 @@ export const useComment = (articleId: string) => {
     isLoading: !error && !data,
     isError: error,
     mutate: mutate,
-    key: INDEX_COMMENTS_API(articleId),
   };
 };

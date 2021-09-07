@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { useParams } from "react-router-dom";
-import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
 import { useArticle } from "../../hooks/useArticle";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/aside/ButtonKit";
@@ -26,24 +25,23 @@ import useSWR from "swr";
 import axios from "axios";
 import { ArticleApiType } from "../../types/apiType";
 import CommentSet from "../article/comment/CommentSet";
+import { SHOW_ARTICLE_API } from "../../constant/railsRoute";
 
 const ArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
-  const { createFavorite, destroyFavorite } = useFavorite(articleId);
-
-  const { data, error } = useSWR(SINGLE_ARTICLE_API(articleId), (url: string) =>
+  const { data, error } = useSWR(SHOW_ARTICLE_API(articleId), (url: string) =>
     axios.get<ArticleApiType | null | undefined>(url).then((res) => res.data)
   );
+  const { createFavorite, destroyFavorite } = useFavorite(articleId);
   const [favorite, setFavorite] = useBoolean();
 
   const { onClickDestroyButton, onClickEditButton } = useArticle(
     articleId,
     data
   );
-
-  if (error) return <p>error!</p>;
+  if (data?.articles.favorites) if (error) return <p>error!</p>;
 
   return (
     <>

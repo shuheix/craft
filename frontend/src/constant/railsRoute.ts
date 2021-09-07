@@ -4,7 +4,7 @@ export const defaultApi = "http://localhost:3000/api/v1";
 export const INDEX_ARTICLES_API = (page: string | null): string =>
   `${defaultApi}/articles${page}`;
 
-export const SINGLE_ARTICLE_API = (articleId: string): string =>
+export const SHOW_ARTICLE_API = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}`;
 
 // comments_controller
