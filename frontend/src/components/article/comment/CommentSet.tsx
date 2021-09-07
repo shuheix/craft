@@ -18,7 +18,6 @@ import { useForm } from "react-hook-form";
 import { INDEX_COMMENTS_API } from "../../../constant/railsRoute";
 import { auth } from "../../../firebase";
 import { useComment } from "../../../hooks/useComment";
-import { CommentType } from "../../../types/commentType";
 
 type Comment = {
   text: string;
@@ -30,17 +29,14 @@ type Props = {
 const CommentSet: VFC<Props> = (props) => {
   const { articleId } = props;
   const { register, handleSubmit, formState, reset } = useForm<Comment>();
-  const { comment, isError, isLoading, mutate, key } = useComment(articleId);
+  const { comment, isError, isLoading, mutate } = useComment(articleId);
 
   const onSubmit = (data: Comment) => {
-    const comment: CommentType = {
-      text: data.text,
-    };
     auth.currentUser?.getIdToken(true).then((token) => {
       axios
         .post(INDEX_COMMENTS_API(articleId), {
           headers: { Authorization: token },
-          comment,
+          text: data.text,
         })
         .then(() => {
           mutate();

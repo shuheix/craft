@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { SINGLE_ARTICLE_API } from "../constant/railsRoute";
+import { SHOW_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 import { ArticleApiType } from "../types/apiType";
 
@@ -15,7 +15,7 @@ export const useArticle = (
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         method: "DELETE",
-        url: `${SINGLE_ARTICLE_API(`${articleId}`)}`,
+        url: `${SHOW_ARTICLE_API(`${articleId}`)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
       })
         .then(() => {
