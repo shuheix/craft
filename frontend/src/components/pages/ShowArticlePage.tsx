@@ -3,11 +3,10 @@ import {
   Center,
   Container,
   Flex,
-  IconButton,
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useContext, VFC } from "react";
+import React, { VFC } from "react";
 import { useParams } from "react-router-dom";
 import { useArticleFunction } from "../../hooks/useArticleFunction";
 import ShowArticleBody from "../article/body/ShowArticleBody";
@@ -17,21 +16,15 @@ import TagList from "../article/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import { useFavorite } from "../../hooks/useFavorite";
-import { StarIcon } from "@chakra-ui/icons";
 import CommentSet from "../article/comment/CommentSet";
-import { AuthContext } from "../../providers/AuthProvider";
 import { useSingleArticle } from "../../hooks/useSingleArticle";
 
 const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
-  const { currentUser } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const { data, isError, isLoading } = useSingleArticle(articleId);
-  const { onClickDestroyButton, onClickEditButton } = useArticleFunction(
-    articleId
-  );
-  const { createFavorite, destroyFavorite } = useFavorite(articleId);
+  const { onClickDestroyButton } = useArticleFunction(articleId);
 
   if (isError) return <p>error!</p>;
   return (
@@ -55,33 +48,7 @@ const ShowArticlePage: VFC = () => {
                 <Box maxW="300px">
                   <ArticleUser data={data} />
                   <TagList />
-                  <ButtonKit
-                    onOpen={onOpen}
-                    uid={data?.articles.user.uid}
-                    onClickEditButton={onClickEditButton}
-                    data={data}
-                    createFavorite={createFavorite}
-                    destroyFavorite={destroyFavorite}
-                  />
-                  {!!data?.articles.favorites.find(
-                    (item) => item.uid === currentUser?.uid
-                  ) ? (
-                    <IconButton
-                      aria-label="favorite"
-                      icon={<StarIcon fontSize="20px" />}
-                      bgColor="white"
-                      color={"yellow.300"}
-                      onClick={destroyFavorite}
-                    />
-                  ) : (
-                    <IconButton
-                      aria-label="favorite"
-                      icon={<StarIcon fontSize="20px" />}
-                      bgColor="white"
-                      color={"gray.300"}
-                      onClick={createFavorite}
-                    />
-                  )}
+                  <ButtonKit onOpen={onOpen} articleId={articleId} />
                 </Box>
               </Flex>
               <DeleteArticleDialog

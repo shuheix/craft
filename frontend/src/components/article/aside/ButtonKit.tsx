@@ -1,32 +1,26 @@
-import { EditIcon, DeleteIcon, StarIcon } from "@chakra-ui/icons";
-import { Box, Button, IconButton } from "@chakra-ui/react";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
+import { useArticleFunction } from "../../../hooks/useArticleFunction";
+import { useSingleArticle } from "../../../hooks/useSingleArticle";
 import { AuthContext } from "../../../providers/AuthProvider";
-import { ArticleApiType } from "../../../types/apiType";
+import FavoriteButton from "./FavoriteButton";
 
 type Props = {
-  uid: string | undefined;
+  articleId: string;
   onOpen: () => void;
-  onClickEditButton: () => void;
-  createFavorite: () => void;
-  destroyFavorite: () => void;
-  data: ArticleApiType | null | undefined;
 };
 
 const ButtonKit: VFC<Props> = (props) => {
+  const { articleId, onOpen } = props;
   const { currentUser } = useContext(AuthContext);
-  const {
-    uid,
-    onClickEditButton,
-    onOpen,
-    createFavorite,
-    destroyFavorite,
-    data,
-  } = props;
+  const { data } = useSingleArticle(articleId);
+  const { onClickEditButton } = useArticleFunction(articleId);
+
   return (
     <>
       <Box ml={2}>
-        {currentUser?.uid === uid ? (
+        {currentUser?.uid === data?.articles.user.uid ? (
           <>
             <Button
               size="lg"
@@ -53,21 +47,8 @@ const ButtonKit: VFC<Props> = (props) => {
               <DeleteIcon />
             </Button>
           </>
-        ) : data?.articles.favorites.find(
-            (item) => item.uid === currentUser?.uid
-          ) ? (
-          <IconButton
-            bgColor="white"
-            onClick={destroyFavorite}
-            color="yellow.200"
-            aria-label="favorite"
-            icon={<StarIcon />}
-            fontSize="20px"
-          />
         ) : (
-          <Button onClick={createFavorite} color="grey.200">
-            1
-          </Button>
+          <FavoriteButton articleId={articleId} />
         )}
       </Box>
     </>
