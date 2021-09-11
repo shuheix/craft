@@ -25,7 +25,7 @@ const Router: VFC = () => {
         <Route path="/articles/:articleId/edit">
           <EditArticlePage />
         </Route>
-        <Route path="/users/:userId">
+        <Route path="/users/:uid">
           <ShowUserPage />
         </Route>
         <Route path="/login">
