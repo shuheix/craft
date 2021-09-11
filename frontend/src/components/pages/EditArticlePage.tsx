@@ -1,6 +1,6 @@
 import React, { useEffect, VFC } from "react";
 import { useParams } from "react-router-dom";
-import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
+import { SHOW_ARTICLE_API } from "../../constant/railsRoute";
 import {
   Container,
   Box,
@@ -26,7 +26,7 @@ const EditArticleLayout: VFC = () => {
   });
 
   useEffect(() => {
-    fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
+    fetchSingleArticle(SHOW_ARTICLE_API(articleId));
   }, [articleId, fetchSingleArticle]);
 
   if (error) return <div>Error!</div>;

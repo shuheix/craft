@@ -8,14 +8,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { VFC } from "react";
-import { ArticleApiType } from "../../../types/apiType";
+import { useComment } from "../../../hooks/useComment";
 
 type Props = {
-  data: ArticleApiType | null;
+  articleId: string;
 };
 
 const CommentList: VFC<Props> = (props) => {
-  const { data } = props;
+  const { articleId } = props;
+  const { comment, isError, isLoading, mutate } = useComment(articleId);
   return (
     <>
       <Box mb={5}>
@@ -25,7 +26,7 @@ const CommentList: VFC<Props> = (props) => {
         <Divider colorScheme="whiteAlpha" />
       </Box>
       <Stack>
-        {data?.articles.comments.map((comment) => (
+        {comment?.map((comment) => (
           <HStack bgColor="white" borderRadius="md" key={comment.id}>
             <Avatar />
             <Stack>
