@@ -3,14 +3,13 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { SHOW_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import { ArticleApiType } from "../types/apiType";
+import { useSingleArticle } from "./useSingleArticle";
 
-export const useArticle = (
-  articleId: string,
-  data: ArticleApiType | null | undefined
-) => {
+export const useArticleFunction = (articleId: string) => {
   const history = useHistory();
   const toast = useToast();
+  const { data } = useSingleArticle(articleId);
+
   const onClickDestroyButton = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
@@ -37,6 +36,7 @@ export const useArticle = (
         });
     });
   };
+
   const onClickEditButton = (): void => {
     history.push(`/articles/${articleId}/edit`);
   };

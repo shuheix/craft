@@ -2,14 +2,13 @@ module Api
   module V1
     class FavoritesController < ApplicationController
       def create
-        pp favorite_params
         favorite = Favorite.new(favorite_params.merge(user_id: current_user.id,uid: current_user.uid))
-        favorite.save!
+        favorite.save
       end
 
       def destroy
         favorite = Favorite.find_by(article_id: params[:article_id],uid: current_user.uid)
-        favorite.destroy!
+        favorite.destroy
       end
 
       private

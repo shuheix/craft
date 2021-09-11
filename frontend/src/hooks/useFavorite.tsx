@@ -1,21 +1,10 @@
 import axios from "axios";
-import { SHOW_ARTICLE_URL } from "../constant/appHistory";
 import { FAVORITES_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import useSWR from "swr";
-import { ArticleApiType } from "../types/apiType";
-import { AuthContext } from "../providers/AuthProvider";
-import { useContext } from "react";
+import { useSingleArticle } from "./useSingleArticle";
 
 export const useFavorite = (articleId: string) => {
-  const { currentUser } = useContext(AuthContext);
-  const { mutate } = useSWR(SHOW_ARTICLE_URL(articleId));
-
-  const isFavorite = (data: ArticleApiType) => {
-    // data.find((item)=>item.articles.favorites)
-    if (data.articles.favorites.find((item) => item.uid === currentUser?.uid))
-      return true;
-  };
+  const { mutate } = useSingleArticle(articleId);
 
   const createFavorite = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
@@ -25,9 +14,7 @@ export const useFavorite = (articleId: string) => {
           article_id: articleId,
           uid: auth.currentUser?.uid,
         })
-        .then(() => {
-          mutate();
-        });
+        .then(() => mutate());
     });
   };
 
@@ -37,11 +24,9 @@ export const useFavorite = (articleId: string) => {
         method: "DELETE",
         url: FAVORITES_API(articleId),
         data: { id: `${articleId}`, headers: { Authorization: token } },
-      }).then(() => {
-        mutate();
-      });
+      }).then(() => mutate());
     });
   };
 
-  return { createFavorite, destroyFavorite, isFavorite };
+  return { createFavorite, destroyFavorite };
 };

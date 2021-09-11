@@ -5,50 +5,41 @@ import {
   Flex,
   IconButton,
   Spinner,
-  useBoolean,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
+import React, { useContext, VFC } from "react";
 import { useParams } from "react-router-dom";
-import { useArticle } from "../../hooks/useArticle";
+import { useArticleFunction } from "../../hooks/useArticleFunction";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/aside/ButtonKit";
-// import CommentForm from "../article/comment/CommentForm";
-// import CommentList from "../article/comment/CommentList";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import TagList from "../article/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import { useFavorite } from "../../hooks/useFavorite";
 import { StarIcon } from "@chakra-ui/icons";
-import useSWR from "swr";
-import axios from "axios";
-import { ArticleApiType } from "../../types/apiType";
 import CommentSet from "../article/comment/CommentSet";
-import { SHOW_ARTICLE_API } from "../../constant/railsRoute";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useSingleArticle } from "../../hooks/useSingleArticle";
 
-const ArticlePage: VFC = () => {
+const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
+  const { currentUser } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
-  const { data, error } = useSWR(SHOW_ARTICLE_API(articleId), (url: string) =>
-    axios.get<ArticleApiType | null | undefined>(url).then((res) => res.data)
+  const { data, isError, isLoading } = useSingleArticle(articleId);
+  const { onClickDestroyButton, onClickEditButton } = useArticleFunction(
+    articleId
   );
   const { createFavorite, destroyFavorite } = useFavorite(articleId);
-  const [favorite, setFavorite] = useBoolean();
 
-  const { onClickDestroyButton, onClickEditButton } = useArticle(
-    articleId,
-    data
-  );
-  if (data?.articles.favorites) if (error) return <p>error!</p>;
-
+  if (isError) return <p>error!</p>;
   return (
     <>
       <Box bgColor="teal.50" minH="100vh">
         <Header />
         <Container px={0} py={20} maxW="container.lg">
-          {error ? (
+          {isLoading ? (
             <>
               <Center>
                 <Spinner />
@@ -60,8 +51,6 @@ const ArticlePage: VFC = () => {
                 <Box w="100%">
                   <ShowArticleBody data={data} />
                   <CommentSet articleId={articleId} />
-                  {/* <CommentList articleId={articleId} />
-                  <CommentForm articleId={articleId} /> */}
                 </Box>
                 <Box maxW="300px">
                   <ArticleUser data={data} />
@@ -74,13 +63,25 @@ const ArticlePage: VFC = () => {
                     createFavorite={createFavorite}
                     destroyFavorite={destroyFavorite}
                   />
-                  <IconButton
-                    aria-label="favorite"
-                    icon={<StarIcon fontSize="20px" />}
-                    onClick={() => setFavorite.toggle()}
-                    bgColor="white"
-                    color={favorite ? "yellow.300" : "gray.300"}
-                  />
+                  {!!data?.articles.favorites.find(
+                    (item) => item.uid === currentUser?.uid
+                  ) ? (
+                    <IconButton
+                      aria-label="favorite"
+                      icon={<StarIcon fontSize="20px" />}
+                      bgColor="white"
+                      color={"yellow.300"}
+                      onClick={destroyFavorite}
+                    />
+                  ) : (
+                    <IconButton
+                      aria-label="favorite"
+                      icon={<StarIcon fontSize="20px" />}
+                      bgColor="white"
+                      color={"gray.300"}
+                      onClick={createFavorite}
+                    />
+                  )}
                 </Box>
               </Flex>
               <DeleteArticleDialog
@@ -99,4 +100,4 @@ const ArticlePage: VFC = () => {
   );
 };
 
-export default ArticlePage;
+export default ShowArticlePage;
