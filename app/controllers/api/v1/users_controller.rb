@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user, only: [:create,:show]
 
       def show
-        user = User.find_by(id: params[:id])
+        user = User.find_by(uid: params[:id])
         articles = Article.where(user_id: user.id)
         render json: { articles: articles, user: user }, status: :ok
       end
