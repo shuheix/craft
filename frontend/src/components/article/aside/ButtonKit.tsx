@@ -1,62 +1,56 @@
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Button, Flex } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import { useArticleFunction } from "../../../hooks/useArticleFunction";
+import { useSingleArticle } from "../../../hooks/useSingleArticle";
+import { AuthContext } from "../../../providers/AuthProvider";
+import FavoriteButton from "./FavoriteButton";
 
 type Props = {
-  uid: string | undefined;
+  articleId: string;
   onOpen: () => void;
-  onClickEditButton: () => void;
 };
 
 const ButtonKit: VFC<Props> = (props) => {
+  const { articleId, onOpen } = props;
   const { currentUser } = useContext(AuthContext);
-  const { uid, onClickEditButton, onOpen } = props;
+  const { data } = useSingleArticle(articleId);
+  const { onClickEditButton } = useArticleFunction(articleId);
+
   return (
     <>
-      <Flex flexDirection="column">
-        {currentUser?.uid === uid ? (
+      <Box ml={2}>
+        {currentUser?.uid === data?.articles.user.uid ? (
           <>
             <Button
+              size="lg"
               ml={3}
               mb={3}
-              size="lg"
-              borderRadius="full"
+              borderRadius="2xl"
               p={0}
               bgColor="white"
+              color="blue.500"
               onClick={onClickEditButton}
             >
               <EditIcon px={0} />
             </Button>
             <Button
+              size="lg"
               ml={3}
               mb={3}
-              size="lg"
-              borderRadius="full"
+              borderRadius="2xl"
               p={0}
               bgColor="white"
               onClick={onOpen}
+              color="red.500"
             >
               <DeleteIcon />
             </Button>
-            <Button
-              ml={3}
-              size="lg"
-              borderRadius="full"
-              p={0}
-              bgColor="white"
-            ></Button>
           </>
         ) : (
-          <Button
-            ml={3}
-            size="lg"
-            borderRadius="full"
-            p={0}
-            bgColor="white"
-          ></Button>
+          <FavoriteButton articleId={articleId} />
         )}
-      </Flex>
+      </Box>
     </>
   );
 };

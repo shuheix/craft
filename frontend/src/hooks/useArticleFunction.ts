@@ -1,19 +1,20 @@
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { SINGLE_ARTICLE_API } from "../constant/railsRoute";
+import { SHOW_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import { ArticleApiType } from "../types/apiType";
+import { useSingleArticle } from "./useSingleArticle";
 
-export const useArticle = (articleId: string, data: ArticleApiType | null) => {
+export const useArticleFunction = (articleId: string) => {
   const history = useHistory();
   const toast = useToast();
+  const { data } = useSingleArticle(articleId);
+
   const onClickDestroyButton = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
-      console.log(token);
       axios({
         method: "DELETE",
-        url: `${SINGLE_ARTICLE_API(`${articleId}`)}`,
+        url: `${SHOW_ARTICLE_API(`${articleId}`)}`,
         data: { id: `${articleId}`, headers: { Authorization: token } },
       })
         .then(() => {
@@ -35,6 +36,7 @@ export const useArticle = (articleId: string, data: ArticleApiType | null) => {
         });
     });
   };
+
   const onClickEditButton = (): void => {
     history.push(`/articles/${articleId}/edit`);
   };

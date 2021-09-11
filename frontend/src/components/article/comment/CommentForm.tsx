@@ -1,10 +1,9 @@
-import { Box, Textarea, Button } from "@chakra-ui/react";
+import { Box, Textarea, Button, Spacer, HStack } from "@chakra-ui/react";
 import axios from "axios";
 import React, { VFC } from "react";
 import { useForm } from "react-hook-form";
-import { SINGLE_ARTICLE_API } from "../../../constant/railsRoute";
+import { INDEX_COMMENTS_API } from "../../../constant/railsRoute";
 import { auth } from "../../../firebase";
-import { useFetchSingleArticle } from "../../../hooks/useFetchSingleArticle";
 type Comment = {
   text: string;
 };
@@ -14,17 +13,14 @@ type Props = {
 const CommentForm: VFC<Props> = (props) => {
   const { articleId } = props;
   const { register, handleSubmit, formState } = useForm<Comment>();
-  const { fetchSingleArticle } = useFetchSingleArticle();
   const onSubmit = (data: Comment) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios
-        .post(`http://localhost:3000/api/v1/articles/${articleId}/comments`, {
+        .post(INDEX_COMMENTS_API(articleId), {
           headers: { Authorization: token },
           text: data.text,
         })
-        .then(() => {
-          fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
-        });
+        .then(() => {});
     });
   };
 
@@ -47,9 +43,12 @@ const CommentForm: VFC<Props> = (props) => {
             },
           })}
         />
-        <Button type="submit" isLoading={formState.isSubmitting}>
-          投稿
-        </Button>
+        <HStack>
+          <Spacer />
+          <Button type="submit" isLoading={formState.isSubmitting}>
+            投稿
+          </Button>
+        </HStack>
       </form>
     </Box>
   );

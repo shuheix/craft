@@ -6,40 +6,33 @@ import {
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, VFC } from "react";
+import React, { VFC } from "react";
 import { useParams } from "react-router-dom";
-import { SINGLE_ARTICLE_API } from "../../constant/railsRoute";
-import { useArticle } from "../../hooks/useArticle";
-import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
+import { useArticleFunction } from "../../hooks/useArticleFunction";
 import ShowArticleBody from "../article/body/ShowArticleBody";
-import ButtonKit from "../article/ButtonKit";
-import CommentForm from "../article/comment/CommentForm";
-import CommentList from "../article/comment/CommentList";
+import ButtonKit from "../article/aside/ButtonKit";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
+import TagList from "../article/TagList";
 import Header from "../header/Header";
+import ArticleUser from "../article/aside/ArticleUser";
+import { useFavorite } from "../../hooks/useFavorite";
+import CommentSet from "../article/comment/CommentSet";
+import { useSingleArticle } from "../../hooks/useSingleArticle";
 
-const ArticlePage: VFC = () => {
+const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
-  const { data, error, loading, fetchSingleArticle } = useFetchSingleArticle();
-  const { onClickDestroyButton, onClickEditButton } = useArticle(
-    articleId,
-    data
-  );
+  const { data, isError, isLoading } = useSingleArticle(articleId);
+  const { onClickDestroyButton } = useArticleFunction(articleId);
 
-  useEffect(() => {
-    fetchSingleArticle(SINGLE_ARTICLE_API(articleId));
-  }, [articleId, fetchSingleArticle]);
-
-  if (error) return <p>error!</p>;
-
+  if (isError) return <p>error!</p>;
   return (
     <>
       <Box bgColor="teal.50" minH="100vh">
         <Header />
         <Container px={0} py={20} maxW="container.lg">
-          {loading ? (
+          {isLoading ? (
             <>
               <Center>
                 <Spinner />
@@ -50,14 +43,13 @@ const ArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
-                  <CommentList data={data} />
-                  <CommentForm articleId={articleId} />
+                  <CommentSet articleId={articleId} />
                 </Box>
-                <ButtonKit
-                  onOpen={onOpen}
-                  uid={data?.articles.user.uid}
-                  onClickEditButton={onClickEditButton}
-                />
+                <Box maxW="300px">
+                  <ArticleUser data={data} />
+                  <TagList />
+                  <ButtonKit onOpen={onOpen} articleId={articleId} />
+                </Box>
               </Flex>
               <DeleteArticleDialog
                 leastDestructiveRef={cancelRef}
@@ -75,4 +67,4 @@ const ArticlePage: VFC = () => {
   );
 };
 
-export default ArticlePage;
+export default ShowArticlePage;
