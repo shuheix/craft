@@ -7,28 +7,21 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import axios from "axios";
-import React, { useEffect, useState, VFC } from "react";
+import React, { VFC } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { SHOW_ARTICLE_API, SHOW_USERS_API } from "../../constant/railsRoute";
-import { ArticleType } from "../../types/articleType";
-import { UserType } from "../../types/userType";
+import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
+import { SHOW_ARTICLE_API } from "../../constant/railsRoute";
+import { useUser } from "../../hooks/useUser";
 import Header from "../header/Header";
 import UserImg from "../user/UserImg";
 
 const ShowUserPage: VFC = () => {
-  const [userArticles, setUserArticles] = useState<ArticleType[]>([]);
-  const { userId } = useParams<{ userId: string }>();
-
+  const { uid } = useParams<{ uid: string }>();
+  const { data, isError, isLoading } = useUser(uid);
   const history = useHistory();
 
-  useEffect(() => {
-    axios
-      .get<{ articles: ArticleType[]; user: UserType }>(SHOW_USERS_API(userId))
-      .then((res) => {
-        setUserArticles(res.data.articles);
-      });
-  }, [userId]);
+  if (isError) return <p>error!</p>;
+
   return (
     <>
       <Header />
@@ -45,17 +38,18 @@ const ShowUserPage: VFC = () => {
           </Box>
           <Box flex="3">
             <Stack spacing={4}>
-              {userArticles.map((articles) => (
+              {data?.articles?.map((articles) => (
                 <Box
                   shadow="md"
                   p={5}
                   borderWidth={1}
                   key={articles.id}
-                  onClick={() => history.push(SHOW_ARTICLE_API(articles.id))}
+                  onClick={() => history.push(SHOW_ARTICLE_URL(articles.id))}
                   _hover={{
                     boxShadow: "lg",
                     cursor: "pointer",
                   }}
+                  borderRadius="lg"
                 >
                   <Heading fontSize="xl">{articles.title}</Heading>
                   <Text>{articles.text}</Text>
