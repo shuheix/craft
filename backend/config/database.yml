@@ -5,8 +5,8 @@ development:
   database: craft_development
   pool: 5
   username: root
-  password: Syuu0210
-  host: localhost
+  password: root
+  host: mysql
 
 test:
   adapter: mysql2
@@ -15,8 +15,8 @@ test:
   database: craft_test
   pool: 5
   username: root
-  password: Syuu0210
-  host: localhost
+  password: root
+  host: mysql
 
 production:
   adapter: mysql2
@@ -25,5 +25,5 @@ production:
   database: craft_production
   pool: 5
   username: root
-  password: Syuu0210
-  host: localhost
+  password: root
+  host: mysql
