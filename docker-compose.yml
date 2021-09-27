@@ -7,8 +7,15 @@ services:
       - "./mysql-data:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
+  redis:
+    image: redis:6.2.4
+    ports:
+      - "6379:6379"
+    command: "redis-server"
   back:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     volumes:
       - ./backend:/craft/backend
     ports:
@@ -16,4 +23,21 @@ services:
     tty: true
     depends_on:
       - mysql
+      - redis
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/craft/frontend
+    ports:
+      - "3001:3000"
+    command: sh -c "yarn start"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mysql
+      - redis
+
+
 

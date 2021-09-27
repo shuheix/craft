@@ -3,7 +3,7 @@ FROM ruby:2.7.2
 RUN apt-get update && \
     apt-get install -y nodejs yarn mariadb-server
 
-WORKDIR  /craft/backend
+WORKDIR /craft/backend
 COPY Gemfile /craft/backend/Gemfile
 COPY Gemfile.lock /craft/backend/Gemfile.lock
 
