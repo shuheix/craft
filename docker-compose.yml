@@ -29,6 +29,7 @@ services:
       - mysql
       - redis
     environment:
+      REDIS_URL : redis://redis:6379
       REDIS_HOST: redis
       REDIS_PORT: 6379
 
