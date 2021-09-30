@@ -7,6 +7,28 @@ services:
       - "./mysql-data:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
-  app:
-    build: .
+
+  redis:
+    image: redis:6.2.4
     volumes:
+      - ./redis:/data
+    ports:
+      - "6379:6379"
+    command: "redis-server"
+
+  back:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/craft/backend
+    ports:
+      - "3000:3000"
+    tty: true
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      REDIS_URL : redis://redis:6379
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
