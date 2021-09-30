@@ -32,24 +32,3 @@ services:
       REDIS_URL : redis://redis:6379
       REDIS_HOST: redis
       REDIS_PORT: 6379
-<<<<<<< HEAD
-=======
-
-  front:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/craft/frontend
-    ports:
-      - "3001:3000"
-    command: sh -c "yarn start"
-    tty: true
-    stdin_open: true
-    depends_on:
-      - mysql
-      - redis
-
-
-
->>>>>>> 6f7eb750408145ff26086dc61601b8b91d068069

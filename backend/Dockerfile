@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 6f7eb750408145ff26086dc61601b8b91d068069
 FROM ruby:2.7.2
 
 RUN apt-get update && \
