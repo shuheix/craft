@@ -1,29 +1,66 @@
-version: 2.1
-
-orbs:
-  ruby: circleci/ruby@0.1.2
-
+version: 2
 jobs:
   build:
-    working_directory: ~/craft
     docker:
+      # specify the version you desire here
       - image: circleci/ruby:2.7.2
-    steps:
-      - checkout
-      - run:
-          name: dependency_setup
-          command: gem install bundler
-          working_directory: backend
-      - run:
-          name: dependency_setup
-          command: bundle install
-          working_directory: backend
-      - run:
-          name: dependency_setup
-          command: bundle exec rspec
-          working_directory: backend
-workflows:
-  test: # This is the name of the workflow, feel free to change it to better match your workflow.
-    jobs:
-      - build
+        environment:
+          RAILS_ENV: test
+          CRAFT_DATABASE_HOST: 127.0.0.1
+          CRAFT_USERNAME: 'root'
+          CRAFT_PASSWORD: 'root'
 
+      - image: circleci/mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+
+    working_directory: ~/craft/backend
+
+    steps:
+      - checkout:
+          path: ~/craft
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: prepare bundler
+          command: gem install bundler -v 2.2.28
+
+      - run:
+          name: install dependencies
+          command: bundle install
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $TEST_FILES
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
