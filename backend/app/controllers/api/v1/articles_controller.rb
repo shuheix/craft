@@ -1,29 +1,29 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
-      skip_before_action :authenticate_user, only: [:index,:show]
+      skip_before_action :authenticate_user, only: %i[index show]
 
       def index
-        articles = Article.recent.joins(:user).select("articles.*, users.name as user_name").page(params[:page]).per(12)
+        articles = Article.recent.joins(:user).select('articles.*, users.name as user_name').page(params[:page]).per(12)
         total_pages = articles.total_pages
-        render json: { articles: articles, total_pages: total_pages },status: :ok
+        render json: { articles: articles, total_pages: total_pages }, status: :ok
       end
 
       def show
-        article = Article.find(params[:id]).as_json(include:[:user, :favorites, :comments])
+        article = Article.find(params[:id]).as_json(include: %i[user favorites comments])
         render json: {
-          articles: article,
-        },status: :ok
+          articles: article
+        }, status: :ok
       end
 
       def create
-        article =  Article.new(article_params.merge(user_id: current_user.id))
+        article = Article.new(article_params.merge(user_id: current_user.id))
         if article.save
           render json: {
-            articles: article,
+            articles: article
           }, status: :ok
         else
-          render json: {status: :bad_request}
+          render json: { status: :bad_request }
         end
         # pp FirebaseIdToken::Signature.verify(params.require(:headers).permit(:Authorization)[:Authorization])
       end
@@ -32,21 +32,22 @@ module Api
         article = Article.find(params[:id])
         if article.update!(article_params)
           render json: {
-            articles: article,
-          },status: :ok
+            articles: article
+          }, status: :ok
         else
-          render json: {status: :bad_request}
+          render json: { status: :bad_request }
         end
       end
 
       def destroy
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+
         article = Article.find(params[:id])
         if article.user_id == current_user.id
           article.destroy
-          render json: {status: :ok}
+          render json: { status: :ok }
         else
-          render json: {status: :bad_request}
+          render json: { status: :bad_request }
         end
       end
 
@@ -57,7 +58,7 @@ module Api
       end
 
       def article_params
-        params.require(:article).permit(:title,:text)
+        params.require(:article).permit(:title, :text)
       end
 
       def token_from_request_headers
@@ -74,4 +75,3 @@ module Api
     end
   end
 end
-
