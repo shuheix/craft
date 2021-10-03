@@ -8,4 +8,3 @@ every 1.hour do
 end
 
 # Learn more: http://github.com/javan/whenever
-

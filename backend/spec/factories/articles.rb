@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :article do
-    title { "testのタイトル" }
-    text { "textの内容" }
+    title { 'testのタイトル' }
+    text { 'textの内容' }
     user
   end
 end
