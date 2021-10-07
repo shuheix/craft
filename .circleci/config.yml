@@ -1,5 +1,6 @@
 version: 2
 jobs:
+  # rspecのCI
   build:
     docker:
       # specify the version you desire here
@@ -45,24 +46,70 @@ jobs:
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-
       - run: bundle exec rspec
 
-      # # run tests!
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       mkdir /tmp/test-results
-      #       TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+  # cypress実行サーバー
+  front_server:
+    docker:
+      - image: circleci/node:14.4.0-stretch-browsers
+    working_directory: ~/craft/frontend
+    steps:
+      - checkout:
+          path: ~/craft
+      - restore_cache:
+          keys:
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
+      - run:
+          name: Install Dependencies for react
+          command: yarn install
+      - run:
+          name: Install Dependencies for e2e
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.cache ## cache both yarn and Cypress!
+      - run: PORT=3001 yarn start -d
 
-      #       bundle exec rspec --format progress \
-      #                       --format RspecJunitFormatter \
-      #                       --out /tmp/test-results/rspec.xml \
-      #                       --format progress \
-      #                       $TEST_FILES
-      # # collect reports
-      # - store_test_results:
-      #     path: /tmp/test-results
-      # - store_artifacts:
-      #     path: /tmp/test-results
-      #     destination: test-results
+
+  # e2e実行
+  front_test:
+    docker:
+      - image: cypress/base:14.16.0
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    working_directory: ~/craft/frontend/e2e
+    steps:
+      - checkout:
+          path: ~/craft
+      - restore_cache:
+          keys:
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
+      - run:
+          name: Install Dependencies for react
+          command: yarn install
+      - run:
+          name: Install Dependencies for e2e
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.cache ## cache both yarn and Cypress!
+      - run: yarn cypress:run
+
+workflows:
+  version: 2
+  all-test:
+    jobs:
+      - build
+      - front_test:
+          requires:
+            - build
+
+
+
