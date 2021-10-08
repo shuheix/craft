@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # firebase
-firebase/
+src/firebase/craftauth-19733-firebase-adminsdk-pz1fn-c00c4e130c.json
+.env
