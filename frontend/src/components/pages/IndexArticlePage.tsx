@@ -1,3 +1,5 @@
+import React, { useState, VFC } from "react";
+import { useEffect } from "react";
 import {
   Box,
   Button,
@@ -7,8 +9,6 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import React, { useState, VFC } from "react";
-import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { INDEX_ARTICLES_API } from "../../constant/railsRoute";
 import { useIndexArticle } from "../../hooks/useIndexArticle";

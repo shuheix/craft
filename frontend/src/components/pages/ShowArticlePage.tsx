@@ -1,3 +1,4 @@
+import React, { VFC } from "react";
 import {
   Box,
   Center,
@@ -6,7 +7,6 @@ import {
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
 import { useParams } from "react-router-dom";
 import { useArticleFunction } from "../../hooks/useArticleFunction";
 import ShowArticleBody from "../article/body/ShowArticleBody";
@@ -15,7 +15,6 @@ import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import TagList from "../article/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
-import { useFavorite } from "../../hooks/useFavorite";
 import CommentSet from "../article/comment/CommentSet";
 import { useSingleArticle } from "../../hooks/useSingleArticle";
 
