@@ -122,13 +122,13 @@ workflows:
           requires:
             - front_test
           yarn: true
-          working_directory: e2e
+          working_directory: ~/craft/frontend/e2e
       - cypress/run:
           requires:
             - cypress/install
           start: yarn run dev:start
           yarn: true
-          working_directory: e2e
+          working_directory: ~/craft/frontend/e2e
 
 
 
