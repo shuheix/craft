@@ -1,14 +1,16 @@
 import axios from "axios";
 import useSWR from "swr";
-import { SHOW_USERS_API } from "../constant/railsRoute";
-import { ArticleType } from "../types/articleType";
-import { UserType } from "../types/userType";
+import { SHOW_USERS_API } from "../../constant/railsRoute";
+import { ArticleType } from "../../types/articleType";
+import { UserType } from "../../types/userType";
 
 export const useUser = (uid: string) => {
   const { data, error } = useSWR(SHOW_USERS_API(uid), (url: string) =>
     axios
       .get<{
-        articles: (ArticleType[] & { user: UserType }) | null | undefined;
+        articles: ArticleType[];
+        user: UserType;
+        favorite_articles: ArticleType[];
       }>(url)
       .then((res) => res.data)
   );

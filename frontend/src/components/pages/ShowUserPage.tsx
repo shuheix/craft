@@ -1,26 +1,22 @@
+import React, { VFC } from "react";
+
 import {
   Box,
   Button,
   Container,
   Flex,
-  Heading,
-  Stack,
-  Text,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
-import { useUser } from "../../hooks/useUser";
 import Header from "../header/Header";
 import UserImg from "../user/UserImg";
+import UsersArticles from "../user/UserArticles";
+import UsersFavoriteArticles from "../user/UserFavoriteArticles";
 
 const ShowUserPage: VFC = () => {
-  const { uid } = useParams<{ uid: string }>();
-  const { data, isError } = useUser(uid);
-  const history = useHistory();
-
-  if (isError) return <p>error!</p>;
-
   return (
     <>
       <Header />
@@ -36,25 +32,20 @@ const ShowUserPage: VFC = () => {
             </Flex>
           </Box>
           <Box flex="3">
-            <Stack spacing={4}>
-              {data?.articles?.map((articles) => (
-                <Box
-                  shadow="md"
-                  p={5}
-                  borderWidth={1}
-                  key={articles.id}
-                  onClick={() => history.push(SHOW_ARTICLE_URL(articles.id))}
-                  _hover={{
-                    boxShadow: "lg",
-                    cursor: "pointer",
-                  }}
-                  borderRadius="lg"
-                >
-                  <Heading fontSize="xl">{articles.title}</Heading>
-                  <Text>{articles.text}</Text>
-                </Box>
-              ))}
-            </Stack>
+            <Tabs isLazy>
+              <TabList>
+                <Tab>投稿した質問</Tab>
+                <Tab>ブックマークした投稿</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <UsersArticles />
+                </TabPanel>
+                <TabPanel>
+                  <UsersFavoriteArticles />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </Box>
         </Flex>
       </Container>

@@ -18,7 +18,7 @@ export const useGuestAuth = () => {
                 registration: { name: "ゲストユーザー" },
               })
               .then((res) => {
-                history.push(`/users/${res.data.id}`);
+                history.push(`/users/${res.data.uid}`);
               });
           });
         });

@@ -6,7 +6,8 @@ module Api
       def show
         user = User.find_by(uid: params[:id])
         articles = Article.where(user_id: user.id)
-        render json: { articles: articles, user: user }, status: :ok
+        favorite_articles = user.favorite_articles
+        render json: { articles: articles, user: user, favorite_articles: favorite_articles }, status: :ok
       end
 
       def create
