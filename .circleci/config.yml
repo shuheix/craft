@@ -72,8 +72,9 @@ jobs:
             echo "REACT_APP_APP_ID=${REACT_APP_APP_ID}" > .env
             echo "REACT_APP_MEASUREMENT_ID=${REACT_APP_MEASUREMENT_ID}" > .env
       - run:
-          name: yarn start
+          name: yarn REACT_APP_STORAGE_BUCKET
           command: yarn start
+          background: true
 
   # e2e実行job
   front_test:
@@ -107,8 +108,10 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-      - run: yarn add cypress
-      - run: yarn cypress:run
+      - run:
+          command: yarn cypress install
+      - run:
+          command: yarn cypress:run
 
 workflows:
   version: 2
@@ -120,6 +123,7 @@ workflows:
           requires:
             # - build
             - front_server
+
 
 
 
