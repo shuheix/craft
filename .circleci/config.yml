@@ -74,6 +74,7 @@ jobs:
       - run:
           name: yarn start
           command: yarn start
+          background: true
 
   # e2e実行job
   front_test:
@@ -107,7 +108,7 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-      - run: yarn add cypress
+      - run: yarn cypress install
       - run: yarn cypress:run
 
 workflows:
