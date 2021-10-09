@@ -75,7 +75,10 @@ jobs:
           name: yarn REACT_APP_STORAGE_BUCKET
           command: yarn start
           background: true
+<<<<<<< HEAD
 
+=======
+>>>>>>> bbe58f907d7b70801ec9af918563b34df414d168
 
   # e2e実行job
   front_test:
@@ -109,10 +112,15 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+<<<<<<< HEAD
       - run:
           command: yarn cypress install
       - run:
           command: yarn cypress:run
+=======
+      - run: yarn cypress install
+      - run: yarn cypress:run
+>>>>>>> bbe58f907d7b70801ec9af918563b34df414d168
 
 workflows:
   version: 2
