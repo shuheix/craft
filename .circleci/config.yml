@@ -117,7 +117,6 @@ workflows:
       # - build
       - front_server
       - front_test:
-          wait-on: 'http://localhost:3000'
           requires:
             # - build
             - front_server
