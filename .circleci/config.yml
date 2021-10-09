@@ -62,17 +62,25 @@ jobs:
             - v1-deps-{{ .Branch }}
             - v1-deps
       - run:
-          name: Install Dependencies for react
-          command: yarn install
-      - run:
-          name: Install Dependencies for e2e
+          name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
           key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.cache ## cache both yarn and Cypress!
-      - run: PORT=3001 yarn start -d
-
+      - run:
+          name: add env
+          command: |
+            echo "REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY}" > .env
+            echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${REACT_APP_FIREBASE_AUTH_DOMAIN}" > .env
+            echo "REACT_APP_PROJECT_ID=${REACT_APP_PROJECT_ID}" > .env
+            echo "REACT_APP_STORAGE_BUCKET=${REACT_APP_STORAGE_BUCKET}" > .env
+            echo "REACT_APP_MESSAGING_SENDER_ID=${REACT_APP_MESSAGING_SENDER_ID}" > .env
+            echo "REACT_APP_APP_ID=${REACT_APP_APP_ID}" > .env
+            echo "REACT_APP_MEASUREMENT_ID=${REACT_APP_MEASUREMENT_ID}" > .env
+      - run:
+          name: yarn start
+          command: yarn start
 
   # e2e実行
   front_test:
@@ -91,9 +99,6 @@ jobs:
             - v1-deps-{{ .Branch }}
             - v1-deps
       - run:
-          name: Install Dependencies for react
-          command: yarn install
-      - run:
           name: Install Dependencies for e2e
           command: yarn install --frozen-lockfile
       - save_cache:
@@ -107,9 +112,11 @@ workflows:
   all-test:
     jobs:
       - build
+      - front_server
       - front_test:
           requires:
             - build
+            - front_server
 
 
 
