@@ -79,7 +79,7 @@ jobs:
             echo "REACT_APP_MEASUREMENT_ID=${REACT_APP_MEASUREMENT_ID}" > .env
       - run:
           name: yarn start
-          command: yarn start
+          command: yarn start &
 
   # e2e実行
   front_test:
