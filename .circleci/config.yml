@@ -58,16 +58,15 @@ jobs:
           path: ~/craft
       - restore_cache:
           keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-            - v1-deps-{{ .Branch }}
-            - v1-deps
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
       - run:
           name: Install Dependencies
-          command: yarn install --frozen-lockfile
+          command: yarn install
       - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ~/.cache ## cache both yarn and Cypress!
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run:
           name: add env
           command: |
@@ -95,16 +94,15 @@ jobs:
           path: ~/craft
       - restore_cache:
           keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-            - v1-deps-{{ .Branch }}
-            - v1-deps
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
       - run:
           name: Install Dependencies for e2e
           command: yarn install --frozen-lockfile
       - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ~/.cache ## cache both yarn and Cypress!
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn cypress:run
 
 workflows:
