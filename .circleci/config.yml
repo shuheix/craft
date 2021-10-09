@@ -100,9 +100,9 @@ jobs:
           name: Install Dependencies for e2e
           command: yarn install --frozen-lockfile
       - save_cache:
-          paths:
-            - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache ## cache both yarn and Cypress!
       - run: yarn cypress:run
 
 workflows:
