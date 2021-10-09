@@ -100,8 +100,7 @@ jobs:
           command: yarn install --frozen-lockfile
       - save_cache:
           key: v1-dependencies-{{ checksum "e2e/yarn.lock" }}
-          path:
-            - e2e/node_modules
+          path: e2e/node_modules
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
@@ -111,8 +110,7 @@ jobs:
           command: yarn install
       - save_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
-          path:
-            - node_modules
+          path: node_modules
       - run: yarn cypress:run
 
 workflows:
