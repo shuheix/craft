@@ -73,7 +73,7 @@ jobs:
             echo "REACT_APP_MEASUREMENT_ID=${REACT_APP_MEASUREMENT_ID}" > .env
       - run:
           name: yarn start
-          command: yarn start &
+          command: yarn start
 
   # e2e実行job
   front_test:
@@ -114,11 +114,12 @@ workflows:
   version: 2
   all-test:
     jobs:
-      - build
+      # - build
       - front_server
       - front_test:
+          wait-on: 'http://localhost:3000'
           requires:
-            - build
+            # - build
             - front_server
 
 
