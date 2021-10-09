@@ -85,9 +85,9 @@ jobs:
   front_test:
     docker:
       - image: cypress/base:14.16.0
-        environment:
-        - CYPRESS_CACHE_FOLDER: /tmp/.cache/Cypress
-          TERM: xterm
+    environment:
+      - CYPRESS_CACHE_FOLDER: /tmp/.cache/Cypress
+        TERM: xterm
     working_directory: ~/craft/frontend/e2e
     steps:
       - checkout:
