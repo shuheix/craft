@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.28.0
 jobs:
   # rspecのCI
   build:
@@ -42,7 +44,7 @@ jobs:
       - run: bundle exec rake db:schema:load
       - run: bundle exec rspec
 
-  # devサーバー起動job
+  # devサーバー環境
   front_server:
     docker:
       - image: circleci/node:14.4.0-stretch-browsers
@@ -75,12 +77,8 @@ jobs:
           name: yarn REACT_APP_STORAGE_BUCKET
           command: yarn start
           background: true
-<<<<<<< HEAD
 
-=======
->>>>>>> bbe58f907d7b70801ec9af918563b34df414d168
-
-  # e2e実行job
+  # e2e実行環境
   front_test:
     docker:
       - image: cypress/base:14.16.0
@@ -112,15 +110,6 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-<<<<<<< HEAD
-      - run:
-          command: yarn cypress install
-      - run:
-          command: yarn cypress:run
-=======
-      - run: yarn cypress install
-      - run: yarn cypress:run
->>>>>>> bbe58f907d7b70801ec9af918563b34df414d168
 
 workflows:
   version: 2
@@ -128,10 +117,20 @@ workflows:
     jobs:
       # - build
       - front_server
-      - front_test:
+      - front_test
+      - cypress/install:
           requires:
-            # - build
-            - front_server
+            - front_test
+          yarn: true
+          working_directory: e2e
+      - cypress/run:
+          requires:
+            - cypress/install
+          start: yarn run dev:start
+          yarn: true
+          working_directory: e2e
+
+
 
 
 
