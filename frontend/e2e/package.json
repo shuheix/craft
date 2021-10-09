@@ -9,6 +9,7 @@
   },
   "scripts": {
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "dev:start": "cd .. && yarn install && yarn start"
   }
 }
