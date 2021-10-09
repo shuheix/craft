@@ -76,6 +76,7 @@ jobs:
           command: yarn start
           background: true
 
+
   # e2e実行job
   front_test:
     docker:
