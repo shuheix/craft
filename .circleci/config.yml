@@ -86,7 +86,7 @@ jobs:
     docker:
       - image: cypress/base:14.16.0
         environment:
-          ## this enables colors in the output
+        - CYPRESS_CACHE_FOLDER: /tmp/.cache/Cypress
           TERM: xterm
     working_directory: ~/craft/frontend/e2e
     steps:
@@ -102,7 +102,7 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache ## cache both yarn and Cypress!
+            - "/tmp/.cache/Cypress"
       - run: yarn cypress:run
 
 workflows:
