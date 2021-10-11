@@ -1,5 +1,7 @@
-import { HStack, Avatar, Stack, Heading, Text } from "@chakra-ui/react";
 import React, { VFC } from "react";
+
+import dayjs from "dayjs";
+import { HStack, Avatar, Stack, Text } from "@chakra-ui/react";
 import { ArticleApiType } from "../../../types/apiType";
 
 type Props = {
@@ -11,8 +13,10 @@ const ArticleUser: VFC<Props> = (props) => {
     <HStack bgColor="white" borderRadius="2xl" p={5} ml={5} mb={5}>
       <Avatar size="md" />
       <Stack>
-        <Heading size="sm">{data?.articles.user.name}</Heading>
-        <Text>{data?.articles.created_at}</Text>
+        <Text fontSize="sm">{data?.articles.user.name}</Text>
+        <Text fontSize="sm">
+          {dayjs(data?.articles.created_at).format("YYYY年MM月DD年hh時mm分")}
+        </Text>
       </Stack>
     </HStack>
   );

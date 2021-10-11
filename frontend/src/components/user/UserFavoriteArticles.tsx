@@ -15,7 +15,7 @@ const UserFavoriteArticles = () => {
   if (data?.favorite_articles?.length === 0)
     return (
       <Center>
-        <p>ブックマークした投稿はありません。</p>
+        <Text>ブックマークした投稿はありません。</Text>
       </Center>
     );
 

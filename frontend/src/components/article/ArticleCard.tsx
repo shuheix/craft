@@ -21,7 +21,7 @@ const ArticleCard: VFC<Props> = (props) => {
     >
       <Box h="100px" borderTopRadius="10px" bgColor="teal.200"></Box>
       <Box>
-        <Text fontSize={20} fontWeight={500}>
+        <Text fontSize={20} fontWeight={500} pl={3}>
           {title}
         </Text>
       </Box>
