@@ -1,5 +1,7 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
 import React, { VFC } from "react";
+
+import dayjs from "dayjs";
+import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 
 type Props = {
   name?: string;
@@ -10,7 +12,7 @@ type Props = {
 const UserInformation: VFC<Props> = (props) => {
   const { name, boxSize, createdAt } = props;
   return (
-    <Flex>
+    <HStack ml={2}>
       <Image
         src="https://source.unsplash.com/random"
         alt="user_id"
@@ -19,10 +21,12 @@ const UserInformation: VFC<Props> = (props) => {
         mt={1}
       />
       <Box pl={2}>
-        <p>{name}</p>
-        <p>{createdAt}</p>
+        <VStack>
+          <Text fontSize="sm">{name}</Text>
+          <Text fontSize="sm">{dayjs(createdAt).format("YYYY年MM月DD年")}</Text>
+        </VStack>
       </Box>
-    </Flex>
+    </HStack>
   );
 };
 
