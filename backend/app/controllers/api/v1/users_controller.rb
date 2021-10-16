@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      skip_before_action :authenticate_user, only: %i[create show]
+      skip_before_action :authenticate_user, only: %i[create show update]
 
       def show
         user = User.find_by(uid: params[:id])
@@ -13,7 +13,6 @@ module Api
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
 
-        # find_or_initialize_by
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))
         if @user.save
           pp @user
@@ -21,6 +20,12 @@ module Api
         else
           render json: @user.errors, status: :unprocessable_entity
         end
+      end
+
+      def update
+        user = User.find_by(uid: params[:id])
+        user.avatar.attach(params.require(:avatar).permit(:avatar))
+        user.save
       end
 
       private
