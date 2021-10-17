@@ -28,7 +28,9 @@ gem 'rack-cors'
 # firebase Authenticationのトークン解析
 gem 'firebase-auth-rails'
 
+# file upload
 gem 'carrierwave'
+gem 'fog-aws'
 
 # 証明書をrakeタスクで入手
 gem 'kaminari'
