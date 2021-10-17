@@ -24,7 +24,7 @@ module Api
 
       def update_avatar
         user = User.find_by(uid: params[:uid])
-        user.update(params.permit(:avatar))
+        user.update!(params.permit(:avatar,:uid))
         render json: user
       end
 

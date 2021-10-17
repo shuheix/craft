@@ -15,10 +15,16 @@ const UserEditPage = () => {
 
   const onSubmit = (avatar: File) => {
     auth.currentUser?.getIdToken(true).then((token) => {
-      axios.patch(`http://localhost:3000/api/v1/users/${currentUser?.uid}`, {
-        headers: { Authorization: token },
-        avatar,
-      });
+      axios.post(
+        `http://localhost:3000/api/v1/users/${currentUser?.uid}/avatar`,
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "multipart/form-data",
+          },
+          avatar,
+        }
+      );
     });
   };
 
