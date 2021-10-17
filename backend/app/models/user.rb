@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
+
   validates :name, presence: true
   validates :uid, presence: true
 
@@ -6,5 +8,4 @@ class User < ApplicationRecord
   has_many :favorites
   has_many :comments
   has_many :favorite_articles, through: :favorites, source: :article
-  has_one_attached :avatar
 end

@@ -28,6 +28,8 @@ gem 'rack-cors'
 # firebase Authenticationのトークン解析
 gem 'firebase-auth-rails'
 
+gem 'carrierwave'
+
 # 証明書をrakeタスクで入手
 gem 'kaminari'
 gem 'whenever', require: false

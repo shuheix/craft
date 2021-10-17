@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      skip_before_action :authenticate_user, only: %i[create show update]
+      skip_before_action :authenticate_user, only: %i[create show update_avatar]
 
       def show
         user = User.find_by(uid: params[:id])
@@ -22,10 +22,10 @@ module Api
         end
       end
 
-      def update
-        user = User.find_by(uid: params[:id])
-        user.avatar.attach(params.require(:avatar).permit(:avatar))
-        user.save
+      def update_avatar
+        user = User.find_by(uid: params[:uid])
+        user.update(params.permit(:avatar))
+        render json: user
       end
 
       private
@@ -44,6 +44,10 @@ module Api
 
       def payload
         @payload ||= FirebaseIdToken::Signature.verify token
+      end
+
+      def decode(str)
+        Base64.decode64(str.split(',').last)
       end
     end
   end
