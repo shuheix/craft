@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      skip_before_action :authenticate_user, only: %i[create show update_avatar]
+      skip_before_action :authenticate_user, only: %i[create show]
 
       def show
         user = User.find_by(uid: params[:id])
@@ -24,7 +24,7 @@ module Api
 
       def update_avatar
         user = User.find_by(uid: params[:uid])
-        user.update!(params.permit(:avatar,:uid))
+        user.update!(params.require(:headers,:avatar,:user)permit(:avatar,:uid))
         render json: user
       end
 

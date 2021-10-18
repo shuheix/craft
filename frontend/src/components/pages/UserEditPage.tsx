@@ -1,40 +1,43 @@
-import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import { auth } from "../../firebase";
 import axios from "axios";
-import { AuthContext } from "../../providers/AuthProvider";
-
-type Inputs = {
-  avatar: File;
-};
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { auth } from "../../firebase";
 
 const UserEditPage = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { register, handleSubmit } = useForm<Inputs>();
+  const [file, setFile] = useState<File>();
+  const { uid } = useParams<{ uid: string }>();
 
-  const onSubmit = (avatar: File) => {
+  const post = () => {
+    const avatar = new FormData();
+    if (typeof file === "undefined") return;
+    avatar.append("avatar", file);
     auth.currentUser?.getIdToken(true).then((token) => {
-      axios.post(
-        `http://localhost:3000/api/v1/users/${currentUser?.uid}/avatar`,
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "multipart/form-data",
-          },
-          avatar,
-        }
-      );
+      axios({
+        url: `http://localhost:3000/api/v1/users/${uid}/avatar`,
+        method: "POST",
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: token,
+        },
+        data: avatar,
+      }).then((res) => {
+        console.log(res);
+      });
     });
   };
 
+  const getFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.target.files && setFile(event.target.files[0]);
+  };
+
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="file" id="avatar" {...register("avatar")} />
-        <Button type="submit">Sbumit</Button>
+    <div>
+      <form action="">
+        <input type="file" onChange={getFile} />
+        <Button onClick={post}>ボタン</Button>
       </form>
-    </>
+    </div>
   );
 };
 
