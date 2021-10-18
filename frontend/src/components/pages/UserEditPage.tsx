@@ -3,11 +3,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { auth } from "../../firebase";
+import { useUser } from "../../hooks/fetchAPI/useUser";
 import UserAvatar from "../user/UserAvatar";
 
 const UserEditPage = () => {
   const [file, setFile] = useState<File>();
   const { uid } = useParams<{ uid: string }>();
+  const { mutate } = useUser(uid);
 
   const post = () => {
     const avatar = new FormData();
@@ -23,7 +25,7 @@ const UserEditPage = () => {
         },
         data: avatar,
       }).then((res) => {
-        console.log(res.data);
+        mutate();
       });
     });
   };
