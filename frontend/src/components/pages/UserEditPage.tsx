@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { auth } from "../../firebase";
+import UserAvatar from "../user/UserAvatar";
 
 const UserEditPage = () => {
   const [file, setFile] = useState<File>();
@@ -22,7 +23,7 @@ const UserEditPage = () => {
         },
         data: avatar,
       }).then((res) => {
-        console.log(res);
+        console.log(res.data);
       });
     });
   };
@@ -36,6 +37,7 @@ const UserEditPage = () => {
       <form action="">
         <input type="file" onChange={getFile} />
         <Button onClick={post}>ボタン</Button>
+        <UserAvatar />
       </form>
     </div>
   );
