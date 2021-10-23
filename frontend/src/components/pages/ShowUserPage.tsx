@@ -1,35 +1,51 @@
 import React, { VFC } from "react";
 
 import {
+  Avatar,
   Box,
   Button,
   Container,
   Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
-import UserImg from "../user/UserImg";
 import UsersArticles from "../user/UserArticles";
 import UsersFavoriteArticles from "../user/UserFavoriteArticles";
+import UserAvatar from "../user/UserAvatar";
+import AvatarModal from "../user/AvatarModal";
 
 const ShowUserPage: VFC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Header />
       <Container maxW="container.xl">
         <Flex mt={4}>
-          <Box flex="1" bgColor="green.100" h="400px" mr={4}>
-            <Flex flexDirection="column" mt={4} h="400px">
-              <Box flex="4">
-                <UserImg />
-              </Box>
-              <Box flex="1">status</Box>
-              <Button flex="1">プロフ編集</Button>
-            </Flex>
+          <Box flex="1" h="400px" mr={4} border="1px">
+            <VStack>
+              <UserAvatar />
+              <Box>status</Box>
+              <Button onClick={onOpen}>プロフ編集</Button>
+              <Modal onClose={onClose} isOpen={isOpen} isCentered>
+                <ModalOverlay />
+                <ModalContent>
+                  <AvatarModal />
+                </ModalContent>
+              </Modal>
+            </VStack>
           </Box>
           <Box flex="3">
             <Tabs isLazy>
