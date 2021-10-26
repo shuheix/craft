@@ -1,17 +1,12 @@
 import React, { VFC } from "react";
 
 import {
-  Avatar,
   Box,
   Button,
   Container,
   Flex,
   Modal,
-  ModalBody,
-  ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
   Tab,
   TabList,

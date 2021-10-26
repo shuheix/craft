@@ -12,6 +12,7 @@ import Header from "../header/Header";
 
 import { useForm } from "react-hook-form";
 import { useCreateArticle } from "../../hooks/useCreateArticle";
+import InputFileButton from "../article/body/InputFileButton";
 
 const NewArticlePage: VFC = () => {
   type InputValue = {
@@ -67,6 +68,7 @@ const NewArticlePage: VFC = () => {
               rows={20}
             />
           </FormControl>
+          <InputFileButton />
           <Button type="submit" mt={4} isLoading={loading}>
             投稿
           </Button>
