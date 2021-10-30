@@ -58,11 +58,11 @@ module Api
       end
 
       def article_params
-        params.require(:article).permit(:title, :text)
+        params.permit(:title, :text, :image)
       end
 
       def token_from_request_headers
-        params.require(:headers).permit(:Authorization)[:Authorization]
+        request.headers['Authorization']&.split&.last
       end
 
       def token

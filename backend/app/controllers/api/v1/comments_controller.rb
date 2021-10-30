@@ -40,6 +40,10 @@ module Api
       def payload
         @payload ||= FirebaseIdToken::Signature.verify token
       end
+
+      def decode(str)
+        Base64.decode64(str.split(',').last)
+      end
     end
   end
 end

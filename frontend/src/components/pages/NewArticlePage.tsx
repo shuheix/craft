@@ -5,19 +5,21 @@ import {
   Container,
   FormControl,
   FormErrorMessage,
+  HStack,
   Input,
+  Spacer,
   Textarea,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 
 import { useForm } from "react-hook-form";
 import { useCreateArticle } from "../../hooks/useCreateArticle";
-import InputFileButton from "../article/body/InputFileButton";
 
 const NewArticlePage: VFC = () => {
   type InputValue = {
     title: string;
     text: string;
+    image: string;
   };
 
   const {
@@ -68,10 +70,13 @@ const NewArticlePage: VFC = () => {
               rows={20}
             />
           </FormControl>
-          <InputFileButton />
-          <Button type="submit" mt={4} isLoading={loading}>
-            投稿
-          </Button>
+          <HStack mt={3}>
+            <Spacer />
+            <input type="file" id="image" />
+            <Button type="submit" isLoading={loading} variant="solid">
+              投稿
+            </Button>
+          </HStack>
         </form>
       </Container>
     </>

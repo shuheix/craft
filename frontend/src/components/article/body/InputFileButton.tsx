@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
-import { Button } from "@chakra-ui/react";
+import React, { useRef, useState, VFC } from "react";
+import { IconButton } from "@chakra-ui/react";
+import { AttachmentIcon } from "@chakra-ui/icons";
 
-const InputFileButton = () => {
+const InputFileButton: VFC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<File[]>([]);
 
@@ -20,6 +21,7 @@ const InputFileButton = () => {
   return (
     <>
       <input
+        id="image"
         type="file"
         ref={inputRef}
         accept="image/*"
@@ -27,7 +29,11 @@ const InputFileButton = () => {
         onChange={onChangeImage}
         multiple
       />
-      <Button onClick={onButtonClick}>ボタン</Button>
+      <IconButton
+        aria-label="Input-image"
+        icon={<AttachmentIcon />}
+        onClick={onButtonClick}
+      />
       {images?.map((image) => (
         <p>{image.name}</p>
       ))}

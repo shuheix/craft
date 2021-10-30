@@ -2,26 +2,31 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { CREATE_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import { ArticleType } from "../types/articleType";
 
 export const useCreateArticle = () => {
   const [loading, setLoading] = useState<boolean>();
   const history = useHistory();
   const toast = useToast();
 
-  const postArticle = (title: string, text: string) => {
+  const postArticle = (title: string, text: string, image: File) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       setLoading(true);
-      axios
-        .post<{ articles: ArticleType }>(
-          "http://localhost:3000/api/v1/articles",
-          {
-            headers: { Authorization: token },
-            title: title,
-            text: text,
-          }
-        )
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("text", text);
+      formData.append("image", image);
+      console.log(token);
+
+      axios({
+        url: CREATE_ARTICLE_API,
+        method: "POST",
+        headers: {
+          Authorization: token,
+        },
+        data: formData,
+      })
         .then((res) => {
           setLoading(false);
           history.push(`/articles/${res.data.articles.id}`);
