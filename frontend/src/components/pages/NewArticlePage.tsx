@@ -10,6 +10,7 @@ import {
   Input,
   Spacer,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 import { useForm } from "react-hook-form";
@@ -17,6 +18,7 @@ import { AttachmentIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { auth } from "../../firebase";
 import { CREATE_ARTICLE_API } from "../../constant/railsRoute";
+import { useHistory } from "react-router-dom";
 
 type InputValue = {
   title: string;
@@ -26,11 +28,13 @@ type InputValue = {
 const NewArticlePage: VFC = () => {
   const [images, setImages] = useState<File[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const history = useHistory();
+  const toast = useToast();
 
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<InputValue>();
 
   const getImage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +45,7 @@ const NewArticlePage: VFC = () => {
     }
   };
 
-  const onClickInput = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onClickInput = () => {
     inputRef.current?.click();
   };
 
@@ -62,10 +64,24 @@ const NewArticlePage: VFC = () => {
           Authorization: token,
         },
         data: formData,
-      }).then((res) => {
-        const resp = res.status.toString();
-        console.log(resp);
-      });
+      })
+        .then((res) => {
+          history.push(`/articles/${res.data.articles.id}`);
+          toast({
+            title: "投稿しました",
+            status: "success",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "投稿に失敗しました",
+            status: "error",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        });
     });
   };
 
@@ -110,6 +126,7 @@ const NewArticlePage: VFC = () => {
               aria-label="Input-image"
               icon={<AttachmentIcon />}
               onClick={onClickInput}
+              isLoading={isSubmitting}
             />
             <input
               ref={inputRef}
