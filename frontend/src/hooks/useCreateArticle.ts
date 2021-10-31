@@ -10,15 +10,13 @@ export const useCreateArticle = () => {
   const history = useHistory();
   const toast = useToast();
 
-  const postArticle = (title: string, text: string, image: File) => {
+  const postArticle = (title: string, text: string, image: File[]) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       setLoading(true);
       const formData = new FormData();
       formData.append("title", title);
       formData.append("text", text);
-      formData.append("image", image);
       console.log(token);
-
       axios({
         url: CREATE_ARTICLE_API,
         method: "POST",

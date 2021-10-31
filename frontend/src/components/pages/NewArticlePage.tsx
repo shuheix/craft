@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { useRef, useState, VFC } from "react";
 
 import {
   Button,
@@ -6,21 +6,26 @@ import {
   FormControl,
   FormErrorMessage,
   HStack,
+  IconButton,
   Input,
   Spacer,
   Textarea,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
-
 import { useForm } from "react-hook-form";
-import { useCreateArticle } from "../../hooks/useCreateArticle";
+import { AttachmentIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { auth } from "../../firebase";
+import { CREATE_ARTICLE_API } from "../../constant/railsRoute";
+
+type InputValue = {
+  title: string;
+  text: string;
+};
 
 const NewArticlePage: VFC = () => {
-  type InputValue = {
-    title: string;
-    text: string;
-    image: string;
-  };
+  const [images, setImages] = useState<File[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const {
     handleSubmit,
@@ -28,12 +33,41 @@ const NewArticlePage: VFC = () => {
     formState: { errors },
   } = useForm<InputValue>();
 
-  const { postArticle, loading } = useCreateArticle();
+  const getImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputImage = event.target.files;
+    if (inputImage != null) {
+      const inputArray = Array.from(inputImage);
+      setImages(inputArray);
+    }
+  };
+
+  const onClickInput = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    inputRef.current?.click();
+  };
 
   const onSubmit = (data: InputValue) => {
-    postArticle(data.title, data.text);
+    const { title, text } = data;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("text", text);
+    images.forEach((image) => formData.append("image", image));
+    auth.currentUser?.getIdToken(true).then((token) => {
+      axios({
+        url: CREATE_ARTICLE_API,
+        method: "POST",
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: token,
+        },
+        data: formData,
+      }).then((res) => {
+        const resp = res.status.toString();
+        console.log(resp);
+      });
+    });
   };
-  console.log(errors);
 
   return (
     <>
@@ -72,8 +106,21 @@ const NewArticlePage: VFC = () => {
           </FormControl>
           <HStack mt={3}>
             <Spacer />
-            <input type="file" id="image" />
-            <Button type="submit" isLoading={loading} variant="solid">
+            <IconButton
+              aria-label="Input-image"
+              icon={<AttachmentIcon />}
+              onClick={onClickInput}
+            />
+            <input
+              ref={inputRef}
+              type="file"
+              id="image"
+              onChange={getImage}
+              accept="image/*"
+              multiple
+              hidden
+            />
+            <Button type="submit" variant="solid">
               投稿
             </Button>
           </HStack>
