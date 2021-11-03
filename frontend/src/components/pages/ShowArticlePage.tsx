@@ -6,6 +6,7 @@ import {
   Flex,
   Spinner,
   useDisclosure,
+  Image,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useArticleFunction } from "../../hooks/useArticleFunction";
@@ -42,6 +43,7 @@ const ShowArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
+                  <Image src={data?.articles.image.url} boxSize="200px" />
                   <CommentSet articleId={articleId} />
                 </Box>
                 <Box maxW="300px">
