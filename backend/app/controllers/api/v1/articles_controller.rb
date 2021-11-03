@@ -56,8 +56,7 @@ module Api
       end
 
       def article_params
-        params.permit(:title, :text, {image: []})
-        binding.pry
+        params.permit(:title, :text, :image)
       end
 
       def token_from_request_headers

@@ -26,7 +26,7 @@ type InputValue = {
 };
 
 const NewArticlePage: VFC = () => {
-  const [images, setImages] = useState<File[]>([]);
+  const [image, setImage] = useState<File>();
   const inputRef = useRef<HTMLInputElement>(null);
   const history = useHistory();
   const toast = useToast();
@@ -39,9 +39,8 @@ const NewArticlePage: VFC = () => {
 
   const getImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputImage = event.target.files;
-    if (inputImage != null) {
-      const inputArray = Array.from(inputImage);
-      setImages(inputArray);
+    if (inputImage !== null) {
+      setImage(inputImage[0]);
     }
   };
 
@@ -54,7 +53,9 @@ const NewArticlePage: VFC = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("text", text);
-    images.forEach((image) => formData.append("image", image));
+    if (image !== undefined) {
+      formData.append("image", image);
+    }
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         url: CREATE_ARTICLE_API,
@@ -140,6 +141,8 @@ const NewArticlePage: VFC = () => {
             <Button type="submit" variant="solid">
               投稿
             </Button>
+            <br />
+            <p>{image?.name}</p>
           </HStack>
         </form>
       </Container>

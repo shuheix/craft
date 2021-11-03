@@ -13,7 +13,7 @@ export const useCreateArticle = () => {
   const postArticle = (title: string, text: string, image: File[]) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       setLoading(true);
-      const formData = new FormData();
+      let formData = new FormData();
       formData.append("title", title);
       formData.append("text", text);
       console.log(token);

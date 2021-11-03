@@ -10,6 +10,5 @@ COPY Gemfile.lock /craft/backend/Gemfile.lock
 
 RUN gem install bundler
 RUN bundle install
-RUN bundle exec whenever -i
 CMD ["rails", "s", "-b","0.0.0.0"]
 
