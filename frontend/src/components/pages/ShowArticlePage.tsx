@@ -6,7 +6,6 @@ import {
   Flex,
   Spinner,
   useDisclosure,
-  Image,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useArticleFunction } from "../../hooks/useArticleFunction";
@@ -18,6 +17,7 @@ import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import CommentSet from "../article/comment/CommentSet";
 import { useSingleArticle } from "../../hooks/useSingleArticle";
+import ImageModal from "../article/modal/ImageModal";
 
 const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -43,7 +43,7 @@ const ShowArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
-                  <Image src={data?.articles.image.url} boxSize="200px" />
+                  <ImageModal data={data} />
                   <CommentSet articleId={articleId} />
                 </Box>
                 <Box maxW="300px">
