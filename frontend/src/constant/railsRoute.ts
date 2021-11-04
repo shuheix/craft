@@ -7,6 +7,8 @@ export const INDEX_ARTICLES_API = (page: string | null): string =>
 export const SHOW_ARTICLE_API = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}`;
 
+export const CREATE_ARTICLE_API = `${defaultApi}/articles`;
+
 // comments_controller
 export const INDEX_COMMENTS_API = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}/comments`;

@@ -1,35 +1,90 @@
+import React, { useRef, useState, VFC } from "react";
+
 import {
   Button,
   Container,
   FormControl,
   FormErrorMessage,
+  HStack,
+  IconButton,
   Input,
+  Spacer,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
-import { useForm } from "react-hook-form";
-
-import { useCreateArticle } from "../../hooks/useCreateArticle";
 import Header from "../header/Header";
+import { useForm } from "react-hook-form";
+import { AttachmentIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { auth } from "../../firebase";
+import { CREATE_ARTICLE_API } from "../../constant/railsRoute";
+import { useHistory } from "react-router-dom";
+
+type InputValue = {
+  title: string;
+  text: string;
+};
 
 const NewArticlePage: VFC = () => {
-  type InputValue = {
-    title: string;
-    text: string;
-  };
+  const [image, setImage] = useState<File>();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const history = useHistory();
+  const toast = useToast();
 
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<InputValue>();
 
-  const { postArticle, loading } = useCreateArticle();
+  const getImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputImage = event.target.files;
+    if (inputImage !== null) {
+      setImage(inputImage[0]);
+    }
+  };
+
+  const onClickInput = () => {
+    inputRef.current?.click();
+  };
 
   const onSubmit = (data: InputValue) => {
-    postArticle(data.title, data.text);
+    const { title, text } = data;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("text", text);
+    if (image !== undefined) {
+      formData.append("image", image);
+    }
+    auth.currentUser?.getIdToken(true).then((token) => {
+      axios({
+        url: CREATE_ARTICLE_API,
+        method: "POST",
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: token,
+        },
+        data: formData,
+      })
+        .then((res) => {
+          history.push(`/articles/${res.data.articles.id}`);
+          toast({
+            title: "投稿しました",
+            status: "success",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "投稿に失敗しました",
+            status: "error",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        });
+    });
   };
-  console.log(errors);
 
   return (
     <>
@@ -66,9 +121,29 @@ const NewArticlePage: VFC = () => {
               rows={20}
             />
           </FormControl>
-          <Button type="submit" mt={4} isLoading={loading}>
-            投稿
-          </Button>
+          <HStack mt={3}>
+            <Spacer />
+            <IconButton
+              aria-label="Input-image"
+              icon={<AttachmentIcon />}
+              onClick={onClickInput}
+              isLoading={isSubmitting}
+            />
+            <input
+              ref={inputRef}
+              type="file"
+              id="image"
+              onChange={getImage}
+              accept="image/*"
+              multiple
+              hidden
+            />
+            <Button type="submit" variant="solid">
+              投稿
+            </Button>
+            <br />
+            <p>{image?.name}</p>
+          </HStack>
         </form>
       </Container>
     </>

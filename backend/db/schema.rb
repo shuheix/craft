@@ -10,39 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_830_074_628) do
-  create_table 'articles', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb3', force: :cascade do |t|
-    t.string 'title'
-    t.text 'text'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'user_id'
-    t.index ['created_at'], name: 'index_articles_on_created_at', order: :desc
-    t.index ['user_id'], name: 'index_articles_on_user_id'
+ActiveRecord::Schema.define(version: 2021_10_23_142216) do
+
+  create_table "articles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "title"
+    t.text "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.string "image"
+    t.index ["created_at"], name: "index_articles_on_created_at", order: :desc
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-  create_table 'comments', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb3', force: :cascade do |t|
-    t.bigint 'user_id'
-    t.bigint 'article_id'
-    t.text 'text'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "article_id"
+    t.text "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'favorites', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb3', force: :cascade do |t|
-    t.bigint 'user_id'
-    t.bigint 'article_id'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'uid'
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "article_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "uid"
   end
 
-  create_table 'users', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb3', force: :cascade do |t|
-    t.string 'name'
-    t.string 'uid'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "name"
+    t.string "uid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "avatar"
   end
 
-  add_foreign_key 'articles', 'users'
+  add_foreign_key "articles", "users"
 end

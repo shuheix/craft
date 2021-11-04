@@ -13,7 +13,6 @@ module Api
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
 
-        # find_or_initialize_by
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))
         if @user.save
           pp @user
@@ -21,6 +20,12 @@ module Api
         else
           render json: @user.errors, status: :unprocessable_entity
         end
+      end
+
+      def update_avatar
+        user = User.find_by(uid: params[:uid])
+        user.update!(params.permit(:avatar))
+        render json: user
       end
 
       private
@@ -39,6 +44,10 @@ module Api
 
       def payload
         @payload ||= FirebaseIdToken::Signature.verify token
+      end
+
+      def decode(str)
+        Base64.decode64(str.split(',').last)
       end
     end
   end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         resource :favorites, only: %i[create destroy]
         resources :comments
       end
+      post '/users/:uid/avatar', to: 'users#update_avatar'
     end
   end
 end

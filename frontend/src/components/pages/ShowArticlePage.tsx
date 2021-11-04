@@ -17,6 +17,7 @@ import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import CommentSet from "../article/comment/CommentSet";
 import { useSingleArticle } from "../../hooks/useSingleArticle";
+import ImageModal from "../article/modal/ImageModal";
 
 const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -42,6 +43,7 @@ const ShowArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
+                  <ImageModal data={data} />
                   <CommentSet articleId={articleId} />
                 </Box>
                 <Box maxW="300px">

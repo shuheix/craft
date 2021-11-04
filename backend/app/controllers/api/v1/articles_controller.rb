@@ -25,7 +25,6 @@ module Api
         else
           render json: { status: :bad_request }
         end
-        # pp FirebaseIdToken::Signature.verify(params.require(:headers).permit(:Authorization)[:Authorization])
       end
 
       def update
@@ -41,7 +40,6 @@ module Api
 
       def destroy
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
-
         article = Article.find(params[:id])
         if article.user_id == current_user.id
           article.destroy
@@ -58,11 +56,11 @@ module Api
       end
 
       def article_params
-        params.require(:article).permit(:title, :text)
+        params.permit(:title, :text, :image)
       end
 
       def token_from_request_headers
-        params.require(:headers).permit(:Authorization)[:Authorization]
+        request.headers['Authorization']&.split&.last
       end
 
       def token
