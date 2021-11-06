@@ -2,7 +2,8 @@ FROM ruby:2.7.2
 
 RUN apt-get update && \
     apt-get install -y nodejs yarn mariadb-server && \
-    apt-get install cron -y
+    apt-get install cron -y && \
+    apt-get install vim -y
 
 WORKDIR /craft/backend
 COPY Gemfile /craft/backend/Gemfile

@@ -4,7 +4,7 @@ RSpec.describe Article, type: :model do
   describe 'article登録機能' do
     context 'titleとtextとuser_idがあればは有効な状態である' do
       it 'titleとtextとuser_idがある場合' do
-        valid_article = FactoryBot.build(:article)
+        valid_article = FactoryBot.create(:article)
         expect(valid_article).to be_valid
       end
     end
