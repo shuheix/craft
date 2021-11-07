@@ -43,7 +43,7 @@ const ShowArticlePage: VFC = () => {
               <Flex>
                 <Box w="100%">
                   <ShowArticleBody data={data} />
-                  <ImageModal data={data} />
+                  {data?.articles.image.url && <ImageModal data={data} />}
                   <CommentSet articleId={articleId} />
                 </Box>
                 <Box maxW="300px">
