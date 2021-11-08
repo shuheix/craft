@@ -49,6 +49,9 @@ module Api
         end
       end
 
+      def search
+      end
+
       private
 
       def set_id_params

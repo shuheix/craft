@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         resources :comments
       end
       post '/users/:uid/avatar', to: 'users#update_avatar'
+      get '/articles/search', to: 'articles#search'
     end
   end
 end
