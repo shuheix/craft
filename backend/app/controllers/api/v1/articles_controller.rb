@@ -1,7 +1,7 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
-      skip_before_action :authenticate_user, only: %i[index show]
+      skip_before_action :authenticate_user, only: %i[index show search]
 
       def index
         articles = Article.recent.joins(:user).select('articles.*, users.name as user_name').page(params[:page]).per(12)
@@ -50,6 +50,8 @@ module Api
       end
 
       def search
+        articles = Article.where("title Like?","%#{params[:title]}%")
+        render json: articles
       end
 
       private
@@ -62,6 +64,7 @@ module Api
         params.permit(:title, :text, :image)
       end
 
+      # JWTトークン認証
       def token_from_request_headers
         request.headers['Authorization']&.split&.last
       end
