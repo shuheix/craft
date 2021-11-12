@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FAVORITES_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import { useSingleArticle } from "./useSingleArticle";
+import { useSingleArticle } from "./fetch/useSingleArticle";
 
 export const useFavorite = (articleId: string) => {
   const { mutate } = useSingleArticle(articleId);
