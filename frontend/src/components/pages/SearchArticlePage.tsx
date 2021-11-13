@@ -7,14 +7,14 @@ import {
   WrapItem,
   Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, VFC } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useSearchArticle } from "../../hooks/fetch/useSearchArticle";
 import ArticleCard from "../article/ArticleCard";
 import LeftAside from "../aside/LeftAside";
 import Header from "../header/Header";
 
-const SearchArticlePage = () => {
+const SearchArticlePage: VFC = () => {
   const history = useHistory();
   const location = useLocation();
   const { data, isError, isLoading } = useSearchArticle(location.search);

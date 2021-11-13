@@ -1,4 +1,4 @@
-import React from "react";
+import React, { VFC } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -17,7 +17,7 @@ import LoginBody from "./modalContent/LoginBody";
 import { useGoogleAuth } from "../../hooks/useGoogleAuth";
 import { useGuestAuth } from "../../hooks/useGuestAuth";
 
-const AuthModal = () => {
+const AuthModal: VFC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     handleSignUpState,

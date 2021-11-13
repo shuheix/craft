@@ -40,5 +40,6 @@ export const useArticleFunction = (articleId: string) => {
   const onClickEditButton = (): void => {
     history.push(`/articles/${articleId}/edit`);
   };
+
   return { onClickDestroyButton, onClickEditButton };
 };

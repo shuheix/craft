@@ -1,13 +1,13 @@
 import { Button } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, VFC } from "react";
 import { useParams } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useUser } from "../../hooks/fetch/useUser";
 import AvatarModal from "../user/AvatarModal";
 import UserAvatar from "../user/UserAvatar";
 
-const UserEditPage = () => {
+const UserEditPage: VFC = () => {
   const [file, setFile] = useState<File>();
   const { uid } = useParams<{ uid: string }>();
   const { mutate } = useUser(uid);

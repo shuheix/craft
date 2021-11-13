@@ -100,9 +100,7 @@ const Header: VFC = () => {
                         <MenuItem onClick={goUserPage}>マイページ</MenuItem>
                       </MenuGroup>
                       <MenuDivider />
-                      <MenuGroup title="Help">
-                        <MenuItem onClick={logout}>ログアウト</MenuItem>
-                      </MenuGroup>
+                      <MenuItem onClick={logout}>ログアウト</MenuItem>
                     </MenuList>
                   </Menu>
                   <Button ml={4} onClick={goEdit}>

@@ -11,15 +11,13 @@ import {
   IconButton,
   Spacer,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 import { AttachmentIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import {
-  CREATE_ARTICLE_API,
-  EDIT_ARTICLE_API,
-} from "../../constant/railsRoute";
+import { EDIT_ARTICLE_API } from "../../constant/railsRoute";
 import { auth } from "../../firebase";
 import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
 
@@ -90,6 +88,8 @@ const EditArticleLayout: VFC = () => {
         });
     });
   };
+  if (isLoading) return <Spinner />;
+  if (isError) return <p>Error!</p>;
 
   return (
     <>
