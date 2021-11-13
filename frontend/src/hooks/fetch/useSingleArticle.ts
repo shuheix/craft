@@ -1,7 +1,7 @@
 import axios from "axios";
 import useSWR from "swr";
-import { SHOW_ARTICLE_API } from "../constant/railsRoute";
-import { ArticleApiType } from "../types/apiType";
+import { SHOW_ARTICLE_API } from "../../constant/railsRoute";
+import { ArticleApiType } from "../../types/apiType";
 
 export const useSingleArticle = (articleId: string) => {
   const { data, error, mutate } = useSWR(

@@ -2,8 +2,8 @@ import React from "react";
 
 import { Box, Center, Heading, Spinner, Stack, Text } from "@chakra-ui/react";
 import { useHistory, useParams } from "react-router-dom";
-import { useUser } from "../../hooks/fetchAPI/useUser";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
+import { useUser } from "../../hooks/fetch/useUser";
 
 const UserFavoriteArticles = () => {
   const { uid } = useParams<{ uid: string }>();

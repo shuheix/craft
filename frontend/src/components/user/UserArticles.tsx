@@ -2,7 +2,7 @@ import React from "react";
 
 import { Stack, Box, Heading, Text, Spinner, Center } from "@chakra-ui/react";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
-import { useUser } from "../../hooks/fetchAPI/useUser";
+import { useUser } from "../../hooks/fetch/useUser";
 import { useHistory, useParams } from "react-router-dom";
 
 const UserArticles = () => {

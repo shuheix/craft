@@ -16,7 +16,7 @@ import TagList from "../article/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import CommentSet from "../article/comment/CommentSet";
-import { useSingleArticle } from "../../hooks/useSingleArticle";
+import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
 import ImageModal from "../article/modal/ImageModal";
 
 const ShowArticlePage: VFC = () => {

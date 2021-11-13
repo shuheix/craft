@@ -8,6 +8,7 @@ import NewArticlePage from "../components/pages/NewArticlePage";
 import EditArticlePage from "../components/pages/EditArticlePage";
 import ShowUserPage from "../components/pages/ShowUserPage";
 import UserEditPage from "../components/pages/UserEditPage";
+import SearchArticlePage from "../components/pages/SearchArticlePage";
 // import Page404 from "../components/pages/Page404";
 
 const Router: VFC = () => {
@@ -19,6 +20,9 @@ const Router: VFC = () => {
         </Route>
         <Route path="/articles/new">
           <NewArticlePage />
+        </Route>
+        <Route path="/articles/search">
+          <SearchArticlePage />
         </Route>
         <Route exact path="/articles/:articleId(\d+)">
           <ShowArticlePage />
