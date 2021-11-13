@@ -9,6 +9,9 @@ export const SHOW_ARTICLE_API = (articleId: string): string =>
 
 export const CREATE_ARTICLE_API = `${defaultApi}/articles`;
 
+export const EDIT_ARTICLE_API = (articleId: string) =>
+  `${defaultApi}/articles/${articleId}`;
+
 export const SEARCH_ARTICLE_API = (querry: string) =>
   `${defaultApi}/articles/search${querry}`;
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { ArticleApiType } from "../types/apiType";
+import { ArticleApiType } from "../../types/apiType";
 
 export const useFetchSingleArticle = () => {
   const [loading, setLoading] = useState<boolean>(false);

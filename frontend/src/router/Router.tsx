@@ -9,7 +9,6 @@ import EditArticlePage from "../components/pages/EditArticlePage";
 import ShowUserPage from "../components/pages/ShowUserPage";
 import UserEditPage from "../components/pages/UserEditPage";
 import SearchArticlePage from "../components/pages/SearchArticlePage";
-// import Page404 from "../components/pages/Page404";
 
 const Router: VFC = () => {
   return (

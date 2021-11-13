@@ -1,59 +1,157 @@
-import React, { useEffect, VFC } from "react";
-import { useParams } from "react-router-dom";
-import { SHOW_ARTICLE_API } from "../../constant/railsRoute";
+import React, { useRef, useState, VFC } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import {
   Container,
-  Box,
-  Spinner,
   Input,
   Textarea,
   Button,
+  FormControl,
+  FormErrorMessage,
+  HStack,
+  IconButton,
+  Spacer,
+  useToast,
 } from "@chakra-ui/react";
-import { useUpdateArticle } from "../../hooks/useUpdateArticle";
 import Header from "../header/Header";
-import { useFetchSingleArticle } from "../../hooks/useFetchSingleArticle";
+import { AttachmentIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import {
+  CREATE_ARTICLE_API,
+  EDIT_ARTICLE_API,
+} from "../../constant/railsRoute";
+import { auth } from "../../firebase";
+import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
+
+type InputValue = {
+  title: string;
+  text: string;
+};
 
 const EditArticleLayout: VFC = () => {
-  const { fetchSingleArticle, loading, error, data } = useFetchSingleArticle();
+  const [image, setImage] = useState<File>();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const history = useHistory();
+  const toast = useToast();
   const { articleId } = useParams<{ articleId: string }>();
+  const { data, isLoading, isError } = useSingleArticle(articleId);
+
   const {
-    handleTextareaValue,
-    handleTitleValue,
-    postArticle,
-  } = useUpdateArticle({
-    title: data?.articles.title,
-    text: data?.articles.text,
-  });
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<InputValue>();
 
-  useEffect(() => {
-    fetchSingleArticle(SHOW_ARTICLE_API(articleId));
-  }, [articleId, fetchSingleArticle]);
+  const getImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputImage = event.target.files;
+    if (inputImage !== null) {
+      setImage(inputImage[0]);
+    }
+  };
 
-  if (error) return <div>Error!</div>;
+  const onClickInput = () => {
+    inputRef.current?.click();
+  };
+
+  const onSubmit = (data: InputValue) => {
+    const { title, text } = data;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("text", text);
+    if (image !== undefined) {
+      formData.append("image", image);
+    }
+    auth.currentUser?.getIdToken(true).then((token) => {
+      axios({
+        url: EDIT_ARTICLE_API(articleId),
+        method: "PATCH",
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: token,
+        },
+        data: formData,
+      })
+        .then((res) => {
+          history.push(`/articles/${res.data.articles.id}`);
+          toast({
+            title: "投稿しました",
+            status: "success",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "投稿に失敗しました",
+            status: "error",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        });
+    });
+  };
+
   return (
     <>
       <Header />
       <Container px={0} py={20} maxW="container.lg">
-        {loading ? (
-          <Box>
-            <Spinner />
-          </Box>
-        ) : (
-          <Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl isInvalid={!!errors.title || !!errors.text}>
+            <FormErrorMessage>
+              {errors.title && errors.title?.message}
+            </FormErrorMessage>
             <Input
+              id="title"
               defaultValue={data?.articles.title}
-              onChange={handleTitleValue}
+              placeholder="タイトル"
+              {...register("title", {
+                required: "タイトルが未入力です",
+                maxLength: { value: 30, message: "タイトルは最大30文字です" },
+              })}
               minH="50px"
-              mb={5}
+              mb={10}
             />
+            <FormErrorMessage>
+              {errors.text && errors.text?.message}
+            </FormErrorMessage>
             <Textarea
+              resize="none"
+              id="text"
               defaultValue={data?.articles.text}
-              onChange={handleTextareaValue}
-              rows={25}
+              {...register("text", {
+                required: "内容が未入力です",
+                maxLength: {
+                  value: 10000,
+                  message: "投稿内容は、最大10000文字です",
+                },
+              })}
+              rows={20}
             />
-            <Button onClick={() => postArticle(articleId)}>投稿</Button>
-          </Box>
-        )}
+          </FormControl>
+          <HStack mt={3}>
+            <Spacer />
+            <IconButton
+              aria-label="Input-image"
+              icon={<AttachmentIcon />}
+              onClick={onClickInput}
+              isLoading={isSubmitting}
+            />
+            <input
+              ref={inputRef}
+              type="file"
+              id="image"
+              onChange={getImage}
+              accept="image/*"
+              multiple
+              hidden
+            />
+            <Button type="submit" variant="solid">
+              投稿
+            </Button>
+            <br />
+            <p>{image?.name}</p>
+          </HStack>
+        </form>
       </Container>
     </>
   );
