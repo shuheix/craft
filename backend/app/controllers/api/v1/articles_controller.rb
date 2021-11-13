@@ -51,7 +51,7 @@ module Api
 
       def search
         articles = Article.where("title Like?","%#{params[:title]}%")
-        render json: articles
+        render json: {articles: articles}
       end
 
       private

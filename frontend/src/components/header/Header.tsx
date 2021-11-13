@@ -1,3 +1,4 @@
+import React, { useContext, useState, VFC } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -7,6 +8,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  InputRightElement,
   Menu,
   MenuButton,
   MenuDivider,
@@ -15,7 +17,6 @@ import {
   MenuList,
   Spacer,
 } from "@chakra-ui/react";
-import React, { useContext, VFC } from "react";
 import { useHistory } from "react-router-dom";
 import { INDEX_ARTICLE_URL, NEW_ARTICLE_URL } from "../../constant/appHistory";
 import { useAuth } from "../../hooks/useAuth";
@@ -25,6 +26,7 @@ import AppLogo from "../common/AppLogo";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
+  const [searchInput, setSearchInput] = useState("");
   const history = useHistory();
   const goHome = () => {
     history.push(INDEX_ARTICLE_URL);
@@ -37,6 +39,21 @@ const Header: VFC = () => {
   const goUserPage = () => {
     const uid = currentUser?.uid;
     history.push(`/users/${uid}`);
+  };
+
+  const searchArticle = () => {
+    if (searchInput === "") return;
+    history.push(`/articles/search?title=${searchInput}`);
+  };
+
+  const pressEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && searchInput !== "") {
+      history.push(`/articles/search?title=${searchInput}`);
+    }
+  };
+
+  const inputData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
   };
 
   const { logout } = useAuth();
@@ -57,7 +74,17 @@ const Header: VFC = () => {
             <Box flex={2}>
               <InputGroup>
                 <InputLeftAddon children={<SearchIcon />} />
-                <Input type="tel" placeholder="検索" />
+                <Input
+                  placeholder="検索"
+                  value={searchInput}
+                  onChange={inputData}
+                  onKeyPress={pressEnterKey}
+                />
+                <InputRightElement>
+                  <Button size="md" onClick={searchArticle}>
+                    検索
+                  </Button>
+                </InputRightElement>
               </InputGroup>
               <Spacer />
             </Box>
