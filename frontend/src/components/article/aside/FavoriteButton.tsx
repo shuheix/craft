@@ -2,7 +2,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
 import { useFavorite } from "../../../hooks/useFavorite";
-import { useSingleArticle } from "../../../hooks/useSingleArticle";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 import { AuthContext } from "../../../providers/AuthProvider";
 
 type Props = {

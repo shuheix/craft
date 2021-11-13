@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { auth } from "../../firebase";
-import { useUser } from "../../hooks/fetchAPI/useUser";
+import { useUser } from "../../hooks/fetch/useUser";
 import AvatarModal from "../user/AvatarModal";
 import UserAvatar from "../user/UserAvatar";
 

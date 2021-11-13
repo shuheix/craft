@@ -1,8 +1,8 @@
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Button } from "@chakra-ui/react";
 import React, { useContext, VFC } from "react";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 import { useArticleFunction } from "../../../hooks/useArticleFunction";
-import { useSingleArticle } from "../../../hooks/useSingleArticle";
 import { AuthContext } from "../../../providers/AuthProvider";
 import FavoriteButton from "./FavoriteButton";
 

@@ -9,16 +9,17 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import ArticleCard from "../article/ArticleCard";
 import LeftAside from "../aside/LeftAside";
 import Header from "../header/Header";
+import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 
 const IndexArticlePage: VFC = () => {
   const history = useHistory();
   const { data, isError, isLoading } = useIndexArticle();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  if (isError) return <p>error!</p>;
   return (
     <>
       <Header />

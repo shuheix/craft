@@ -3,7 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { SHOW_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import { useSingleArticle } from "./useSingleArticle";
+import { useSingleArticle } from "./fetch/useSingleArticle";
 
 export const useArticleFunction = (articleId: string) => {
   const history = useHistory();

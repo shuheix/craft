@@ -1,7 +1,7 @@
 import { Avatar, Spinner } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { useParams } from "react-router-dom";
-import { useUser } from "../../hooks/fetchAPI/useUser";
+import { useUser } from "../../hooks/fetch/useUser";
 
 type AvatarSize = {
   size?:
