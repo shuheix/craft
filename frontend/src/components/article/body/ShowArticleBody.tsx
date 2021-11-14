@@ -25,11 +25,11 @@ const ShowArticleBody: VFC<Props> = (props) => {
             <HStack spacing={5} justify="flex-end" pr={8}>
               <Text>
                 投稿日:
-                {dayjs(data?.articles.created_at).format("YYYY年MM月DD年")}
+                {dayjs(data?.articles.created_at).format("YYYY年MM月DD日")}
               </Text>
               <Text>
                 更新日:
-                {dayjs(data?.articles.updated_at).format("YYYY年MM月DD年")}
+                {dayjs(data?.articles.updated_at).format("YYYY年MM月DD日")}
               </Text>
             </HStack>
           </Stack>
