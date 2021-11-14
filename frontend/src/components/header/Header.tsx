@@ -1,10 +1,11 @@
 import React, { useContext, useState, VFC } from "react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { EditIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Container,
   Flex,
+  IconButton,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -16,6 +17,7 @@ import {
   MenuItem,
   MenuList,
   Spacer,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { INDEX_ARTICLE_URL, NEW_ARTICLE_URL } from "../../constant/appHistory";
@@ -27,6 +29,7 @@ import AppLogo from "../common/AppLogo";
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchInput, setSearchInput] = useState("");
+  const [isLargerThan768px] = useMediaQuery("(min-Width: 768px)");
   const history = useHistory();
   const goHome = () => {
     history.push(INDEX_ARTICLE_URL);
@@ -103,9 +106,18 @@ const Header: VFC = () => {
                       <MenuItem onClick={logout}>ログアウト</MenuItem>
                     </MenuList>
                   </Menu>
-                  <Button ml={4} onClick={goEdit}>
-                    記事投稿
-                  </Button>
+                  {isLargerThan768px ? (
+                    <Button ml={4} onClick={goEdit}>
+                      記事投稿
+                    </Button>
+                  ) : (
+                    <IconButton
+                      icon={<EditIcon />}
+                      aria-label="edit"
+                      ml={4}
+                      onClick={goEdit}
+                    />
+                  )}
                 </Flex>
               ) : (
                 <Flex justifyContent="flex-end">
