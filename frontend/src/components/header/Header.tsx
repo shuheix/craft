@@ -1,11 +1,10 @@
 import React, { useContext, useState, VFC } from "react";
-import { EditIcon, SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Container,
   Flex,
-  IconButton,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -17,32 +16,21 @@ import {
   MenuItem,
   MenuList,
   Spacer,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-import { INDEX_ARTICLE_URL, NEW_ARTICLE_URL } from "../../constant/appHistory";
 import { useAuth } from "../../hooks/useAuth";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
+import EditIconButton from "./EditIconButton";
+import { useAppHistory } from "../../hooks/useAppHistory";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchInput, setSearchInput] = useState("");
-  const [isLargerThan768px] = useMediaQuery("(min-Width: 768px)");
+  const { goHomePage, goEditPage, goUserPage } = useAppHistory();
+  const { logout } = useAuth();
   const history = useHistory();
-  const goHome = () => {
-    history.push(INDEX_ARTICLE_URL);
-  };
-
-  const goEdit = () => {
-    history.push(NEW_ARTICLE_URL);
-  };
-
-  const goUserPage = () => {
-    const uid = currentUser?.uid;
-    history.push(`/users/${uid}`);
-  };
 
   const searchArticle = () => {
     if (searchInput === "") return;
@@ -59,8 +47,6 @@ const Header: VFC = () => {
     setSearchInput(event.target.value);
   };
 
-  const { logout } = useAuth();
-
   return (
     <>
       <Box height="65px" px={5} w="100%" bgColor="gray.50">
@@ -71,7 +57,7 @@ const Header: VFC = () => {
             justifyContent="space-between"
           >
             <Box flex={1}>
-              <AppLogo goHome={goHome} />
+              <AppLogo goHome={goHomePage} />
               <Spacer />
             </Box>
             <Box flex={2}>
@@ -106,18 +92,6 @@ const Header: VFC = () => {
                       <MenuItem onClick={logout}>ログアウト</MenuItem>
                     </MenuList>
                   </Menu>
-                  {isLargerThan768px ? (
-                    <Button ml={4} onClick={goEdit}>
-                      記事投稿
-                    </Button>
-                  ) : (
-                    <IconButton
-                      icon={<EditIcon />}
-                      aria-label="edit"
-                      ml={4}
-                      onClick={goEdit}
-                    />
-                  )}
                 </Flex>
               ) : (
                 <Flex justifyContent="flex-end">
@@ -125,6 +99,7 @@ const Header: VFC = () => {
                 </Flex>
               )}
             </Box>
+            <EditIconButton />
           </Flex>
         </Container>
       </Box>
