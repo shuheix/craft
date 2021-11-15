@@ -1,5 +1,14 @@
 import React, { VFC } from "react";
-import { Box, Container, Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Container,
+  Flex,
+  HStack,
+  SimpleGrid,
+  Spinner,
+  VStack,
+} from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import Header from "../header/Header";
 import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
@@ -42,7 +51,13 @@ const IndexArticlePage: VFC = () => {
                 bgColor="white"
                 borderRadius="xl"
               >
-                {article.title}
+                <HStack h="100%">
+                  <Avatar ml={4} />
+                  <VStack>
+                    <Box>{article.title}</Box>
+                    <Box>{article.title}</Box>
+                  </VStack>
+                </HStack>
               </Box>
             ))}
           </SimpleGrid>

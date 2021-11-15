@@ -15,10 +15,11 @@ type AvatarSize = {
     | "xl"
     | "full"
     | undefined;
+  user_id?: string;
 };
 
 const UserAvatar: VFC<AvatarSize> = (props) => {
-  const { size } = props;
+  const { size, user_id } = props;
   const { uid } = useParams<{ uid: string }>();
   const { data, isLoading, isError } = useUser(uid);
 
