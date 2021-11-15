@@ -52,10 +52,10 @@ const IndexArticlePage: VFC = () => {
                 borderRadius="xl"
               >
                 <HStack h="100%">
-                  <Avatar ml={4} />
+                  <Avatar ml={4} src={article.avatar} />
                   <VStack>
                     <Box>{article.title}</Box>
-                    <Box>{article.title}</Box>
+                    <Box>{article.avatar}</Box>
                   </VStack>
                 </HStack>
               </Box>

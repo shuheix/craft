@@ -4,7 +4,8 @@ module Api
       skip_before_action :authenticate_user, only: %i[index show search]
 
       def index
-        articles = Article.recent.joins(:user).select('articles.*, users.name as user_name').page(params[:page]).per(12)
+        articles = Article.recent.joins(:user).select('articles.*, users.name as user_name,users.avatar').page(params[:page]).per(12)
+        # articles = Article.recent.joins(:user).select('articles.*, users.name as user_name').page(params[:page]).per(12)
         total_pages = articles.total_pages
         render json: { articles: articles, total_pages: total_pages }, status: :ok
       end
