@@ -21,6 +21,18 @@ const EditIconButton: VFC = () => {
           onClick={goEditPage}
         />
       )}
+      {/* {isLargerThan768px ? (
+        <Button ml={4} onClick={goEditPage}>
+          記事投稿
+        </Button>
+      ) : (
+        <IconButton
+          icon={<EditIcon />}
+          aria-label="edit"
+          ml={4}
+          onClick={goEditPage}
+        />
+      )} */}
     </>
   );
 };

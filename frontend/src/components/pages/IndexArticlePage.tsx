@@ -1,22 +1,15 @@
 import React, { VFC } from "react";
-import {
-  Box,
-  Container,
-  Flex,
-  Spinner,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
-import { useHistory, useLocation } from "react-router-dom";
-import ArticleCard from "../article/ArticleCard";
+import { Box, Container, Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import Header from "../header/Header";
 import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import PageSelect from "../footer/PageSelect";
+import { useAppHistory } from "../../hooks/useAppHistory";
 
 const IndexArticlePage: VFC = () => {
-  const history = useHistory();
   const location = useLocation();
   const { data, isError, isLoading } = useIndexArticle(location.search);
+  const { goShowArticlePage } = useAppHistory();
 
   if (isError) return <p>error!</p>;
   if (isLoading)
@@ -26,37 +19,37 @@ const IndexArticlePage: VFC = () => {
       </Box>
     );
   return (
-    <>
+    <Box bgColor="teal.50" minH="100vh">
       <Header />
-      <Container maxW="container.xl">
-        <Flex>
-          <Flex flexDirection="column" ml={10}>
-            <>
-              <Wrap flex={1} justify="flex-end" spacing="30px">
-                {data &&
-                  data.articles.map((article) => (
-                    <WrapItem
-                      key={article.id}
-                      onClick={() => history.push(`/articles/${article.id}`)}
-                      _hover={{
-                        boxShadow: "xl",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <ArticleCard
-                        title={article.title}
-                        username={article.user_name}
-                        createdAt={article.created_at}
-                      />
-                    </WrapItem>
-                  ))}
-              </Wrap>
-            </>
-          </Flex>
-        </Flex>
-        <PageSelect data={data} />
-      </Container>
-    </>
+      <Flex>
+        <Container maxW="container.xl">
+          <SimpleGrid
+            columns={{ md: 2 }}
+            spacingX="40px"
+            spacingY="20px"
+            mt={20}
+          >
+            {data?.articles.map((article) => (
+              <Box
+                key={article.id}
+                onClick={() => goShowArticlePage(article.id)}
+                boxShadow="md"
+                _hover={{
+                  cursor: "pointer",
+                  boxShadow: "xl",
+                }}
+                height="100px"
+                bgColor="white"
+                borderRadius="xl"
+              >
+                {article.title}
+              </Box>
+            ))}
+          </SimpleGrid>
+          <PageSelect data={data} />
+        </Container>
+      </Flex>
+    </Box>
   );
 };
 

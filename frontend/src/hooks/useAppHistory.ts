@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { INDEX_ARTICLE_URL, NEW_ARTICLE_URL } from "../constant/appHistory";
+import {
+  INDEX_ARTICLE_URL,
+  NEW_ARTICLE_URL,
+  SHOW_ARTICLE_URL,
+} from "../constant/appHistory";
 import { AuthContext } from "../providers/AuthProvider";
 
 export const useAppHistory = () => {
@@ -19,5 +23,9 @@ export const useAppHistory = () => {
     const uid = currentUser?.uid;
     history.push(`/users/${uid}`);
   };
-  return { goHomePage, goEditPage, goUserPage };
+
+  const goShowArticlePage = (articleId: string) => {
+    history.push(SHOW_ARTICLE_URL(articleId));
+  };
+  return { goHomePage, goEditPage, goUserPage, goShowArticlePage };
 };

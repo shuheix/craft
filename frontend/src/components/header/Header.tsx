@@ -28,7 +28,7 @@ import { useAppHistory } from "../../hooks/useAppHistory";
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchInput, setSearchInput] = useState("");
-  const { goHomePage, goEditPage, goUserPage } = useAppHistory();
+  const { goHomePage, goUserPage } = useAppHistory();
   const { logout } = useAuth();
   const history = useHistory();
 
