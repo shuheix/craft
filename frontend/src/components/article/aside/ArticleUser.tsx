@@ -10,7 +10,7 @@ type Props = {
 const ArticleUser: VFC<Props> = (props) => {
   const { data } = props;
   return (
-    <HStack bgColor="white" borderRadius="2xl" p={5} ml={5} mb={5}>
+    <HStack bgColor="white" borderRadius="2xl" p={5} mb={5}>
       <Avatar size="md" />
       <Stack>
         <Text fontSize="sm">{data?.articles.user.name}</Text>

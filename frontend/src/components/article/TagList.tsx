@@ -3,7 +3,7 @@ import React, { VFC } from "react";
 
 const TagList: VFC = () => {
   return (
-    <Wrap ml={5} mb={5} bgColor="white" borderRadius="2xl" p={5}>
+    <Wrap mb={5} bgColor="white" borderRadius="2xl" p={5}>
       <WrapItem>
         <Tag>
           <TagLabel>#tag_</TagLabel>

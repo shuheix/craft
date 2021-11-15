@@ -49,12 +49,13 @@ const ShowArticlePage: VFC = () => {
         >
           <Box display={{ md: "flex" }}>
             <Box w="100%">
+              {isLargerThan768 || <ArticleUser data={data} />}
               <ShowArticleBody data={data} />
               {data?.articles.image.url && <ImageModal data={data} />}
               <CommentSet articleId={articleId} />
             </Box>
             {isLargerThan768 && (
-              <Box maxW="300px">
+              <Box maxW="300px" mx={5} pr={5}>
                 <ArticleUser data={data} />
                 <TagList />
                 <ButtonKit onOpen={onOpen} articleId={articleId} />
