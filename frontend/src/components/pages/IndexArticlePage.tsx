@@ -3,7 +3,7 @@ import {
   Avatar,
   Box,
   Container,
-  Flex,
+  Heading,
   HStack,
   SimpleGrid,
   Spinner,
@@ -14,6 +14,8 @@ import Header from "../header/Header";
 import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import PageSelect from "../footer/PageSelect";
 import { useAppHistory } from "../../hooks/useAppHistory";
+import dayjs from "dayjs";
+import { CalendarIcon } from "@chakra-ui/icons";
 
 const IndexArticlePage: VFC = () => {
   const location = useLocation();
@@ -30,40 +32,38 @@ const IndexArticlePage: VFC = () => {
   return (
     <Box bgColor="teal.50" minH="100vh">
       <Header />
-      <Flex>
-        <Container maxW="container.xl">
-          <SimpleGrid
-            columns={{ md: 2 }}
-            spacingX="40px"
-            spacingY="20px"
-            mt={20}
-          >
-            {data?.articles.map((article) => (
-              <Box
-                key={article.id}
-                onClick={() => goShowArticlePage(article.id)}
-                boxShadow="md"
-                _hover={{
-                  cursor: "pointer",
-                  boxShadow: "xl",
-                }}
-                height="100px"
-                bgColor="white"
-                borderRadius="xl"
-              >
-                <HStack h="100%">
-                  <Avatar ml={4} src={article.avatar} />
-                  <VStack>
-                    <Box>{article.title}</Box>
-                    <Box>{article.avatar}</Box>
-                  </VStack>
-                </HStack>
-              </Box>
-            ))}
-          </SimpleGrid>
-          <PageSelect data={data} />
-        </Container>
-      </Flex>
+      <Container maxW="container.xl">
+        <SimpleGrid columns={{ md: 2 }} spacingX="40px" spacingY="20px" mt={20}>
+          {data?.articles.map((article) => (
+            <Box
+              key={article.id}
+              onClick={() => goShowArticlePage(article.id)}
+              boxShadow="md"
+              _hover={{
+                cursor: "pointer",
+                boxShadow: "xl",
+              }}
+              height="100px"
+              bgColor="white"
+              borderRadius="xl"
+            >
+              <HStack h="100%">
+                <Avatar ml={4} src={article.avatar} />
+                <VStack spacing={2} flexGrow={1}>
+                  <Heading size="sm" maxWidth="100%">
+                    {article.title}
+                  </Heading>
+                  <Box>
+                    <CalendarIcon mr={2} />
+                    {dayjs(article.created_at).format("YYYY年MM月DD日")}
+                  </Box>
+                </VStack>
+              </HStack>
+            </Box>
+          ))}
+        </SimpleGrid>
+        <PageSelect data={data} />
+      </Container>
     </Box>
   );
 };

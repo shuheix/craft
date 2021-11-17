@@ -24,6 +24,7 @@ import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
 import EditIconButton from "./EditIconButton";
 import { useAppHistory } from "../../hooks/useAppHistory";
+import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -31,6 +32,7 @@ const Header: VFC = () => {
   const { goHomePage, goUserPage } = useAppHistory();
   const { logout } = useAuth();
   const history = useHistory();
+  const { isLargerThan768 } = useResponsiveStyle();
 
   const searchArticle = () => {
     if (searchInput === "") return;

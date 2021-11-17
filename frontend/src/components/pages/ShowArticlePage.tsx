@@ -3,7 +3,6 @@ import {
   Box,
   Center,
   Container,
-  Flex,
   Spinner,
   useDisclosure,
   useMediaQuery,
@@ -41,12 +40,7 @@ const ShowArticlePage: VFC = () => {
     <>
       <Box bgColor="teal.50" minH="100vh">
         <Header />
-        <Container
-          py={20}
-          maxW="container.lg"
-          mx={{ md: 10, sm: 5 }}
-          pr={{ sm: 10 }}
-        >
+        <Container py={20} maxW="container.xl" pr={{ sm: 10 }}>
           <Box display={{ md: "flex" }}>
             <Box w="100%">
               {isLargerThan768 || <ArticleUser data={data} />}
