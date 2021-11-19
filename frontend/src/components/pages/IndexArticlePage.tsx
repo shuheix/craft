@@ -15,7 +15,6 @@ import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import PageSelect from "../footer/PageSelect";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import dayjs from "dayjs";
-import { CalendarIcon } from "@chakra-ui/icons";
 
 const IndexArticlePage: VFC = () => {
   const location = useLocation();
@@ -47,16 +46,15 @@ const IndexArticlePage: VFC = () => {
               bgColor="white"
               borderRadius="xl"
             >
-              <HStack h="100%">
-                <Avatar ml={4} src={article.avatar} />
+              <HStack h="100%" px={4}>
+                <Avatar src={article.avatar} />
                 <VStack spacing={2} flexGrow={1}>
-                  <Heading size="sm" maxWidth="100%">
+                  <Heading size="sm" maxWidth="100%" alignSelf="flex-start">
                     {article.title}
                   </Heading>
-                  <Box>
-                    <CalendarIcon mr={2} />
+                  <Heading size="xs" alignSelf="flex-end" mr={4}>
                     {dayjs(article.created_at).format("YYYY年MM月DD日")}
-                  </Box>
+                  </Heading>
                 </VStack>
               </HStack>
             </Box>
