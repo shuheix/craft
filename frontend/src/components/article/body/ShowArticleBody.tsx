@@ -14,7 +14,12 @@ const ShowArticleBody: VFC<Props> = (props) => {
       <Box mb={5}>
         <Box shadow="sm" borderTopRadius="2xl" bgColor="white">
           <VStack>
-            <Heading justifyContent="center" borderTopRadius="xl" p={5}>
+            <Heading
+              justifyContent="center"
+              borderTopRadius="xl"
+              p={5}
+              overflowWrap="anywhere"
+            >
               {data?.articles.title}
             </Heading>
             <HStack spacing={3} pr={5} justifyContent="center">
@@ -27,16 +32,17 @@ const ShowArticleBody: VFC<Props> = (props) => {
                 {dayjs(data?.articles.updated_at).format("YYYY年MM月DD日")}
               </Text>
             </HStack>
+            <Text
+              bgColor="white"
+              borderBottomRadius="xl"
+              p={6}
+              whiteSpace="pre-line"
+              overflowWrap="anywhere"
+            >
+              {data?.articles.text}
+            </Text>
           </VStack>
         </Box>
-        <Text
-          bgColor="white"
-          borderBottomRadius="xl"
-          p={6}
-          whiteSpace="pre-line"
-        >
-          {data?.articles.text}
-        </Text>
       </Box>
     </>
   );

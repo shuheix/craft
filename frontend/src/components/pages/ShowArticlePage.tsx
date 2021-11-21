@@ -5,7 +5,6 @@ import {
   Container,
   Spinner,
   useDisclosure,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useArticleFunction } from "../../hooks/useArticleFunction";
@@ -18,6 +17,7 @@ import ArticleUser from "../article/aside/ArticleUser";
 import CommentSet from "../article/comment/CommentSet";
 import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
 import ImageModal from "../article/modal/ImageModal";
+import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
 
 const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -25,7 +25,7 @@ const ShowArticlePage: VFC = () => {
   const cancelRef = React.useRef(null);
   const { data, isError, isLoading } = useSingleArticle(articleId);
   const { onClickDestroyButton } = useArticleFunction(articleId);
-  const [isLargerThan768] = useMediaQuery("(min-Width: 768px)");
+  const { isLargerThan768, isLargerThan1024 } = useResponsiveStyle();
 
   if (isError) return <p>error!</p>;
   if (isLoading)
@@ -40,20 +40,21 @@ const ShowArticlePage: VFC = () => {
     <>
       <Box bgColor="teal.50" minH="100vh">
         <Header />
-        <Container py={20} maxW="container.xl" pr={{ sm: 10 }}>
+        <Container py={10} maxW="container.xl">
           <Box display={{ md: "flex" }}>
             <Box w="100%">
-              {isLargerThan768 || <ArticleUser data={data} />}
+              {/* {isLargerThan768 || <ArticleUser data={data} />} */}
               <ShowArticleBody data={data} />
               {data?.articles.image.url && <ImageModal data={data} />}
               <CommentSet articleId={articleId} />
             </Box>
             {isLargerThan768 && (
-              <Box maxW="300px" mx={5} pr={5}>
-                <ArticleUser data={data} />
-                <TagList />
-                <ButtonKit onOpen={onOpen} articleId={articleId} />
-              </Box>
+              <Box w="300px">a</Box>
+              // <Box mx={5} pr={5} w="300px">
+              //   <ArticleUser data={data} />
+              //   <TagList />
+              //   <ButtonKit onOpen={onOpen} articleId={articleId} />
+              // </Box>
             )}
           </Box>
         </Container>
