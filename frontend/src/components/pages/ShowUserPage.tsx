@@ -3,7 +3,6 @@ import React, { VFC } from "react";
 import {
   Box,
   Container,
-  Divider,
   Flex,
   HStack,
   Spacer,
@@ -19,11 +18,9 @@ import UsersArticles from "../user/UserArticles";
 import UsersFavoriteArticles from "../user/UserFavoriteArticles";
 import UserAvatar from "../user/UserAvatar";
 import { useUser } from "../../hooks/fetch/useUser";
-import { useParams } from "react-router-dom";
 
 const ShowUserPage: VFC = () => {
-  const { uid } = useParams<{ uid: string }>();
-  const { data, isError, isLoading } = useUser(uid);
+  const { data, isError, isLoading } = useUser();
   return (
     <>
       <Header />

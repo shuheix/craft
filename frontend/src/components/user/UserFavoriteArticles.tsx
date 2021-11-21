@@ -1,13 +1,12 @@
 import React from "react";
 
 import { Box, Center, Heading, Spinner, Stack, Text } from "@chakra-ui/react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
 import { useUser } from "../../hooks/fetch/useUser";
 
 const UserFavoriteArticles = () => {
-  const { uid } = useParams<{ uid: string }>();
-  const { data, isError, isLoading } = useUser(uid);
+  const { data, isError, isLoading } = useUser();
   const history = useHistory();
 
   if (isError) return <p>読み込みに失敗しました。</p>;

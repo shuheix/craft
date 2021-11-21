@@ -10,7 +10,7 @@ import UserAvatar from "../user/UserAvatar";
 const UserEditPage: VFC = () => {
   const [file, setFile] = useState<File>();
   const { uid } = useParams<{ uid: string }>();
-  const { mutate } = useUser(uid);
+  const { mutate } = useUser();
 
   const post = () => {
     const avatar = new FormData();

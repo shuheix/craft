@@ -56,7 +56,7 @@ const CommentSet: VFC<Props> = (props) => {
 
   return (
     <>
-      <Box mb={5}>
+      <Box mb={2}>
         <Heading size="md" pl={2} mb={1}>
           コメント
         </Heading>

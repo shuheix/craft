@@ -1,6 +1,5 @@
 import { Avatar, Spinner } from "@chakra-ui/react";
 import React, { VFC } from "react";
-import { useParams } from "react-router-dom";
 import { useUser } from "../../hooks/fetch/useUser";
 
 type AvatarSize = {
@@ -20,8 +19,7 @@ type AvatarSize = {
 
 const UserAvatar: VFC<AvatarSize> = (props) => {
   const { size, user_id } = props;
-  const { uid } = useParams<{ uid: string }>();
-  const { data, isLoading, isError } = useUser(uid);
+  const { data, isLoading, isError } = useUser();
 
   if (isLoading) return <Spinner />;
   if (isError) return <p>error!</p>;

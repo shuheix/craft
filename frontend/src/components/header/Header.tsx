@@ -25,6 +25,8 @@ import AppLogo from "../common/AppLogo";
 import EditIconButton from "./EditIconButton";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
+import UserAvatar from "../user/UserAvatar";
+import { useUser } from "../../hooks/fetch/useUser";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -33,6 +35,7 @@ const Header: VFC = () => {
   const { logout } = useAuth();
   const history = useHistory();
   const { isLargerThan768 } = useResponsiveStyle();
+  const { data } = useUser();
 
   const searchArticle = () => {
     if (searchInput === "") return;
@@ -83,8 +86,8 @@ const Header: VFC = () => {
               {currentUser ? (
                 <Flex flexDirection="row" justifyContent="flex-end">
                   <Menu>
-                    <MenuButton as={Button}>
-                      {currentUser.displayName}
+                    <MenuButton>
+                      <UserAvatar size="md" />
                     </MenuButton>
                     <MenuList>
                       <MenuGroup>
