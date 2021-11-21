@@ -25,7 +25,7 @@ const ShowArticlePage: VFC = () => {
   const cancelRef = React.useRef(null);
   const { data, isError, isLoading } = useSingleArticle(articleId);
   const { onClickDestroyButton } = useArticleFunction(articleId);
-  const { isLargerThan768, isLargerThan1024 } = useResponsiveStyle();
+  const { isLargerThan768 } = useResponsiveStyle();
 
   if (isError) return <p>error!</p>;
   if (isLoading)

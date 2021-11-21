@@ -2,10 +2,12 @@ import React, { VFC } from "react";
 
 import {
   Box,
+  Center,
   Container,
   Flex,
   HStack,
   Spacer,
+  Spinner,
   Tab,
   TabList,
   TabPanel,
@@ -21,6 +23,13 @@ import { useUser } from "../../hooks/fetch/useUser";
 
 const ShowUserPage: VFC = () => {
   const { data, isError, isLoading } = useUser();
+  if (isError) return <p>error</p>;
+  if (isLoading)
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
   return (
     <>
       <Header />

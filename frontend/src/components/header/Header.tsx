@@ -1,14 +1,8 @@
-import React, { useContext, useState, VFC } from "react";
-import { SearchIcon } from "@chakra-ui/icons";
+import React, { useContext, VFC } from "react";
 import {
   Box,
-  Button,
   Container,
   Flex,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputRightElement,
   Menu,
   MenuButton,
   MenuDivider,
@@ -17,40 +11,19 @@ import {
   MenuList,
   Spacer,
 } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import AppLogo from "../common/AppLogo";
 import EditIconButton from "./EditIconButton";
 import { useAppHistory } from "../../hooks/useAppHistory";
-import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
 import UserAvatar from "../user/UserAvatar";
-import { useUser } from "../../hooks/fetch/useUser";
+import SearchGroup from "./SearchGroup";
 
 const Header: VFC = () => {
   const { currentUser } = useContext(AuthContext);
-  const [searchInput, setSearchInput] = useState("");
   const { goHomePage, goUserPage } = useAppHistory();
   const { logout } = useAuth();
-  const history = useHistory();
-  const { isLargerThan768 } = useResponsiveStyle();
-  const { data } = useUser();
-
-  const searchArticle = () => {
-    if (searchInput === "") return;
-    history.push(`/articles/search?title=${searchInput}`);
-  };
-
-  const pressEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && searchInput !== "") {
-      history.push(`/articles/search?title=${searchInput}`);
-    }
-  };
-
-  const inputData = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event.target.value);
-  };
 
   return (
     <>
@@ -66,20 +39,7 @@ const Header: VFC = () => {
               <Spacer />
             </Box>
             <Box flex={2}>
-              <InputGroup>
-                <InputLeftAddon children={<SearchIcon />} />
-                <Input
-                  placeholder="検索"
-                  value={searchInput}
-                  onChange={inputData}
-                  onKeyPress={pressEnterKey}
-                />
-                <InputRightElement>
-                  <Button size="md" onClick={searchArticle}>
-                    検索
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
+              <SearchGroup />
               <Spacer />
             </Box>
             <Box flex={1}>

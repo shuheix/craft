@@ -18,7 +18,7 @@ type AvatarSize = {
 };
 
 const UserAvatar: VFC<AvatarSize> = (props) => {
-  const { size, user_id } = props;
+  const { size } = props;
   const { data, isLoading, isError } = useUser();
 
   if (isLoading) return <Spinner />;
