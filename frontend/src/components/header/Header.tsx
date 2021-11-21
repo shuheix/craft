@@ -1,30 +1,13 @@
-import React, { useContext, VFC } from "react";
-import {
-  Box,
-  Container,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-  Spacer,
-} from "@chakra-ui/react";
-import { useAuth } from "../../hooks/useAuth";
-import { AuthContext } from "../../providers/AuthProvider";
-import AuthModal from "../auth/AuthModal";
+import React, { VFC } from "react";
+import { Box, Container, Flex, Spacer } from "@chakra-ui/react";
 import AppLogo from "../common/AppLogo";
 import EditIconButton from "./EditIconButton";
 import { useAppHistory } from "../../hooks/useAppHistory";
-import UserAvatar from "../user/UserAvatar";
 import SearchGroup from "./SearchGroup";
+import HeaderMenu from "./HeaderMenu";
 
 const Header: VFC = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { goHomePage, goUserPage } = useAppHistory();
-  const { logout } = useAuth();
-
+  const { goHomePage } = useAppHistory();
   return (
     <>
       <Box height="65px" px={5} w="100%" bgColor="gray.50">
@@ -43,26 +26,7 @@ const Header: VFC = () => {
               <Spacer />
             </Box>
             <Box flex={1}>
-              {currentUser ? (
-                <Flex flexDirection="row" justifyContent="flex-end">
-                  <Menu>
-                    <MenuButton>
-                      <UserAvatar size="md" />
-                    </MenuButton>
-                    <MenuList>
-                      <MenuGroup>
-                        <MenuItem onClick={goUserPage}>マイページ</MenuItem>
-                      </MenuGroup>
-                      <MenuDivider />
-                      <MenuItem onClick={logout}>ログアウト</MenuItem>
-                    </MenuList>
-                  </Menu>
-                </Flex>
-              ) : (
-                <Flex justifyContent="flex-end">
-                  <AuthModal />
-                </Flex>
-              )}
+              <HeaderMenu />
             </Box>
             <EditIconButton />
           </Flex>
