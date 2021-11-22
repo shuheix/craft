@@ -8,13 +8,15 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useSearch } from "../../hooks/useSerach";
+import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
 
 const SearchGroup = () => {
   const { searchArticle, pressEnterKey, inputData, inputValue } = useSearch();
+  const { isLargerThan768 } = useResponsiveStyle();
   return (
     <>
       <InputGroup>
-        <InputLeftAddon children={<SearchIcon />} />
+        {isLargerThan768 && <InputLeftAddon children={<SearchIcon />} />}
         <Input
           placeholder="検索"
           value={inputValue}

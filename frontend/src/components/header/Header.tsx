@@ -19,11 +19,9 @@ const Header: VFC = () => {
           >
             <Box flex={1}>
               <AppLogo goHome={goHomePage} />
-              <Spacer />
             </Box>
-            <Box flex={2}>
+            <Box flex={3}>
               <SearchGroup />
-              <Spacer />
             </Box>
             <Box flex={1}>
               <HeaderMenu />
