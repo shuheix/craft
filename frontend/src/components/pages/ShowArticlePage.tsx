@@ -14,7 +14,7 @@ import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
 import TagList from "../article/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
-import CommentSet from "../article/comment/CommentSet";
+import CommentList from "../article/comment/CommentList";
 import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
 import ImageModal from "../article/modal/ImageModal";
 import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
@@ -46,7 +46,7 @@ const ShowArticlePage: VFC = () => {
               {isLargerThan768 || <ArticleUser data={data} />}
               <ShowArticleBody data={data} />
               {data?.articles.image.url && <ImageModal data={data} />}
-              <CommentSet articleId={articleId} />
+              <CommentList articleId={articleId} />
             </Box>
             {isLargerThan768 && (
               <Box mx={5} pr={5} w="350px">
