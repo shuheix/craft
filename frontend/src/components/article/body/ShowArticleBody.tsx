@@ -12,7 +12,7 @@ const ShowArticleBody: VFC<Props> = (props) => {
   return (
     <>
       <Box mb={5}>
-        <Box shadow="sm" borderTopRadius="2xl" bgColor="white">
+        <Box shadow="sm" borderRadius="2xl" bgColor="white">
           <VStack>
             <Heading
               justifyContent="center"
