@@ -20,25 +20,23 @@ const UserArticles = () => {
 
   return (
     <Stack spacing={4}>
-      <Stack spacing={4}>
-        {data?.articles?.map((articles) => (
-          <Box
-            shadow="md"
-            p={5}
-            borderWidth={1}
-            key={articles.id}
-            onClick={() => history.push(SHOW_ARTICLE_URL(articles.id))}
-            _hover={{
-              boxShadow: "lg",
-              cursor: "pointer",
-            }}
-            borderRadius="lg"
-          >
-            <Heading fontSize="xl">{articles.title}</Heading>
-            <Text>{articles.text}</Text>
-          </Box>
-        ))}
-      </Stack>
+      {data?.articles?.map((articles) => (
+        <Box
+          bgColor="white"
+          shadow="md"
+          px={5}
+          py={10}
+          key={articles.id}
+          onClick={() => history.push(SHOW_ARTICLE_URL(articles.id))}
+          _hover={{
+            boxShadow: "lg",
+            cursor: "pointer",
+          }}
+          borderRadius="lg"
+        >
+          <Heading fontSize="xl">{articles.title}</Heading>
+        </Box>
+      ))}
     </Stack>
   );
 };

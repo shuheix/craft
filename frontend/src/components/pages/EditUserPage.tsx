@@ -7,7 +7,7 @@ import { useUser } from "../../hooks/fetch/useUser";
 import AvatarModal from "../user/AvatarModal";
 import UserAvatar from "../user/UserAvatar";
 
-const UserEditPage: VFC = () => {
+const EditUserPage: VFC = () => {
   const [file, setFile] = useState<File>();
   const { uid } = useParams<{ uid: string }>();
   const { mutate } = useUser();
@@ -47,4 +47,4 @@ const UserEditPage: VFC = () => {
   );
 };
 
-export default UserEditPage;
+export default EditUserPage;

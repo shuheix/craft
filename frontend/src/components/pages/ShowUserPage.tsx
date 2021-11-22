@@ -31,37 +31,39 @@ const ShowUserPage: VFC = () => {
     );
   return (
     <>
-      <Header />
-      <Container maxW="container.xl">
-        <Box maxH="200px" mr={4} border="1px">
-          <VStack>
-            <UserAvatar size="lg" />
-            <HStack h="30px">
-              <Box>{data?.articles.length}</Box>
-              <Spacer />
-              <Box>{data?.favorite_articles.length}</Box>
-              <Spacer />
-              <Box>|</Box>
-            </HStack>
-          </VStack>
-        </Box>
-        <Box w="100%">
-          <Tabs isLazy w="100%">
-            <TabList>
-              <Tab>投稿した質問</Tab>
-              <Tab>ブックマークした投稿</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <UsersArticles />
-              </TabPanel>
-              <TabPanel>
-                <UsersFavoriteArticles />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Box>
-      </Container>
+      <Box bgColor="teal.50" minH="100vh">
+        <Header />
+        <Container maxW="container.xl">
+          <Box H="500px" my={5}>
+            <VStack>
+              <UserAvatar size="lg" />
+              <HStack>
+                <Box>{data?.articles.length}</Box>
+                <Spacer />
+                <Box>{data?.favorite_articles.length}</Box>
+                <Spacer />
+                <Box>|</Box>
+              </HStack>
+            </VStack>
+          </Box>
+          <Box w="100%">
+            <Tabs isLazy w="100%">
+              <TabList>
+                <Tab>投稿した質問</Tab>
+                <Tab>ブックマークした投稿</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <UsersArticles />
+                </TabPanel>
+                <TabPanel>
+                  <UsersFavoriteArticles />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Box>
+        </Container>
+      </Box>
     </>
   );
 };
