@@ -89,7 +89,7 @@ const NewArticlePage: VFC = () => {
   return (
     <>
       <Header />
-      <Container px={0} py={20} maxW="container.lg">
+      <Container py={20} maxW="container.lg">
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.title || !!errors.text}>
             <FormErrorMessage>

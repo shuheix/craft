@@ -20,7 +20,6 @@ const FavoriteButton: VFC<Props> = (props) => {
         (item) => item.uid === currentUser?.uid
       ) ? (
         <IconButton
-          ml={3}
           aria-label="favorite"
           icon={<StarIcon fontSize="20px" />}
           bgColor="white"
@@ -29,7 +28,6 @@ const FavoriteButton: VFC<Props> = (props) => {
         />
       ) : (
         <IconButton
-          ml={3}
           aria-label="favorite"
           icon={<StarIcon fontSize="20px" />}
           bgColor="white"

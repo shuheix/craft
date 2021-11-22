@@ -1,5 +1,5 @@
 import React, { VFC } from "react";
-import { Box, Container, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import AppLogo from "../common/AppLogo";
 import EditIconButton from "./EditIconButton";
 import { useAppHistory } from "../../hooks/useAppHistory";
@@ -10,7 +10,7 @@ const Header: VFC = () => {
   const { goHomePage } = useAppHistory();
   return (
     <>
-      <Box height="65px" px={5} w="100%" bgColor="gray.50">
+      <Box height="65px" w="100%" bgColor="gray.50">
         <Container maxW="container.xl" height="100%">
           <Flex
             alignItems="center"

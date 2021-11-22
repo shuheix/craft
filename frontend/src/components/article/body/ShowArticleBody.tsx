@@ -34,9 +34,10 @@ const ShowArticleBody: VFC<Props> = (props) => {
             </HStack>
             <Text
               bgColor="white"
-              p={6}
+              p={10}
               whiteSpace="pre-line"
               overflowWrap="anywhere"
+              borderBottomRadius="2xl"
             >
               {data?.articles.text}
             </Text>

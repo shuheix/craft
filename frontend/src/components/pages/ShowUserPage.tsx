@@ -4,7 +4,6 @@ import {
   Box,
   Center,
   Container,
-  Flex,
   HStack,
   Spacer,
   Spinner,
@@ -34,36 +33,34 @@ const ShowUserPage: VFC = () => {
     <>
       <Header />
       <Container maxW="container.xl">
-        <Flex mt={4}>
-          <Box flex="1" maxH="200px" mr={4} border="1px">
-            <VStack>
-              <UserAvatar size="lg" />
-              <HStack h="30px">
-                <Box>{data?.articles.length}</Box>
-                <Spacer />
-                <Box>{data?.favorite_articles.length}</Box>
-                <Spacer />
-                <Box>|</Box>
-              </HStack>
-            </VStack>
-          </Box>
-          <Box flex="3">
-            <Tabs isLazy>
-              <TabList>
-                <Tab>投稿した質問</Tab>
-                <Tab>ブックマークした投稿</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <UsersArticles />
-                </TabPanel>
-                <TabPanel>
-                  <UsersFavoriteArticles />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </Box>
-        </Flex>
+        <Box maxH="200px" mr={4} border="1px">
+          <VStack>
+            <UserAvatar size="lg" />
+            <HStack h="30px">
+              <Box>{data?.articles.length}</Box>
+              <Spacer />
+              <Box>{data?.favorite_articles.length}</Box>
+              <Spacer />
+              <Box>|</Box>
+            </HStack>
+          </VStack>
+        </Box>
+        <Box w="100%">
+          <Tabs isLazy w="100%">
+            <TabList>
+              <Tab>投稿した質問</Tab>
+              <Tab>ブックマークした投稿</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <UsersArticles />
+              </TabPanel>
+              <TabPanel>
+                <UsersFavoriteArticles />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Box>
       </Container>
     </>
   );
