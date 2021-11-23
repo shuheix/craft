@@ -34,18 +34,16 @@ const ShowUserPage: VFC = () => {
       <Box bgColor="teal.50" minH="100vh">
         <Header />
         <Container maxW="container.xl">
-          <Box H="500px" my={5}>
-            <VStack>
-              <UserAvatar size="lg" />
-              <HStack>
-                <Box>{data?.articles.length}</Box>
-                <Spacer />
-                <Box>{data?.favorite_articles.length}</Box>
-                <Spacer />
-                <Box>|</Box>
-              </HStack>
-            </VStack>
-          </Box>
+          <VStack my={5}>
+            <UserAvatar size="2xl" />
+            <HStack>
+              <Box>{data?.articles.length}</Box>
+              <Spacer />
+              <Box>{data?.favorite_articles.length}</Box>
+              <Spacer />
+              <Box>|</Box>
+            </HStack>
+          </VStack>
           <Box w="100%">
             <Tabs isLazy w="100%">
               <TabList>

@@ -38,7 +38,7 @@ export const useArticleFunction = (articleId: string) => {
     });
   };
 
-  const onClickEditButton = (): void => {
+  const onClickEditButton = () => {
     history.push(`/articles/${articleId}/edit`);
   };
 
