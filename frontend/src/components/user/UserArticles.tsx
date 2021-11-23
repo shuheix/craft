@@ -8,21 +8,15 @@ import {
   Center,
   HStack,
   VStack,
-  useDisclosure,
-  Button,
 } from "@chakra-ui/react";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
 import { useUser } from "../../hooks/fetch/useUser";
 import { useHistory } from "react-router-dom";
 import EditArticleButton from "../ui/button/EditArticleButton";
-import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
-import { useArticleFunction } from "../../hooks/useArticleFunction";
 import DeleteArticleButton from "../ui/button/DeleteArticleButton";
 
 const UserArticles = () => {
   const { data, isError, isLoading } = useUser();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef(null);
   const history = useHistory();
 
   if (isError) return <p>読み込みに失敗しました。</p>;
@@ -36,7 +30,7 @@ const UserArticles = () => {
 
   return (
     <Stack spacing={5}>
-      {data?.articles?.map((article) => (
+      {data?.articles?.map((article, index) => (
         <HStack>
           <Box
             flexGrow={1}

@@ -1,4 +1,4 @@
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import { Button, ButtonProps } from "@chakra-ui/react";
 import React from "react";
 import { VFC } from "react";
