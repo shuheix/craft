@@ -9,11 +9,15 @@ import EditArticlePage from "../components/pages/EditArticlePage";
 import ShowUserPage from "../components/pages/ShowUserPage";
 import EditUserPage from "../components/pages/EditUserPage";
 import SearchArticlePage from "../components/pages/SearchArticlePage";
+import HomePage from "../components/pages/HomePage";
 
 const Router: VFC = () => {
   return (
     <Switch>
       <AuthProvider>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
         <Route exact path="/articles">
           <IndexArticlePage />
         </Route>
