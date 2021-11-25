@@ -2,48 +2,47 @@ import React, { VFC } from "react";
 
 import {
   Box,
-  Button,
+  Center,
   Container,
-  Flex,
-  Modal,
-  ModalContent,
-  ModalOverlay,
+  Heading,
+  HStack,
+  Spacer,
+  Spinner,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 import UsersArticles from "../user/UserArticles";
 import UsersFavoriteArticles from "../user/UserFavoriteArticles";
 import UserAvatar from "../user/UserAvatar";
-import AvatarModal from "../user/AvatarModal";
+import { useUser } from "../../hooks/fetch/useUser";
 
 const ShowUserPage: VFC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data, isError, isLoading } = useUser();
+  if (isError) return <p>error</p>;
+  if (isLoading)
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
   return (
     <>
-      <Header />
-      <Container maxW="container.xl">
-        <Flex mt={4}>
-          <Box flex="1" h="400px" mr={4} border="1px">
-            <VStack>
-              <UserAvatar />
-              <Box>status</Box>
-              <Button onClick={onOpen}>プロフ編集</Button>
-              <Modal onClose={onClose} isOpen={isOpen} isCentered>
-                <ModalOverlay />
-                <ModalContent>
-                  <AvatarModal />
-                </ModalContent>
-              </Modal>
-            </VStack>
-          </Box>
-          <Box flex="3">
-            <Tabs isLazy>
+      <Box bgColor="teal.50" minH="100vh">
+        <Header />
+        <Container maxW="container.xl">
+          <HStack my={5} ml={5}>
+            <UserAvatar size="2xl" />
+            <Heading size="sm" alignSelf="flex-start" pt={3} pl={3}>
+              {data?.user.name}
+            </Heading>
+          </HStack>
+          <Box w="100%">
+            <Tabs isLazy w="100%">
               <TabList>
                 <Tab>投稿した質問</Tab>
                 <Tab>ブックマークした投稿</Tab>
@@ -58,8 +57,8 @@ const ShowUserPage: VFC = () => {
               </TabPanels>
             </Tabs>
           </Box>
-        </Flex>
-      </Container>
+        </Container>
+      </Box>
     </>
   );
 };

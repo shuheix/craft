@@ -10,7 +10,7 @@ import {
 import React, { useState, VFC } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useSearchArticle } from "../../hooks/fetch/useSearchArticle";
-import ArticleCard from "../article/ArticleCard";
+import ArticleCard from "../article/card/ArticleCard";
 import LeftAside from "../aside/LeftAside";
 import Header from "../header/Header";
 

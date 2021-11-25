@@ -23,7 +23,7 @@ const UserInformation: VFC<Props> = (props) => {
       <Box pl={2}>
         <VStack>
           <Text fontSize="sm">{name}</Text>
-          <Text fontSize="sm">{dayjs(createdAt).format("YYYY年MM月DD年")}</Text>
+          <Text fontSize="sm">{dayjs(createdAt).format("YYYY年MM月DD日")}</Text>
         </VStack>
       </Box>
     </HStack>

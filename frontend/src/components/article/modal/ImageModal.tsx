@@ -20,22 +20,26 @@ const ImageModal: VFC<ModalProps> = (props) => {
 
   return (
     <>
-      <Image
-        src={data?.articles.image.url}
-        boxSize="200px"
-        onClick={onOpen}
-        _hover={{ cursor: "pointer" }}
-      />
-      <Modal isOpen={isOpen} onClose={onClose} size="4xl" isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody>
-            <Center>
-              <Image src={data?.articles.image.url} />
-            </Center>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      {data?.articles.image.url && (
+        <>
+          <Image
+            src={data?.articles.image.url}
+            boxSize="200px"
+            onClick={onOpen}
+            _hover={{ cursor: "pointer" }}
+          />
+          <Modal isOpen={isOpen} onClose={onClose} size="4xl" isCentered>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalBody>
+                <Center>
+                  <Image src={data?.articles.image.url} />
+                </Center>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        </>
+      )}
     </>
   );
 };

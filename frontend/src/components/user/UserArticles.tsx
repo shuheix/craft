@@ -1,13 +1,22 @@
 import React from "react";
 
-import { Stack, Box, Heading, Text, Spinner, Center } from "@chakra-ui/react";
+import {
+  Stack,
+  Box,
+  Heading,
+  Spinner,
+  Center,
+  HStack,
+  VStack,
+} from "@chakra-ui/react";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
 import { useUser } from "../../hooks/fetch/useUser";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import EditArticleButton from "../ui/button/EditArticleButton";
+import DeleteArticleButton from "../ui/button/DeleteArticleButton";
 
 const UserArticles = () => {
-  const { uid } = useParams<{ uid: string }>();
-  const { data, isError, isLoading } = useUser(uid);
+  const { data, isError, isLoading } = useUser();
   const history = useHistory();
 
   if (isError) return <p>読み込みに失敗しました。</p>;
@@ -20,26 +29,31 @@ const UserArticles = () => {
     );
 
   return (
-    <Stack spacing={4}>
-      <Stack spacing={4}>
-        {data?.articles?.map((articles) => (
+    <Stack spacing={5}>
+      {data?.articles?.map((article, index) => (
+        <HStack>
           <Box
+            flexGrow={1}
+            bgColor="white"
             shadow="md"
-            p={5}
-            borderWidth={1}
-            key={articles.id}
-            onClick={() => history.push(SHOW_ARTICLE_URL(articles.id))}
+            px={5}
+            py={8}
+            key={article.id}
+            onClick={() => history.push(SHOW_ARTICLE_URL(article.id))}
             _hover={{
               boxShadow: "lg",
               cursor: "pointer",
             }}
             borderRadius="lg"
           >
-            <Heading fontSize="xl">{articles.title}</Heading>
-            <Text>{articles.text}</Text>
+            <Heading fontSize="xl">{article.title}</Heading>
           </Box>
-        ))}
-      </Stack>
+          <VStack>
+            <EditArticleButton articleId={article.id} />
+            <DeleteArticleButton article={article} />
+          </VStack>
+        </HStack>
+      ))}
     </Stack>
   );
 };

@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { VFC } from "react";
-import UserInformation from "../user/UserInformation";
+import UserInformation from "../../user/UserInformation";
 
 type Props = {
   title: string;

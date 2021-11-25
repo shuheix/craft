@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Text, Stack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import React, { VFC } from "react";
 import { ArticleApiType } from "../../../types/apiType";
@@ -12,37 +12,37 @@ const ShowArticleBody: VFC<Props> = (props) => {
   return (
     <>
       <Box mb={5}>
-        <Box shadow="sm" borderRadius="2xl" mb={5} bgColor="white">
-          <Stack>
+        <Box shadow="sm" borderRadius="2xl" bgColor="white">
+          <VStack>
             <Heading
-              justify="flex-start"
-              height="10vh"
+              justifyContent="center"
               borderTopRadius="xl"
               p={5}
+              overflowWrap="anywhere"
             >
               {data?.articles.title}
             </Heading>
-            <HStack spacing={5} justify="flex-end" pr={8}>
-              <Text>
+            <HStack spacing={3} pr={5} justifyContent="center">
+              <Text fontSize="sm">
                 投稿日:
-                {dayjs(data?.articles.created_at).format("YYYY年MM月DD年")}
+                {dayjs(data?.articles.created_at).format("YYYY年MM月DD日")}
               </Text>
-              <Text>
+              <Text fontSize="sm">
                 更新日:
-                {dayjs(data?.articles.updated_at).format("YYYY年MM月DD年")}
+                {dayjs(data?.articles.updated_at).format("YYYY年MM月DD日")}
               </Text>
             </HStack>
-          </Stack>
+            <Text
+              bgColor="white"
+              p={10}
+              whiteSpace="pre-line"
+              overflowWrap="anywhere"
+              borderBottomRadius="2xl"
+            >
+              {data?.articles.text}
+            </Text>
+          </VStack>
         </Box>
-        <Text
-          bgColor="white"
-          borderBottomRadius="xl"
-          p={6}
-          whiteSpace="pre-line"
-          borderRadius="2xl"
-        >
-          {data?.articles.text}
-        </Text>
       </Box>
     </>
   );

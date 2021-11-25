@@ -7,7 +7,7 @@ import ShowArticlePage from "../components/pages/ShowArticlePage";
 import NewArticlePage from "../components/pages/NewArticlePage";
 import EditArticlePage from "../components/pages/EditArticlePage";
 import ShowUserPage from "../components/pages/ShowUserPage";
-import UserEditPage from "../components/pages/UserEditPage";
+import EditUserPage from "../components/pages/EditUserPage";
 import SearchArticlePage from "../components/pages/SearchArticlePage";
 
 const Router: VFC = () => {
@@ -33,7 +33,7 @@ const Router: VFC = () => {
           <ShowUserPage />
         </Route>
         <Route path="/users/:uid/avatar">
-          <UserEditPage />
+          <EditUserPage />
         </Route>
         <Route path="/login">
           <LoginPage />

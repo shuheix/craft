@@ -14,8 +14,9 @@ export const useArticleFunction = (articleId: string) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         method: "DELETE",
+        headers: { Authorization: token },
         url: `${SHOW_ARTICLE_API(`${articleId}`)}`,
-        data: { id: `${articleId}`, headers: { Authorization: token } },
+        data: { id: `${articleId}` },
       })
         .then(() => {
           history.push(`/users/${data?.articles.user_id}`);
@@ -37,7 +38,7 @@ export const useArticleFunction = (articleId: string) => {
     });
   };
 
-  const onClickEditButton = (): void => {
+  const onClickEditButton = () => {
     history.push(`/articles/${articleId}/edit`);
   };
 
