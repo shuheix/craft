@@ -4,6 +4,7 @@ import {
   Box,
   Center,
   Container,
+  Heading,
   HStack,
   Spacer,
   Spinner,
@@ -34,16 +35,12 @@ const ShowUserPage: VFC = () => {
       <Box bgColor="teal.50" minH="100vh">
         <Header />
         <Container maxW="container.xl">
-          <VStack my={5}>
+          <HStack my={5} ml={5}>
             <UserAvatar size="2xl" />
-            <HStack>
-              <Box>{data?.articles.length}</Box>
-              <Spacer />
-              <Box>{data?.favorite_articles.length}</Box>
-              <Spacer />
-              <Box>|</Box>
-            </HStack>
-          </VStack>
+            <Heading size="sm" alignSelf="flex-start" pt={3} pl={3}>
+              {data?.user.name}
+            </Heading>
+          </HStack>
           <Box w="100%">
             <Tabs isLazy w="100%">
               <TabList>
