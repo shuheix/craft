@@ -10,4 +10,6 @@ class Article < ApplicationRecord
   belongs_to :user
   has_many :favorites
   has_many :comments
+  has_many :tagmaps, dependent: :destroy
+  has_many :tags, through: :tagmaps
 end
