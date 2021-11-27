@@ -51,8 +51,9 @@ module Api
       end
 
       def search
-        articles = Article.where("title Like?","%#{params[:title]}%")
-        render json: {articles: articles}
+        articles = Article.where("title Like?","%#{params[:title]}%").page(params[:page]).per(12)
+        total_pages = articles.total_pages
+        render json: { articles: articles, total_pages: total_pages }, status: :ok
       end
 
       private

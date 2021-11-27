@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
+  HOME_URL,
   INDEX_ARTICLE_URL,
   NEW_ARTICLE_URL,
   SHOW_ARTICLE_URL,
@@ -12,7 +13,7 @@ export const useAppHistory = () => {
   const { currentUser } = useContext(AuthContext);
 
   const goHomePage = () => {
-    history.push(INDEX_ARTICLE_URL);
+    history.push(HOME_URL);
   };
 
   const goEditPage = () => {

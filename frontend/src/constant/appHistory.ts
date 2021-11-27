@@ -2,6 +2,7 @@
 |  cost history = useHistory();
 |  histpry.push(INDEX_ARTICLE_URI)
 */
+export const HOME_URL = "/";
 export const INDEX_ARTICLE_URL = "/articles";
 export const INDEX_ARTICLE_PAGE_URL = (page: string) =>
   `/articles?page=${page}`;

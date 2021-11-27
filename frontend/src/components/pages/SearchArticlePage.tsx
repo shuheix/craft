@@ -1,89 +1,70 @@
 import {
   Container,
-  Flex,
   Box,
   Spinner,
-  Wrap,
-  WrapItem,
-  Button,
+  Avatar,
+  Heading,
+  HStack,
+  SimpleGrid,
+  VStack,
 } from "@chakra-ui/react";
-import React, { useState, VFC } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import dayjs from "dayjs";
+import React, { VFC } from "react";
+import { useLocation } from "react-router-dom";
 import { useSearchArticle } from "../../hooks/fetch/useSearchArticle";
-import ArticleCard from "../article/card/ArticleCard";
-import LeftAside from "../aside/LeftAside";
+import { useAppHistory } from "../../hooks/useAppHistory";
+import PageSelect from "../footer/PageSelect";
 import Header from "../header/Header";
 
 const SearchArticlePage: VFC = () => {
-  const history = useHistory();
   const location = useLocation();
   const { data, isError, isLoading } = useSearchArticle(location.search);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  console.log("data:", data);
+  const { goShowArticlePage } = useAppHistory();
 
   if (isError) return <p>error!</p>;
-  if (isLoading) return <p>loading!</p>;
+  if (isLoading)
+    return (
+      <Box>
+        <Spinner />
+      </Box>
+    );
   return (
-    <>
-      <Header />
-      <Container maxW="container.xl">
-        <Flex>
-          <LeftAside />
-          {isLoading ? (
-            <Box>
-              <Spinner />
+    <Box bgColor="teal.50" minH="100vh">
+      <Box>
+        <Header />
+      </Box>
+      <Container maxW="container.xl" flex={1}>
+        <SimpleGrid columns={{ md: 2 }} spacingX="40px" spacingY="20px" mt={20}>
+          {data?.articles.map((article) => (
+            <Box
+              key={article.id}
+              onClick={() => goShowArticlePage(article.id)}
+              boxShadow="md"
+              _hover={{
+                cursor: "pointer",
+                boxShadow: "xl",
+              }}
+              height="100px"
+              bgColor="white"
+              borderRadius="xl"
+            >
+              <HStack h="100%" px={4}>
+                <Avatar src={article.avatar} />
+                <VStack spacing={2} flexGrow={1}>
+                  <Heading size="sm" maxWidth="100%" alignSelf="flex-start">
+                    {article.title}
+                  </Heading>
+                  <Heading size="xs" alignSelf="flex-end" mr={4}>
+                    {dayjs(article.created_at).format("YYYY年MM月DD日")}
+                  </Heading>
+                </VStack>
+              </HStack>
             </Box>
-          ) : (
-            <Flex flexDirection="column" ml={10}>
-              <Box>
-                <Wrap flex={1} justify="flex-end" spacing="30px">
-                  {data?.articles.map((article) => (
-                    <WrapItem
-                      key={article.id}
-                      onClick={() => history.push(`/articles/${article.id}`)}
-                      _hover={{
-                        boxShadow: "xl",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <ArticleCard
-                        title={article.title}
-                        username={article.user_name}
-                        createdAt={article.created_at}
-                      />
-                    </WrapItem>
-                  ))}
-                </Wrap>
-              </Box>
-              <Flex justifyContent="flex-end" mt={4}>
-                {currentPage !== 1 && (
-                  <Button
-                    bgColor="gray.100"
-                    onClick={() => {
-                      setCurrentPage(currentPage - 1);
-                      history.push(`/articles?page=${currentPage}`);
-                    }}
-                  >
-                    戻る
-                  </Button>
-                )}
-                {currentPage !== data?.total_pages && (
-                  <Button
-                    ml={4}
-                    onClick={() => {
-                      setCurrentPage(currentPage + 1);
-                      history.push(`/articles?page=${currentPage}`);
-                    }}
-                  >
-                    次のページへ
-                  </Button>
-                )}
-              </Flex>
-            </Flex>
-          )}
-        </Flex>
+          ))}
+        </SimpleGrid>
+        <PageSelect data={data} />
       </Container>
-    </>
+    </Box>
   );
 };
 
