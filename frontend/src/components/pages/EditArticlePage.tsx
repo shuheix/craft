@@ -32,7 +32,7 @@ const EditArticleLayout: VFC = () => {
   const history = useHistory();
   const toast = useToast();
   const { articleId } = useParams<{ articleId: string }>();
-  const { data, isLoading, isError } = useSingleArticle(articleId);
+  const { data, isLoading, isError } = useSingleArticle();
 
   const {
     handleSubmit,

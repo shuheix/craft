@@ -23,8 +23,8 @@ const ShowArticlePage: VFC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
-  const { data, isError, isLoading } = useSingleArticle(articleId);
-  const { onClickDestroyButton } = useArticleFunction(articleId);
+  const { data, isError, isLoading } = useSingleArticle();
+  const { onClickDestroyButton } = useArticleFunction();
   const { isLargerThan768 } = useResponsiveStyle();
 
   if (isError) return <p>error!</p>;
@@ -52,7 +52,7 @@ const ShowArticlePage: VFC = () => {
               <Box mx={5} pr={5} w="350px">
                 <ArticleUser data={data} />
                 <TagList />
-                <ButtonKit onOpen={onOpen} articleId={articleId} />
+                <ButtonKit onOpen={onOpen} />
               </Box>
             )}
           </Box>

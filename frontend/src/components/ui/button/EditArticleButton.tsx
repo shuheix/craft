@@ -8,7 +8,7 @@ type Props = ButtonProps & { articleId: string };
 
 const EditArticleButton: VFC<Props> = (props) => {
   const { articleId } = props;
-  const { onClickEditButton } = useArticleFunction(articleId);
+  const { onClickEditButton } = useArticleFunction();
   return (
     <>
       <Button
