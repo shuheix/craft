@@ -15,7 +15,7 @@ type Props = {
 const PageSelect: VFC<Props> = (props) => {
   const { data } = props;
   const { nextPage, backPage, currentPage } = usePageSelect();
-  if (data?.total_pages != null && data.total_pages <= 12) return <></>;
+  if (data?.total_pages != null && data.total_pages <= 12) return null;
   return (
     <>
       <Flex justifyContent="flex-end" mt={4}>

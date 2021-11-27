@@ -7,6 +7,7 @@ import {
   HStack,
   SimpleGrid,
   VStack,
+  Center,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import React, { VFC } from "react";
@@ -34,6 +35,11 @@ const SearchArticlePage: VFC = () => {
         <Header />
       </Box>
       <Container maxW="container.xl" flex={1}>
+        {data?.articles.length === 0 && (
+          <Center mt={10}>
+            <Heading size="sm">一致する記事がありませんでした。</Heading>
+          </Center>
+        )}
         <SimpleGrid columns={{ md: 2 }} spacingX="40px" spacingY="20px" mt={20}>
           {data?.articles.map((article) => (
             <Box
