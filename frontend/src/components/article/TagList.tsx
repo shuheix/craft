@@ -1,9 +1,13 @@
 import {
   Button,
+  ButtonGroup,
+  CloseButton,
   Input,
   InputGroup,
   InputRightElement,
   Tag,
+  TagCloseButton,
+  TagLabel,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -19,7 +23,7 @@ const TagList: VFC = () => {
   const tagRef = useRef<HTMLInputElement>(null);
   const { articleId } = useParams<{ articleId: string }>();
 
-  const onClick = () => {
+  const addTag = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         method: "POST",
@@ -36,22 +40,48 @@ const TagList: VFC = () => {
     });
   };
 
+  const log = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {};
+
+  const removeTag = (tagId: number) => {
+    auth.currentUser?.getIdToken(true).then((token) => {
+      axios({
+        method: "POST",
+        headers: { Authorization: token },
+        url: TAGMAPS_API(articleId),
+        data: { tag_id: tagId, article_id: articleId },
+      })
+        .then(() => {
+          mutate();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
   return (
     <>
       <Wrap mb={5} bgColor="white" borderRadius="2xl" p={5}>
         {data?.articles.tags?.map((tag) => (
-          <WrapItem key={tag.id}>
-            <Tag>
-              <Button size="xs" variant="link" colorScheme="black">
-                {tag.name}
-              </Button>
-            </Tag>
-          </WrapItem>
+          <Tag
+            variant="solid"
+            size="md"
+            borderRadius="full"
+            colorScheme="teal"
+            key={tag.id}
+          >
+            <TagLabel>{tag.name}</TagLabel>
+            <TagCloseButton />
+          </Tag>
         ))}
         <InputGroup>
-          <Input variant="flushed" placeholder="タグ" ref={tagRef} />
+          <Input
+            variant="flushed"
+            placeholder="タグ(15文字まで)"
+            ref={tagRef}
+          />
           <InputRightElement>
-            <Button variant="link" size="sm" onClick={onClick}>
+            <Button variant="link" size="sm" onClick={addTag}>
               +
             </Button>
           </InputRightElement>

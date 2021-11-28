@@ -11,6 +11,7 @@ import {
   Text,
   Spinner,
   Center,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { VFC } from "react";
@@ -28,7 +29,12 @@ type Props = {
 
 const CommentList: VFC<Props> = (props) => {
   const { articleId } = props;
-  const { register, handleSubmit, formState, reset } = useForm<Comment>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<Comment>();
   const { comment, isError, isLoading, mutate } = useComment(articleId);
 
   const onSubmit = (data: Comment) => {
@@ -77,6 +83,9 @@ const CommentList: VFC<Props> = (props) => {
       </Stack>
       <Box mt={10}>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <FormErrorMessage>
+            {errors.text && errors.text?.message}
+          </FormErrorMessage>
           <Textarea
             resize="none"
             bgColor="white"
@@ -95,7 +104,7 @@ const CommentList: VFC<Props> = (props) => {
           />
           <HStack>
             <Spacer />
-            <Button type="submit" isLoading={formState.isSubmitting}>
+            <Button type="submit" isLoading={isSubmitting}>
               投稿
             </Button>
           </HStack>
