@@ -8,7 +8,7 @@ module Api
         end
         tag_id = Tag.find_by(name: params[:name]).id
         tagmap = Tagmap.new(tag_id: tag_id, article_id: params[:article_id])
-        tagmap.save
+        tagmap.save!
       end
 
       def destroy
