@@ -12,6 +12,8 @@ module Api
       end
 
       def destroy
+        tagmap = Tagmap.find_by(tag_id: params[:tag_id],article_id: params[:article_id])
+        tagmap.destroy
       end
 
       private

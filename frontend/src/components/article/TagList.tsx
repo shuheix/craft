@@ -1,7 +1,5 @@
 import {
   Button,
-  ButtonGroup,
-  CloseButton,
   Input,
   InputGroup,
   InputRightElement,
@@ -9,7 +7,6 @@ import {
   TagCloseButton,
   TagLabel,
   Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useRef, VFC } from "react";
@@ -45,7 +42,7 @@ const TagList: VFC = () => {
   const removeTag = (tagId: number) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
-        method: "POST",
+        method: "DELETE",
         headers: { Authorization: token },
         url: TAGMAPS_API(articleId),
         data: { tag_id: tagId, article_id: articleId },
@@ -71,7 +68,7 @@ const TagList: VFC = () => {
             key={tag.id}
           >
             <TagLabel>{tag.name}</TagLabel>
-            <TagCloseButton />
+            <TagCloseButton onClick={() => removeTag(tag.id)} />
           </Tag>
         ))}
         <InputGroup>
