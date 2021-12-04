@@ -8,7 +8,7 @@ RSpec.describe Tagmap, type: :model do
       end
     end
 
-    constet 'tag_idとarticle_idの組み合わせが一意でない場合、無効である' do
+    context 'tag_idとarticle_idの組み合わせが一意でない場合、無効である' do
       it 'tag_idとarticle_idの組み合わせが一意でない場合' do
 
       end
