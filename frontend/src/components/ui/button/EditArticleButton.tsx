@@ -7,7 +7,6 @@ import { useArticleFunction } from "../../../hooks/useArticleFunction";
 type Props = ButtonProps & { articleId: string };
 
 const EditArticleButton: VFC<Props> = (props) => {
-  const { articleId } = props;
   const { onClickEditButton } = useArticleFunction();
   return (
     <>

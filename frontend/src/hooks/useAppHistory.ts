@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   HOME_URL,
-  INDEX_ARTICLE_URL,
   NEW_ARTICLE_URL,
   SHOW_ARTICLE_URL,
 } from "../constant/appHistory";

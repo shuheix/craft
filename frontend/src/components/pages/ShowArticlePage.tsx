@@ -46,7 +46,7 @@ const ShowArticlePage: VFC = () => {
               {isLargerThan768 || <ArticleUser data={data} />}
               <ShowArticleBody data={data} />
               <ImageModal data={data} />
-              <CommentList articleId={articleId} />
+              <CommentList />
             </Box>
             {isLargerThan768 && (
               <Box mx={5} pr={5} w="350px">

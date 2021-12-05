@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import React, { VFC } from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { INDEX_COMMENTS_API } from "../../../constant/railsRoute";
 import { auth } from "../../../firebase";
 import { useComment } from "../../../hooks/useComment";
@@ -23,19 +24,16 @@ import { useComment } from "../../../hooks/useComment";
 type Comment = {
   text: string;
 };
-type Props = {
-  articleId: string;
-};
 
-const CommentList: VFC<Props> = (props) => {
-  const { articleId } = props;
+const CommentList: VFC = () => {
+  const { articleId } = useParams<{ articleId: string }>();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<Comment>();
-  const { comment, isError, isLoading, mutate } = useComment(articleId);
+  const { comments, isError, isLoading, mutate } = useComment(articleId);
 
   const onSubmit = (data: Comment) => {
     auth.currentUser?.getIdToken(true).then((token) => {
@@ -69,7 +67,7 @@ const CommentList: VFC<Props> = (props) => {
         <Divider colorScheme="whiteAlpha" />
       </Box>
       <Stack>
-        {comment?.map((comment) => (
+        {comments?.map((comment) => (
           <HStack bgColor="white" borderRadius="md" key={comment.id}>
             <Avatar />
             <Stack>

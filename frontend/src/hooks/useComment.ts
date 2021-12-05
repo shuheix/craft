@@ -7,11 +7,11 @@ export const useComment = (articleId: string) => {
   const { data, error, mutate } = useSWR(
     INDEX_COMMENTS_API(articleId),
     (url: string) =>
-      axios.get<CommentType[] | null>(url).then((res) => res.data)
+      axios.get<{ comments: CommentType[] } | null>(url).then((res) => res.data)
   );
 
   return {
-    comment: data,
+    comments: data?.comments,
     isLoading: !error && !data,
     isError: error,
     mutate: mutate,

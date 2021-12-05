@@ -37,8 +37,6 @@ const TagList: VFC = () => {
     });
   };
 
-  const log = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {};
-
   const removeTag = (tagId: number) => {
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({

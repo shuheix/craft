@@ -33,6 +33,7 @@ const ShowArticleBody: VFC<Props> = (props) => {
               </Text>
             </HStack>
             <Text
+              w="100%"
               bgColor="white"
               p={10}
               whiteSpace="pre-line"

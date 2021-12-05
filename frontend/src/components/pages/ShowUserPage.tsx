@@ -6,14 +6,12 @@ import {
   Container,
   Heading,
   HStack,
-  Spacer,
   Spinner,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  VStack,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 import UsersArticles from "../user/UserArticles";
