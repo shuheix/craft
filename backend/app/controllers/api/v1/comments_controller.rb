@@ -30,7 +30,7 @@ module Api
       end
 
       def token_from_request_headers
-        params.require(:headers).permit(:Authorization)[:Authorization]
+        request.headers['Authorization']&.split&.last
       end
 
       def token
