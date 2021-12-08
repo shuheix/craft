@@ -11,7 +11,7 @@ module Api
         # render json: { articles: articles, total_pages: total_pages }, status: :ok
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
         total_pages = articles.total_pages
-        render json: articles, each_serializer: ArticleSerializer, status: :ok
+        render json: articles , each_serializer: ArticleSerializer, status: :ok
       end
 
       def show

@@ -60,7 +60,7 @@ const IndexArticlePage: VFC = () => {
             </Box>
           ))}
         </SimpleGrid>
-        <PageSelect data={data} />
+        <PageSelect />
       </Container>
     </Box>
   );

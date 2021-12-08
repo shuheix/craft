@@ -8,7 +8,8 @@ export const useSingleArticle = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { data, error, mutate } = useSWR(
     SHOW_ARTICLE_API(articleId),
-    (url: string) => axios.get<ArticleApiType>(url).then((res) => res.data)
+    (url: string) =>
+      axios.get<{ articles: ArticleApiType }>(url).then((res) => res.data)
   );
   return {
     data,

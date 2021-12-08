@@ -2,13 +2,10 @@ import React, { VFC } from "react";
 
 import dayjs from "dayjs";
 import { HStack, Avatar, Stack, Text } from "@chakra-ui/react";
-import { ArticleApiType } from "../../../types/apiType";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 
-type Props = {
-  data: ArticleApiType | null | undefined;
-};
-const ArticleUser: VFC<Props> = (props) => {
-  const { data } = props;
+const ArticleUser: VFC = () => {
+  const { data } = useSingleArticle();
   return (
     <HStack bgColor="white" borderRadius="2xl" p={5} mb={5}>
       <Avatar size="md" />

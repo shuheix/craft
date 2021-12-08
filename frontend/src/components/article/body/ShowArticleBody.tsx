@@ -1,14 +1,10 @@
 import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import React, { VFC } from "react";
-import { ArticleApiType } from "../../../types/apiType";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 
-type Props = {
-  data: ArticleApiType | null | undefined;
-};
-
-const ShowArticleBody: VFC<Props> = (props) => {
-  const { data } = props;
+const ShowArticleBody: VFC = () => {
+  const { data } = useSingleArticle();
   return (
     <>
       <Box mb={5}>

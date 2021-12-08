@@ -8,15 +8,11 @@ import {
   Image,
   Center,
 } from "@chakra-ui/react";
-import { ArticleApiType } from "../../../types/apiType";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 
-type ModalProps = {
-  data: ArticleApiType | null | undefined;
-};
-
-const ImageModal: VFC<ModalProps> = (props) => {
+const ImageModal: VFC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data } = props;
+  const { data } = useSingleArticle();
 
   return (
     <>

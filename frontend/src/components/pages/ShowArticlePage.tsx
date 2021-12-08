@@ -43,14 +43,14 @@ const ShowArticlePage: VFC = () => {
         <Container py={10} maxW="container.xl">
           <Box display={{ md: "flex" }}>
             <Box w="100%">
-              {isLargerThan768 || <ArticleUser data={data} />}
-              <ShowArticleBody data={data} />
-              <ImageModal data={data} />
+              {isLargerThan768 || <ArticleUser />}
+              <ShowArticleBody />
+              <ImageModal />
               <CommentList />
             </Box>
             {isLargerThan768 && (
               <Box mx={5} pr={5} w="350px">
-                <ArticleUser data={data} />
+                <ArticleUser />
                 <TagList />
                 <ButtonKit onOpen={onOpen} />
               </Box>
