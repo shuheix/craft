@@ -16,16 +16,16 @@ const ShowArticleBody: VFC = () => {
               p={5}
               overflowWrap="anywhere"
             >
-              {data?.articles.title}
+              {data?.article.title}
             </Heading>
             <HStack spacing={3} pr={5} justifyContent="center">
               <Text fontSize="sm">
                 投稿日:
-                {dayjs(data?.articles.created_at).format("YYYY年MM月DD日")}
+                {dayjs(data?.article.created_at).format("YYYY年MM月DD日")}
               </Text>
               <Text fontSize="sm">
                 更新日:
-                {dayjs(data?.articles.updated_at).format("YYYY年MM月DD日")}
+                {dayjs(data?.article.updated_at).format("YYYY年MM月DD日")}
               </Text>
             </HStack>
             <Text
@@ -36,7 +36,7 @@ const ShowArticleBody: VFC = () => {
               overflowWrap="anywhere"
               borderBottomRadius="2xl"
             >
-              {data?.articles.text}
+              {data?.article.text}
             </Text>
           </VStack>
         </Box>

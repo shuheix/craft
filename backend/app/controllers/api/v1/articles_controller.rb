@@ -4,21 +4,18 @@ module Api
       skip_before_action :authenticate_user, only: %i[index show search]
 
       def index
-        # articles = Article.recent.joins(:user, :tagmaps, :tags)
-        # .select('articles.*, users.name as user_name,users.avatar, tags.name')
-        # .page(params[:page]).per(12)
-        # total_pages = articles.total_pages
-        # render json: { articles: articles, total_pages: total_pages }, status: :ok
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
         total_pages = articles.total_pages
         render json: articles , each_serializer: ArticleSerializer, status: :ok
       end
 
       def show
-        article = Article.find(params[:id]).as_json(include: %i[user favorites comments tags])
-        render json: {
-          articles: article,
-        }, status: :ok
+        # article = Article.find(params[:id]).as_json(include: %i[user favorites comments tags])
+        # render json: {
+        #   articles: article,
+        # }, status: :ok
+        article = Article.find(params[:id])
+        render json: article, serializer: ArticleSerializer, status: :ok
       end
 
       def create

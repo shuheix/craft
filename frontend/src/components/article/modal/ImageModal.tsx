@@ -16,10 +16,10 @@ const ImageModal: VFC = () => {
 
   return (
     <>
-      {data?.articles.image.url && (
+      {data?.article.image.url && (
         <>
           <Image
-            src={data?.articles.image.url}
+            src={data?.article.image.url}
             boxSize="200px"
             onClick={onOpen}
             _hover={{ cursor: "pointer" }}
@@ -29,7 +29,7 @@ const ImageModal: VFC = () => {
             <ModalContent>
               <ModalBody>
                 <Center>
-                  <Image src={data?.articles.image.url} />
+                  <Image src={data?.article.image.url} />
                 </Center>
               </ModalBody>
             </ModalContent>

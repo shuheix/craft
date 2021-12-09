@@ -20,7 +20,7 @@ export const useArticleFunction = () => {
         data: { id: `${articleId}` },
       })
         .then(() => {
-          history.push(`/users/${data?.articles.user_id}`);
+          history.push(`/users/${data?.article.user_id}`);
           toast({
             title: "削除しました",
             status: "success",

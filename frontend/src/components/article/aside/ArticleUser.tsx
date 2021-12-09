@@ -10,9 +10,9 @@ const ArticleUser: VFC = () => {
     <HStack bgColor="white" borderRadius="2xl" p={5} mb={5}>
       <Avatar size="md" />
       <Stack>
-        <Text fontSize="sm">{data?.articles.user.name}</Text>
+        <Text fontSize="sm">{data?.article.user.name}</Text>
         <Text fontSize="sm">
-          {dayjs(data?.articles.created_at).format("YYYY年MM月DD年hh時mm分")}
+          {dayjs(data?.article.created_at).format("YYYY年MM月DD年hh時mm分")}
         </Text>
       </Stack>
     </HStack>

@@ -9,7 +9,7 @@ export const useSingleArticle = () => {
   const { data, error, mutate } = useSWR(
     SHOW_ARTICLE_API(articleId),
     (url: string) =>
-      axios.get<{ articles: ArticleApiType }>(url).then((res) => res.data)
+      axios.get<{ article: ArticleApiType }>(url).then((res) => res.data)
   );
   return {
     data,

@@ -6,7 +6,6 @@ import {
   Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
 import { useArticleFunction } from "../../hooks/useArticleFunction";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/aside/ButtonKit";
@@ -20,7 +19,6 @@ import ImageModal from "../article/modal/ImageModal";
 import { useResponsiveStyle } from "../../hooks/useResponsiveStyle";
 
 const ShowArticlePage: VFC = () => {
-  const { articleId } = useParams<{ articleId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const { data, isError, isLoading } = useSingleArticle();
@@ -63,7 +61,7 @@ const ShowArticlePage: VFC = () => {
           onClose={onClose}
           isCentered
           onClickDestroyButton={onClickDestroyButton}
-          title={data?.articles.title}
+          title={data?.article.title}
         />
       </Box>
     </>

@@ -18,7 +18,7 @@ const ButtonKit: VFC<Props> = (props) => {
   return (
     <>
       <Box>
-        {currentUser?.uid === data?.articles.user.uid ? (
+        {currentUser?.uid === data?.article.user.uid ? (
           <>
             <Button
               size="lg"

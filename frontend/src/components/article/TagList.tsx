@@ -57,7 +57,7 @@ const TagList: VFC = () => {
   return (
     <>
       <Wrap mb={5} bgColor="white" borderRadius="2xl" p={5}>
-        {data?.articles.tags?.map((tag) => (
+        {data?.article.tags?.map((tag) => (
           <Tag
             variant="solid"
             size="md"

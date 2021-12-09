@@ -11,7 +11,7 @@ const FavoriteButton: VFC = () => {
   const { currentUser } = useContext(AuthContext);
   return (
     <>
-      {!!data?.articles.favorites.find(
+      {!!data?.article.favorites.find(
         (item) => item.uid === currentUser?.uid
       ) ? (
         <IconButton
