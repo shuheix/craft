@@ -7,6 +7,8 @@ import {
   HStack,
   SimpleGrid,
   Spinner,
+  Tag,
+  TagLabel,
   VStack,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
@@ -52,6 +54,19 @@ const IndexArticlePage: VFC = () => {
                   <Heading size="sm" maxWidth="100%" alignSelf="flex-start">
                     {article.title}
                   </Heading>
+                  <HStack>
+                    {article.tags.map((tag) => (
+                      <Tag
+                        variant="solid"
+                        size="md"
+                        borderRadius="full"
+                        colorScheme="teal"
+                        key={tag.id}
+                      >
+                        {tag.name}
+                      </Tag>
+                    ))}
+                  </HStack>
                   <Heading size="xs" alignSelf="flex-end" mr={4}>
                     {dayjs(article.created_at).format("YYYY年MM月DD日")}
                   </Heading>
