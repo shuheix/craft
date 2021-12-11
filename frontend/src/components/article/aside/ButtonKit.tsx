@@ -7,20 +7,18 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import FavoriteButton from "./FavoriteButton";
 
 type Props = {
-  articleId: string;
   onOpen: () => void;
 };
 
 const ButtonKit: VFC<Props> = (props) => {
-  const { articleId, onOpen } = props;
+  const { onOpen } = props;
   const { currentUser } = useContext(AuthContext);
-  const { data } = useSingleArticle(articleId);
-  const { onClickEditButton } = useArticleFunction(articleId);
-
+  const { data } = useSingleArticle();
+  const { onClickEditButton } = useArticleFunction();
   return (
     <>
       <Box>
-        {currentUser?.uid === data?.articles.user.uid ? (
+        {currentUser?.uid === data?.article.user.uid ? (
           <>
             <Button
               size="lg"
@@ -47,7 +45,7 @@ const ButtonKit: VFC<Props> = (props) => {
             </Button>
           </>
         ) : (
-          <FavoriteButton articleId={articleId} />
+          <FavoriteButton />
         )}
       </Box>
     </>

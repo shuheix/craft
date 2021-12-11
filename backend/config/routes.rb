@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       resources :articles do
         resource :favorites, only: %i[create destroy]
         resources :comments
+        resource :tagmaps, only: %i[create destroy]
       end
+      resource :tags, only: %i[create destroy]
       post '/users/:uid/avatar', to: 'users#update_avatar'
     end
   end

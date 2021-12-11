@@ -1,20 +1,14 @@
 import { Flex, Button } from "@chakra-ui/react";
 import React, { VFC } from "react";
+import { useLocation } from "react-router-dom";
+import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import { usePageSelect } from "../../hooks/usePageSelect";
-import { ArticleType } from "../../types/articleType";
 
-type Props = {
-  data:
-    | {
-        articles: ArticleType[];
-        total_pages: number;
-      }
-    | undefined;
-};
-
-const PageSelect: VFC<Props> = (props) => {
-  const { data } = props;
+const PageSelect: VFC = () => {
+  const location = useLocation();
+  const { data } = useIndexArticle(location.search);
   const { nextPage, backPage, currentPage } = usePageSelect();
+  if (data?.articles.length != null && data.articles.length <= 12) return null;
   return (
     <>
       <Flex justifyContent="flex-end" mt={4}>
@@ -23,7 +17,7 @@ const PageSelect: VFC<Props> = (props) => {
             戻る
           </Button>
         )}
-        {currentPage !== data?.total_pages && (
+        {currentPage !== data?.articles.length && (
           <Button ml={4} onClick={nextPage}>
             次のページへ
           </Button>

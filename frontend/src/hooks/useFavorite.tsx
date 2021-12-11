@@ -1,10 +1,12 @@
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { FAVORITES_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 import { useSingleArticle } from "./fetch/useSingleArticle";
 
-export const useFavorite = (articleId: string) => {
-  const { mutate } = useSingleArticle(articleId);
+export const useFavorite = () => {
+  const { articleId } = useParams<{ articleId: string }>();
+  const { mutate } = useSingleArticle();
 
   const createFavorite = () => {
     auth.currentUser?.getIdToken(true).then((token) => {

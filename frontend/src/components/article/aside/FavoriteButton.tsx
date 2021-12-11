@@ -5,18 +5,13 @@ import { useFavorite } from "../../../hooks/useFavorite";
 import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 import { AuthContext } from "../../../providers/AuthProvider";
 
-type Props = {
-  articleId: string;
-};
-
-const FavoriteButton: VFC<Props> = (props) => {
-  const { articleId } = props;
-  const { data } = useSingleArticle(articleId);
-  const { destroyFavorite, createFavorite } = useFavorite(articleId);
+const FavoriteButton: VFC = () => {
+  const { data } = useSingleArticle();
+  const { destroyFavorite, createFavorite } = useFavorite();
   const { currentUser } = useContext(AuthContext);
   return (
     <>
-      {!!data?.articles.favorites.find(
+      {!!data?.article.favorites.find(
         (item) => item.uid === currentUser?.uid
       ) ? (
         <IconButton

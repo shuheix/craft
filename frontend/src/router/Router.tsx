@@ -14,6 +14,9 @@ const Router: VFC = () => {
   return (
     <Switch>
       <AuthProvider>
+        <Route exact path="/">
+          <IndexArticlePage />
+        </Route>
         <Route exact path="/articles">
           <IndexArticlePage />
         </Route>

@@ -32,7 +32,7 @@ const EditArticleLayout: VFC = () => {
   const history = useHistory();
   const toast = useToast();
   const { articleId } = useParams<{ articleId: string }>();
-  const { data, isLoading, isError } = useSingleArticle(articleId);
+  const { data, isLoading, isError } = useSingleArticle();
 
   const {
     handleSubmit,
@@ -102,7 +102,7 @@ const EditArticleLayout: VFC = () => {
             </FormErrorMessage>
             <Input
               id="title"
-              defaultValue={data?.articles.title}
+              defaultValue={data?.article.title}
               placeholder="タイトル"
               {...register("title", {
                 required: "タイトルが未入力です",
@@ -117,7 +117,7 @@ const EditArticleLayout: VFC = () => {
             <Textarea
               resize="none"
               id="text"
-              defaultValue={data?.articles.text}
+              defaultValue={data?.article.text}
               {...register("text", {
                 required: "内容が未入力です",
                 maxLength: {

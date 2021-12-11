@@ -5,8 +5,10 @@ import {
   Container,
   Heading,
   HStack,
+  Icon,
   SimpleGrid,
   Spinner,
+  Tag,
   VStack,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
@@ -15,6 +17,7 @@ import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import PageSelect from "../footer/PageSelect";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import dayjs from "dayjs";
+import { CalendarIcon } from "@chakra-ui/icons";
 
 const IndexArticlePage: VFC = () => {
   const location = useLocation();
@@ -49,18 +52,37 @@ const IndexArticlePage: VFC = () => {
               <HStack h="100%" px={4}>
                 <Avatar src={article.avatar} />
                 <VStack spacing={2} flexGrow={1}>
-                  <Heading size="sm" maxWidth="100%" alignSelf="flex-start">
-                    {article.title}
-                  </Heading>
-                  <Heading size="xs" alignSelf="flex-end" mr={4}>
+                  <Heading size="xs" alignSelf="flex-start" mr={4}>
+                    <Icon as={CalendarIcon} mr={1} />
                     {dayjs(article.created_at).format("YYYY年MM月DD日")}
                   </Heading>
+                  <Heading
+                    size="sm"
+                    maxWidth="100%"
+                    alignSelf="flex-start"
+                    ml={4}
+                  >
+                    {article.title}
+                  </Heading>
+                  <HStack alignSelf="flex-end" pl={3}>
+                    {article.tags.map((tag) => (
+                      <Tag
+                        variant="solid"
+                        size="md"
+                        borderRadius="full"
+                        colorScheme="teal"
+                        key={tag.id}
+                      >
+                        {tag.name}
+                      </Tag>
+                    ))}
+                  </HStack>
                 </VStack>
               </HStack>
             </Box>
           ))}
         </SimpleGrid>
-        <PageSelect data={data} />
+        <PageSelect />
       </Container>
     </Box>
   );

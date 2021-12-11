@@ -8,22 +8,18 @@ import {
   Image,
   Center,
 } from "@chakra-ui/react";
-import { ArticleApiType } from "../../../types/apiType";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
 
-type ModalProps = {
-  data: ArticleApiType | null | undefined;
-};
-
-const ImageModal: VFC<ModalProps> = (props) => {
+const ImageModal: VFC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data } = props;
+  const { data } = useSingleArticle();
 
   return (
     <>
-      {data?.articles.image.url && (
+      {data?.article.image.url && (
         <>
           <Image
-            src={data?.articles.image.url}
+            src={data?.article.image.url}
             boxSize="200px"
             onClick={onOpen}
             _hover={{ cursor: "pointer" }}
@@ -33,7 +29,7 @@ const ImageModal: VFC<ModalProps> = (props) => {
             <ModalContent>
               <ModalBody>
                 <Center>
-                  <Image src={data?.articles.image.url} />
+                  <Image src={data?.article.image.url} />
                 </Center>
               </ModalBody>
             </ModalContent>

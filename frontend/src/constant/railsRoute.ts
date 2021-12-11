@@ -26,3 +26,10 @@ export const SHOW_USERS_API = (usersId: string) => `${USERS_API}/${usersId}`;
 // favorites_controller
 export const FAVORITES_API = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}/favorites`;
+
+// tags
+export const TAGS_API = `${defaultApi}/tags`;
+
+// tagmap
+export const TAGMAPS_API = (articleId: string) =>
+  `${defaultApi}/articles/${articleId}/tagmaps`;

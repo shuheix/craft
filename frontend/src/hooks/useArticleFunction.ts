@@ -1,14 +1,15 @@
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { SHOW_ARTICLE_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 import { useSingleArticle } from "./fetch/useSingleArticle";
 
-export const useArticleFunction = (articleId: string) => {
+export const useArticleFunction = () => {
   const history = useHistory();
   const toast = useToast();
-  const { data } = useSingleArticle(articleId);
+  const { articleId } = useParams<{ articleId: string }>();
+  const { data } = useSingleArticle();
 
   const onClickDestroyButton = () => {
     auth.currentUser?.getIdToken(true).then((token) => {
@@ -19,7 +20,7 @@ export const useArticleFunction = (articleId: string) => {
         data: { id: `${articleId}` },
       })
         .then(() => {
-          history.push(`/users/${data?.articles.user_id}`);
+          history.push(`/users/${data?.article.user_id}`);
           toast({
             title: "削除しました",
             status: "success",
