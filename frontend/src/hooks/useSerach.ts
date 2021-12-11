@@ -7,12 +7,12 @@ export const useSearch = () => {
 
   const searchArticle = () => {
     if (inputValue === "") return;
-    history.push(`/articles/search?title=${inputValue}`);
+    history.push(`/articles/search?q=${inputValue}`);
   };
 
   const pressEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && inputValue !== "") {
-      history.push(`/articles/search?title=${inputValue}`);
+      history.push(`/articles/search?q=${inputValue}`);
     }
   };
 

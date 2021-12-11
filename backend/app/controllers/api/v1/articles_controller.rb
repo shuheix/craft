@@ -10,10 +10,6 @@ module Api
       end
 
       def show
-        # article = Article.find(params[:id]).as_json(include: %i[user favorites comments tags])
-        # render json: {
-        #   articles: article,
-        # }, status: :ok
         article = Article.find(params[:id])
         render json: article, serializer: ArticleSerializer, status: :ok
       end
@@ -52,9 +48,9 @@ module Api
       end
 
       def search
-        articles = Article.where("title Like?","%#{params[:title]}%").page(params[:page]).per(12)
-        total_pages = articles.total_pages
-        render json: { articles: articles, total_pages: total_pages }, status: :ok
+        articles = Article.ransack(tags_name_or_title_cont: params[:q])
+        results = articles.result.includes(:user, :comments, :favorites, :tagmaps, :tags)
+        render json: results, each_serializer: ArticleSerializer, status: :ok
       end
 
       private

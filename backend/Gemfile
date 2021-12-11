@@ -15,6 +15,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'whenever', require: false
 gem 'active_model_serializers'
+gem 'ransack'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
