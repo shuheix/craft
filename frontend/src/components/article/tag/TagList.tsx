@@ -12,10 +12,10 @@ import axios from "axios";
 import React, { useRef, VFC } from "react";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { TAGMAPS_API } from "../../constant/railsRoute";
-import { auth } from "../../firebase";
-import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
-import { AuthContext } from "../../providers/AuthProvider";
+import { TAGMAPS_API } from "../../../constant/railsRoute";
+import { auth } from "../../../firebase";
+import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const TagList: VFC = () => {
   const { data, mutate } = useSingleArticle();
@@ -24,6 +24,7 @@ const TagList: VFC = () => {
   const { currentUser } = useContext(AuthContext);
 
   const addTag = () => {
+    if (tagRef.current?.value === undefined) return;
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         method: "POST",
@@ -34,9 +35,7 @@ const TagList: VFC = () => {
         .then(() => {
           mutate();
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => {});
     });
   };
 

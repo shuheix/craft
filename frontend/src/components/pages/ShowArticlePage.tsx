@@ -10,7 +10,7 @@ import { useArticleFunction } from "../../hooks/useArticleFunction";
 import ShowArticleBody from "../article/body/ShowArticleBody";
 import ButtonKit from "../article/aside/ButtonKit";
 import DeleteArticleDialog from "../article/dialog/DeleteArticleDialog";
-import TagList from "../article/TagList";
+import TagList from "../article/tag/TagList";
 import Header from "../header/Header";
 import ArticleUser from "../article/aside/ArticleUser";
 import CommentList from "../article/comment/CommentList";
