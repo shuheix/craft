@@ -51,7 +51,7 @@ const IndexArticlePage: VFC = () => {
               borderRadius="xl"
             >
               <HStack h="100%" px={4}>
-                <UserAvatar />
+                <UserAvatar src={article.user.avatar.url} />
                 <VStack spacing={2} flexGrow={1}>
                   <Heading size="xs" alignSelf="flex-start" mr={4}>
                     <Icon as={CalendarIcon} mr={1} />

@@ -12,7 +12,6 @@ module Api
 
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
-
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))
         if @user.save
           pp @user
@@ -20,6 +19,9 @@ module Api
         else
           render json: @user.errors, status: :unprocessable_entity
         end
+      end
+
+      def update
       end
 
       def update_avatar

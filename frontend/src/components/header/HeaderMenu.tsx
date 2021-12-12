@@ -7,15 +7,15 @@ import {
   MenuItem,
   MenuDivider,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React from "react";
+import { useUser } from "../../hooks/fetch/useUser";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import { useAuth } from "../../hooks/useAuth";
-import { AuthContext } from "../../providers/AuthProvider";
 import AuthModal from "../auth/AuthModal";
 import UserAvatar from "../user/UserAvatar";
 
 const HeaderMenu = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { data, currentUser } = useUser();
   const { goUserPage } = useAppHistory();
   const { logout } = useAuth();
 
@@ -25,7 +25,7 @@ const HeaderMenu = () => {
         <Flex flexDirection="row" justifyContent="flex-end">
           <Menu>
             <MenuButton>
-              <UserAvatar size="md" />
+              <UserAvatar size="md" src={data?.user.avatar.url} />
             </MenuButton>
             <MenuList>
               <MenuGroup>

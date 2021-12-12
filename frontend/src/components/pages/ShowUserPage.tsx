@@ -20,7 +20,7 @@ import UsersArticles from "../user/UserArticles";
 import UsersFavoriteArticles from "../user/UserFavoriteArticles";
 import UserAvatar from "../user/UserAvatar";
 import { useUser } from "../../hooks/fetch/useUser";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { EDIT_USER_URL } from "../../constant/appHistory";
 
 const ShowUserPage: VFC = () => {
@@ -45,6 +45,7 @@ const ShowUserPage: VFC = () => {
                 size="2xl"
                 alignSelf="flex-start"
                 justifySelf="flex-start"
+                src={data?.user.avatar.url}
               />
               <Button
                 alignSelf="flex-start"
