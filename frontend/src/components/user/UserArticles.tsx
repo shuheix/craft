@@ -30,15 +30,14 @@ const UserArticles = () => {
 
   return (
     <Stack spacing={5}>
-      {data?.articles?.map((article, index) => (
-        <HStack>
+      {data?.articles?.map((article) => (
+        <HStack key={article.id}>
           <Box
             flexGrow={1}
             bgColor="white"
             shadow="md"
             px={5}
             py={8}
-            key={article.id}
             onClick={() => history.push(SHOW_ARTICLE_URL(article.id))}
             _hover={{
               boxShadow: "lg",
