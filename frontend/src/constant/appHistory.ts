@@ -8,4 +8,7 @@ export const INDEX_ARTICLE_PAGE_URL = (page: string) =>
   `/articles?page=${page}`;
 export const NEW_ARTICLE_URL = "/articles/new";
 export const SHOW_ARTICLE_URL = (articleId: string) => `/articles/${articleId}`;
-export const SHOW_USER_URL = (usersId: string) => `/users/${usersId}`;
+export const EDIT_ARTICLE_URL = (articleId: string) =>
+  `/articles/${articleId}/edit`;
+export const SHOW_USER_URL = (uid: string) => `/users/${uid}`;
+export const EDIT_USER_URL = (uid: string) => `/users/${uid}/edit`;

@@ -18,6 +18,7 @@ import PageSelect from "../footer/PageSelect";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import dayjs from "dayjs";
 import { CalendarIcon } from "@chakra-ui/icons";
+import UserAvatar from "../user/UserAvatar";
 
 const IndexArticlePage: VFC = () => {
   const location = useLocation();
@@ -50,7 +51,7 @@ const IndexArticlePage: VFC = () => {
               borderRadius="xl"
             >
               <HStack h="100%" px={4}>
-                <Avatar src={article.avatar} />
+                <UserAvatar />
                 <VStack spacing={2} flexGrow={1}>
                   <Heading size="xs" alignSelf="flex-start" mr={4}>
                     <Icon as={CalendarIcon} mr={1} />

@@ -1,24 +1,8 @@
-import { Avatar, Spinner } from "@chakra-ui/react";
+import { Avatar, AvatarProps, Spinner } from "@chakra-ui/react";
 import React, { VFC } from "react";
 import { useUser } from "../../hooks/fetch/useUser";
 
-type AvatarSize = {
-  size?:
-    | (string & {})
-    | "2xl"
-    | "2xs"
-    | "xs"
-    | "sm"
-    | "md"
-    | "lg"
-    | "xl"
-    | "full"
-    | undefined;
-  user_id?: string;
-};
-
-const UserAvatar: VFC<AvatarSize> = (props) => {
-  const { size } = props;
+const UserAvatar: VFC<AvatarProps> = (props) => {
   const { data, isLoading, isError } = useUser();
 
   if (isLoading) return <Spinner />;
@@ -27,9 +11,9 @@ const UserAvatar: VFC<AvatarSize> = (props) => {
   return (
     <>
       {data?.user.avatar.url ? (
-        <Avatar src={data?.user.avatar.url} size={size} />
+        <Avatar src={data?.user.avatar.url} {...props} />
       ) : (
-        <Avatar size={size} />
+        <Avatar {...props} />
       )}
     </>
   );

@@ -1,10 +1,10 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState, VFC } from "react";
 import { useParams } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useUser } from "../../hooks/fetch/useUser";
-import AvatarModal from "../user/AvatarModal";
+import Header from "../header/Header";
 import UserAvatar from "../user/UserAvatar";
 
 const EditUserPage: VFC = () => {
@@ -36,14 +36,21 @@ const EditUserPage: VFC = () => {
   };
 
   return (
-    <div>
-      <form action="">
-        <input type="file" onChange={getFile} />
-        <Button onClick={post}>ボタン</Button>
-        <UserAvatar />
-        <AvatarModal />
-      </form>
-    </div>
+    <Box bgColor="teal.50" minH="100vh">
+      <Header />
+      <Container maxW="container.md" bgColor="teal.100">
+        <UserAvatar size="2xl" />
+      </Container>
+    </Box>
+
+    // <div>
+    //   <form action="">
+    //     <input type="file" onChange={getFile} />
+    //     <Button onClick={post}>ボタン</Button>
+    //     <UserAvatar />
+    //     <AvatarModal />
+    //   </form>
+    // </div>
   );
 };
 
