@@ -7,6 +7,13 @@ import {
   FormLabel,
   HStack,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
@@ -28,7 +35,8 @@ const EditUserPage: VFC = () => {
   const [file, setFile] = useState<File>();
   const { uid } = useParams<{ uid: string }>();
   const { data, mutate } = useUser();
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const {
     handleSubmit,
@@ -42,6 +50,7 @@ const EditUserPage: VFC = () => {
     const avatar = new FormData();
     if (typeof file === "undefined") return;
     avatar.append("avatar", file);
+
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         url: `http://localhost:3000/api/v1/users/${uid}/avatar`,
@@ -68,11 +77,12 @@ const EditUserPage: VFC = () => {
         <VStack alignItems="flex-start">
           <UserAvatar
             size="2xl"
+            onClick={() => imageRef.current?.click()}
             onChange={getFile}
             src={data?.user.avatar.url}
           />
           <Button onClick={post}>on</Button>
-          <Input type="file" onChange={getFile} />
+          <Input type="file" onChange={getFile} ref={imageRef} hidden />
           <Box w="100%">
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl isInvalid={!!errors.name || !!errors.profile} mt={5}>
@@ -124,6 +134,20 @@ const EditUserPage: VFC = () => {
                 Submit
               </Button>
             </form>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Modal Title</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody></ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button variant="ghost">Secondary Action</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Box>
         </VStack>
       </Container>
