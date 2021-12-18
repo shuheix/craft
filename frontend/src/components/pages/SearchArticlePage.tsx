@@ -10,6 +10,8 @@ import {
   VStack,
   Icon,
   Tag,
+  Center,
+  Text,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import React, { VFC } from "react";
@@ -35,6 +37,13 @@ const SearchArticlePage: VFC = () => {
     <Box bgColor="teal.50" minH="100vh">
       <Header />
       <Container maxW="container.xl">
+        {data?.articles.length === 0 && (
+          <Center mt={5}>
+            <Text>
+              {location.search.slice(3)}に該当する検索結果がありませんでした。
+            </Text>
+          </Center>
+        )}
         <SimpleGrid columns={{ md: 2 }} spacingX="40px" spacingY="20px" mt={20}>
           {data?.articles.map((article) => (
             <Box

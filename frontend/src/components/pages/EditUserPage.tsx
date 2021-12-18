@@ -19,9 +19,9 @@ import {
   useDisclosure,
   VStack,
   Image,
+  Center,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { type } from "os";
 import React, { useRef, useState, VFC } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -67,6 +67,7 @@ const EditUserPage: VFC = () => {
         data: avatar,
       }).then((res) => {
         mutate();
+        onClose();
       });
     });
   };
@@ -78,6 +79,7 @@ const EditUserPage: VFC = () => {
       fileReader.readAsDataURL(files[0]);
       fileReader.onload = (event: ProgressEvent<FileReader>) => {
         if (event.target?.result != null) {
+          setFile(files[0]);
           setImageUrl(event.target?.result.toString());
           onOpen();
         }
@@ -97,8 +99,6 @@ const EditUserPage: VFC = () => {
             src={data?.user.avatar.url}
             _hover={{ cursor: "pointer" }}
           />
-          <Avatar />
-          <Button onClick={post}>on</Button>
           <Input type="file" onChange={getFile} ref={imageRef} hidden />
           <Box w="100%">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -152,19 +152,20 @@ const EditUserPage: VFC = () => {
               </Button>
             </form>
             <>
-              <Modal isOpen={isOpen} onClose={onClose}>
+              <Modal isOpen={isOpen} onClose={onClose} size="sm">
                 <ModalOverlay />
                 <ModalContent>
                   <ModalHeader>Modal Title</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
-                    <Avatar src={imageUrl} size="3xl" />
+                    <Center>
+                      <Avatar src={imageUrl} size="2xl" />
+                    </Center>
                   </ModalBody>
                   <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={onClose}>
-                      Close
+                    <Button colorScheme="blue" mr={3} onClick={post}>
+                      適用
                     </Button>
-                    <Button variant="ghost">Secondary Action</Button>
                   </ModalFooter>
                 </ModalContent>
               </Modal>
@@ -173,15 +174,6 @@ const EditUserPage: VFC = () => {
         </VStack>
       </Container>
     </Box>
-
-    // <div>
-    //   <form action="">
-    //     <input type="file" onChange={getFile} />
-    //     <Button onClick={post}>ボタン</Button>
-    //     <UserAvatar />
-    //     <AvatarModal />
-    //   </form>
-    // </div>
   );
 };
 

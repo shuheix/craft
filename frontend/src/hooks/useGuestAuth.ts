@@ -1,11 +1,11 @@
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 import { USERS_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
 import { UserType } from "../types/userType";
 
 export const useGuestAuth = () => {
-  const history = useHistory();
+  const toast = useToast();
   const guestLogin = () => {
     auth.signInAnonymously().then(() => {
       auth.currentUser
@@ -18,7 +18,13 @@ export const useGuestAuth = () => {
                 registration: { name: "ゲストユーザー" },
               })
               .then((res) => {
-                history.push(`/users/${res.data.uid}`);
+                toast({
+                  title: "ログインしました",
+                  status: "success",
+                  duration: 5000,
+                  position: "top",
+                  isClosable: true,
+                });
               });
           });
         });
