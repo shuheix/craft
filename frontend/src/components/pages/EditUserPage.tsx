@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -15,9 +16,12 @@ import {
   ModalHeader,
   ModalOverlay,
   Textarea,
+  useDisclosure,
   VStack,
+  Image,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { type } from "os";
 import React, { useRef, useState, VFC } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -33,6 +37,7 @@ type InputValue = {
 
 const EditUserPage: VFC = () => {
   const [file, setFile] = useState<File>();
+  const [imageUrl, setImageUrl] = useState("");
   const { uid } = useParams<{ uid: string }>();
   const { data, mutate } = useUser();
   const imageRef = useRef<HTMLInputElement>(null);
@@ -67,7 +72,17 @@ const EditUserPage: VFC = () => {
   };
 
   const getFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.target.files && setFile(event.target.files[0]);
+    if (event.target.files != null) {
+      const fileReader = new FileReader();
+      const files = event.target.files;
+      fileReader.readAsDataURL(files[0]);
+      fileReader.onload = (event: ProgressEvent<FileReader>) => {
+        if (event.target?.result != null) {
+          setImageUrl(event.target?.result.toString());
+          onOpen();
+        }
+      };
+    }
   };
 
   return (
@@ -80,7 +95,9 @@ const EditUserPage: VFC = () => {
             onClick={() => imageRef.current?.click()}
             onChange={getFile}
             src={data?.user.avatar.url}
+            _hover={{ cursor: "pointer" }}
           />
+          <Avatar />
           <Button onClick={post}>on</Button>
           <Input type="file" onChange={getFile} ref={imageRef} hidden />
           <Box w="100%">
@@ -134,20 +151,24 @@ const EditUserPage: VFC = () => {
                 Submit
               </Button>
             </form>
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody></ModalBody>
-                <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button variant="ghost">Secondary Action</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+            <>
+              <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Modal Title</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <Avatar src={imageUrl} size="3xl" />
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button colorScheme="blue" mr={3} onClick={onClose}>
+                      Close
+                    </Button>
+                    <Button variant="ghost">Secondary Action</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+            </>
           </Box>
         </VStack>
       </Container>
