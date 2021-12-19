@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :uid, presence: true
+  validates :profile, length: { maximum: 500 }
 
   has_many :articles
   has_many :favorites

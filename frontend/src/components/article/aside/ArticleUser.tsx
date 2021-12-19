@@ -8,7 +8,7 @@ const ArticleUser: VFC = () => {
   const { data } = useSingleArticle();
   return (
     <HStack bgColor="white" borderRadius="2xl" p={5} mb={5}>
-      <Avatar size="md" />
+      <Avatar size="md" src={data?.article.user.avatar.url} />
       <Stack>
         <Text fontSize="sm">{data?.article.user.name}</Text>
         <Text fontSize="sm">

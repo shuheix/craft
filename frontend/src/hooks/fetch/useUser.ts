@@ -21,5 +21,11 @@ export const useUser = () => {
         .then((res) => res.data)
   );
 
-  return { data, isLoading: !error && !data, isError: error, mutate };
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error,
+    mutate,
+    currentUser,
+  };
 };
