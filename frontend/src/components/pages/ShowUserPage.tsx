@@ -14,6 +14,7 @@ import {
   Tabs,
   HStack,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 import UsersArticles from "../user/UserArticles";
@@ -41,12 +42,22 @@ const ShowUserPage: VFC = () => {
         <Container maxW="container.xl">
           <VStack my={5} ml={5} spacing={5}>
             <HStack w="100%" justifyContent="space-between">
-              <UserAvatar
-                size="2xl"
-                alignSelf="flex-start"
-                justifySelf="flex-start"
-                src={data?.user.avatar.url}
-              />
+              <HStack>
+                <UserAvatar
+                  size="2xl"
+                  alignSelf="flex-start"
+                  justifySelf="flex-start"
+                  src={data?.user.avatar.url}
+                />
+                <Text
+                  alignSelf="self-start"
+                  justifySelf="self-start"
+                  pt={5}
+                  pl={5}
+                >
+                  {data?.user.profile}
+                </Text>
+              </HStack>
               <Button
                 alignSelf="flex-start"
                 variant="outline"

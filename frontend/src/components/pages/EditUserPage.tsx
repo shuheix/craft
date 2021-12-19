@@ -187,15 +187,20 @@ const EditUserPage: VFC = () => {
               <Modal isOpen={isOpen} onClose={onClose} size="sm">
                 <ModalOverlay />
                 <ModalContent>
-                  <ModalHeader>Modal Title</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody>
                     <Center>
-                      <Avatar src={imageUrl} size="2xl" />
+                      <Avatar src={imageUrl} size="2xl" mt={10} />
                     </Center>
                   </ModalBody>
                   <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={post}>
+                    <Button
+                      colorScheme="blue"
+                      mr={3}
+                      onClick={post}
+                      w="100%"
+                      m="auto"
+                    >
                       適用
                     </Button>
                   </ModalFooter>
