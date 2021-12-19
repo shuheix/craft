@@ -18,13 +18,14 @@ import {
   Textarea,
   useDisclosure,
   VStack,
-  Image,
   Center,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useRef, useState, VFC } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { SHOW_USERS_API } from "../../constant/railsRoute";
 import { auth } from "../../firebase";
 import { useUser } from "../../hooks/fetch/useUser";
 import Header from "../header/Header";
@@ -42,6 +43,7 @@ const EditUserPage: VFC = () => {
   const { data, mutate } = useUser();
   const imageRef = useRef<HTMLInputElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -49,13 +51,43 @@ const EditUserPage: VFC = () => {
     formState: { errors, isSubmitting },
   } = useForm<InputValue>();
 
-  const onSubmit = () => {};
+  const onSubmit = (data: InputValue) => {
+    const { name, profile } = data;
+    auth.currentUser?.getIdToken(true).then((token) => {
+      axios({
+        url: SHOW_USERS_API(uid),
+        method: "PATCH",
+        headers: {
+          Authorization: token,
+        },
+        data: {
+          name,
+          profile,
+        },
+      })
+        .then((res) => {
+          toast({
+            title: "編集しました",
+            status: "success",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "編集に失敗しました",
+            status: "error",
+            isClosable: true,
+            position: "bottom-right",
+          });
+        });
+    });
+  };
 
   const post = () => {
     const avatar = new FormData();
     if (typeof file === "undefined") return;
     avatar.append("avatar", file);
-
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
         url: `http://localhost:3000/api/v1/users/${uid}/avatar`,

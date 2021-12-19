@@ -7,6 +7,8 @@ import {
   TagCloseButton,
   TagLabel,
   Wrap,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useRef, VFC } from "react";
@@ -58,21 +60,29 @@ const TagList: VFC = () => {
 
   return (
     <>
-      <Wrap mb={5} bgColor="white" borderRadius="2xl" p={5}>
-        {data?.article.tags?.map((tag) => (
-          <Tag
-            variant="solid"
-            size="md"
-            borderRadius="full"
-            colorScheme="teal"
-            key={tag.id}
-          >
-            <TagLabel>{tag.name}</TagLabel>
-            {data.article.user.uid === currentUser?.uid && (
-              <TagCloseButton onClick={() => removeTag(tag.id)} />
-            )}
-          </Tag>
-        ))}
+      <Wrap mb={5} bgColor="white" borderRadius="2xl" px={5} py={2}>
+        <Text w="100%" justifySelf="center" textAlign="center">
+          Tag
+        </Text>
+        <VStack>
+          <VStack>
+            {data?.article.tags?.map((tag) => (
+              <Tag
+                variant="solid"
+                size="md"
+                borderRadius="full"
+                colorScheme="teal"
+                key={tag.id}
+              >
+                <TagLabel>{tag.name}</TagLabel>
+                {data.article.user.uid === currentUser?.uid && (
+                  <TagCloseButton onClick={() => removeTag(tag.id)} />
+                )}
+              </Tag>
+            ))}
+          </VStack>
+        </VStack>
+
         {data?.article.user.uid === currentUser?.uid && (
           <InputGroup>
             <Input

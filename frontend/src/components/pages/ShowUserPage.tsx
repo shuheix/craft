@@ -57,7 +57,9 @@ const ShowUserPage: VFC = () => {
                 プロフィール編集
               </Button>
             </HStack>
-            <Heading size="sm">{data?.user.name}</Heading>
+            <Heading size="sm" alignSelf="self-start" px={1}>
+              {data?.user.name}
+            </Heading>
           </VStack>
           <Box w="100%">
             <Tabs isLazy w="100%">

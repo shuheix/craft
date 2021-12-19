@@ -12,20 +12,24 @@ export const useGuestAuth = () => {
         ?.updateProfile({ displayName: "ゲストユーザー" })
         .then(() => {
           auth.currentUser?.getIdToken(true).then((token) => {
-            axios
-              .post<UserType>(USERS_API, {
-                token: token,
+            axios({
+              url: USERS_API,
+              method: "POST",
+              headers: {
+                Authorization: token,
+              },
+              data: {
                 registration: { name: "ゲストユーザー" },
-              })
-              .then((res) => {
-                toast({
-                  title: "ログインしました",
-                  status: "success",
-                  duration: 5000,
-                  position: "top",
-                  isClosable: true,
-                });
+              },
+            }).then((res) => {
+              toast({
+                title: "ログインしました",
+                status: "success",
+                duration: 5000,
+                position: "top",
+                isClosable: true,
               });
+            });
           });
         });
     });

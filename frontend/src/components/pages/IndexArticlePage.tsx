@@ -1,6 +1,5 @@
 import React, { VFC } from "react";
 import {
-  Avatar,
   Box,
   Container,
   Heading,
