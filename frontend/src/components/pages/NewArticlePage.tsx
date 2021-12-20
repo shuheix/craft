@@ -140,7 +140,7 @@ const NewArticlePage: VFC = () => {
               multiple
               hidden
             />
-            <Button type="submit" variant="solid">
+            <Button type="submit" variant="solid" data-cy="submit">
               投稿
             </Button>
             <br />
