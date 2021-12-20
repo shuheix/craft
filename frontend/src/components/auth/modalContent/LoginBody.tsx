@@ -26,7 +26,13 @@ const LoginBody: VFC<Props> = (props) => {
         <Button onClick={googleLogin} w="sm" mx="auto" mb={3}>
           GoogleLogin
         </Button>
-        <Button onClick={guestLogin} w="sm" mx="auto" mb={3}>
+        <Button
+          onClick={guestLogin}
+          w="sm"
+          mx="auto"
+          mb={3}
+          data-cy="GuestLogin"
+        >
           GuestLogin
         </Button>
 

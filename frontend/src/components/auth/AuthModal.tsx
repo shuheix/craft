@@ -34,7 +34,9 @@ const AuthModal: VFC = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Login</Button>
+      <Button onClick={onOpen} data-cy="Login">
+        Login
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
         <ModalOverlay />
         <ModalContent>

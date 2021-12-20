@@ -24,7 +24,7 @@ const HeaderMenu = () => {
       {currentUser ? (
         <Flex flexDirection="row" justifyContent="flex-end">
           <Menu>
-            <MenuButton>
+            <MenuButton data-cy="MenuButton">
               <UserAvatar size="md" src={data?.user.avatar.url} />
             </MenuButton>
             <MenuList>
@@ -32,7 +32,9 @@ const HeaderMenu = () => {
                 <MenuItem onClick={goUserPage}>マイページ</MenuItem>
               </MenuGroup>
               <MenuDivider />
-              <MenuItem onClick={logout}>ログアウト</MenuItem>
+              <MenuItem onClick={logout} data-cy="Logout">
+                ログアウト
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

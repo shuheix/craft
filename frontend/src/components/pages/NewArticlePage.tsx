@@ -104,6 +104,7 @@ const NewArticlePage: VFC = () => {
               })}
               minH="50px"
               mb={10}
+              data-cy="title"
             />
             <FormErrorMessage>
               {errors.text && errors.text?.message}
@@ -119,6 +120,7 @@ const NewArticlePage: VFC = () => {
                 },
               })}
               rows={20}
+              data-cy="text"
             />
           </FormControl>
           <HStack mt={3}>
