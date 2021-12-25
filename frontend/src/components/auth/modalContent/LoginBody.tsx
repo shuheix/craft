@@ -44,6 +44,7 @@ const LoginBody: VFC<Props> = (props) => {
           onChange={handleSignUpState}
           w="sm"
           mx="auto"
+          data-cy="Email"
         />
         <Input
           placeholder="パスワード"
@@ -53,8 +54,16 @@ const LoginBody: VFC<Props> = (props) => {
           onChange={handleSignUpState}
           w="sm"
           mx="auto"
+          data-cy="Password"
         />
-        <Button colorScheme="blue" mr={3} onClick={login} mx="auto" w="xs">
+        <Button
+          colorScheme="blue"
+          mr={3}
+          onClick={login}
+          mx="auto"
+          w="xs"
+          data-cy="ログイン"
+        >
           ログイン
         </Button>
       </Flex>

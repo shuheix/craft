@@ -115,8 +115,8 @@ const NewArticlePage: VFC = () => {
               {...register("text", {
                 required: "内容が未入力です",
                 maxLength: {
-                  value: 10000,
-                  message: "投稿内容は、最大10000文字です",
+                  value: 1000,
+                  message: "投稿内容は、最大1000文字です",
                 },
               })}
               rows={20}
