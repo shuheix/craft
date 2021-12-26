@@ -92,7 +92,7 @@ const NewArticlePage: VFC = () => {
       <Container py={20} maxW="container.lg">
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.title || !!errors.text}>
-            <FormErrorMessage>
+            <FormErrorMessage data-cy="errors-title">
               {errors.title && errors.title?.message}
             </FormErrorMessage>
             <Input
@@ -106,7 +106,7 @@ const NewArticlePage: VFC = () => {
               mb={10}
               data-cy="title"
             />
-            <FormErrorMessage>
+            <FormErrorMessage data-cy="errors-text">
               {errors.text && errors.text?.message}
             </FormErrorMessage>
             <Textarea
