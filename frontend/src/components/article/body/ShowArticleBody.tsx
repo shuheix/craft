@@ -15,6 +15,7 @@ const ShowArticleBody: VFC = () => {
               borderTopRadius="xl"
               p={5}
               overflowWrap="anywhere"
+              data-cy="show-title"
             >
               {data?.article.title}
             </Heading>
@@ -35,6 +36,7 @@ const ShowArticleBody: VFC = () => {
               whiteSpace="pre-line"
               overflowWrap="anywhere"
               borderBottomRadius="2xl"
+              data-cy="show-text"
             >
               {data?.article.text}
             </Text>
