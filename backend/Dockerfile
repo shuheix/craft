@@ -4,7 +4,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update && \
-    apt-get install -y nodejs yarn mariadb-server && \
+    apt-get install -y nodejs npm yarn mariadb-server && npm install n -g && n 14.18.2 \
     apt-get install cron -y && \
     apt-get install vim -y
 
