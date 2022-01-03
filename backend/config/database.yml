@@ -24,6 +24,6 @@ production:
   reconnect: false
   database: craft_production
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("CRAFT_USERNAME") { 'root' } %>
-  password: <%= ENV.fetch("CRAFT_PASSWORD") { 'root' } %>
-  host: <%= ENV.fetch("CRAFT_DATABASE_HOST") { 'mysql' } %>
+  username: root
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:hostname] %>
