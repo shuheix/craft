@@ -10,7 +10,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bund
 # SSH接続設定
 set :ssh_options, {
   auth_methods: ['publickey'],
-  keys: ['~/.ssh/プライベートキーの名前.pem']
+  keys: ['~/.ssh/rails-key.pem']
 }
 # 保存しておく世代の設定
 set :keep_releases, 5
