@@ -1,2 +1,2 @@
-FROM node:16.13.0
+FROM node:15.14.0
 WORKDIR /craft/frontend
