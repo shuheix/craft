@@ -1,4 +1,16 @@
-export const defaultApi = "http://localhost:3000/api/v1";
+let defaultApi = "";
+
+if (process.env.NODE_ENV === "development") {
+  defaultApi = "http://localhost:3000/api/v1";
+}
+
+if (process.env.NODE_ENV === "test") {
+  defaultApi = "http://localhost:3000/api/v1";
+}
+
+if (process.env.NODE_ENV === "production") {
+  defaultApi = "http://crafts-app.com/api/v1";
+}
 
 // article controller
 export const INDEX_ARTICLES_API = (params?: string): string =>
