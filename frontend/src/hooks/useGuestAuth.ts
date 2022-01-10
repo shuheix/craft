@@ -2,7 +2,6 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { USERS_API } from "../constant/railsRoute";
 import { auth } from "../firebase";
-import { useUser } from "./fetch/useUser";
 
 export const useGuestAuth = () => {
   const toast = useToast();
