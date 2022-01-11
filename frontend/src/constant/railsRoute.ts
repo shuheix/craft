@@ -1,15 +1,15 @@
 let defaultApi = "";
 
 if (process.env.NODE_ENV === "development") {
-  defaultApi = "http://crafts-app.com/api/v1";
+  defaultApi = "http://localhost:3001/";
 }
 
 if (process.env.NODE_ENV === "test") {
-  defaultApi = "http://crafts-app.com/api/v1";
+  defaultApi = "http://localhost:3000/";
 }
 
 if (process.env.NODE_ENV === "production") {
-  defaultApi = "http://crafts-app.com/api/v1";
+  defaultApi = "https://crafts-app.com/api/v1";
 }
 
 // article controller
