@@ -1,5 +1,4 @@
 class AvatarUploader < CarrierWave::Uploader::Base
-
   storage :fog
 
   def store_dir
@@ -7,6 +6,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def extension_allowlist
-    %w(jpg jpeg png)
+    %w[jpg jpeg png]
   end
 end

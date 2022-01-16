@@ -2,7 +2,7 @@ module Api
   module V1
     class TagmapsController < ApplicationController
       def create
-        unless (exist_tag_name?)
+        unless exist_tag_name?
           tag = Tag.new(tag_params)
           tag.save!
         end
@@ -12,7 +12,7 @@ module Api
       end
 
       def destroy
-        tagmap = Tagmap.find_by(tag_id: params[:tag_id],article_id: params[:article_id])
+        tagmap = Tagmap.find_by(tag_id: params[:tag_id], article_id: params[:article_id])
         tagmap.destroy
       end
 
@@ -28,4 +28,3 @@ module Api
     end
   end
 end
-

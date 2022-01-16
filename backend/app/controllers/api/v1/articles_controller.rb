@@ -5,8 +5,7 @@ module Api
 
       def index
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
-        total_pages = articles.total_pages
-        render json: articles , each_serializer: ArticleSerializer, status: :ok
+        render json: articles, each_serializer: ArticleSerializer, status: :ok
       end
 
       def show
@@ -38,6 +37,7 @@ module Api
 
       def destroy
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+
         article = Article.find(params[:id])
         if article.user_id == current_user.id
           article.destroy

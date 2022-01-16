@@ -12,6 +12,7 @@ module Api
 
       def create
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+
         @user = User.find_or_initialize_by(sign_up_params.merge(uid: payload['sub']))
         if @user.save
           render json: @user, status: :ok
@@ -34,7 +35,7 @@ module Api
       private
 
       def user_profile_params
-        params.permit(:name,:profile)
+        params.permit(:name, :profile)
       end
 
       def sign_up_params
