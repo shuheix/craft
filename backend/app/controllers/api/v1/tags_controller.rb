@@ -2,10 +2,10 @@ module Api
   module V1
     class TagsController < ApplicationController
       def create
-        unless exist_tag_name?
-          tag = Tag.new(tag_params)
-          tag.save!
-        end
+        return if exist_tag_name?
+
+        tag = Tag.new(tag_params)
+        tag.save!
       end
 
       def destroy; end

@@ -5,7 +5,6 @@ module Api
 
       def index
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
-        total_pages = articles.total_pages
         render json: articles, each_serializer: ArticleSerializer, status: :ok
       end
 
