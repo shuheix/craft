@@ -35,7 +35,7 @@ module Api
       private
 
       def user_profile_params
-        params.permit(:name,:profile)
+        params.permit(:name, :profile)
       end
 
       def sign_up_params
