@@ -38,6 +38,7 @@ module Api
 
       def destroy
         raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+
         article = Article.find(params[:id])
         if article.user_id == current_user.id
           article.destroy
