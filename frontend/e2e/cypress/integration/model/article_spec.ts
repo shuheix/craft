@@ -8,6 +8,7 @@ describe("記事作成機能", () => {
   });
 
   after("ログアウトに成功する", () => {
+    cy.visit("/");
     cy.get("[data-cy=MenuButton]").click();
     cy.get("[data-cy=Logout").click();
   });
@@ -58,16 +59,31 @@ describe("記事作成機能", () => {
     });
   });
 
-  // context(
-  //   "タイトルが31文字以上、又は投稿内容が1000文字以上の場合、記事投稿に失敗する",
-  //   () => {
-  //     it("タイトルが31文字の場合", () => {});
-  //     it("投稿内容が1001文字の場合", () => {});
-  //   }
-  // );
+  context(
+    "タイトルが31文字以上、又は投稿内容が1000文字以上の場合、記事投稿に失敗する",
+    () => {
+      beforeEach("", () => {
+        cy.visit("/");
+      });
+      const valid_title: string = "あ".repeat(31);
+      const valid_text: string = "あ".repeat(1001);
 
-  // it("ログアウトに成功する", () => {
-  //   cy.get("[data-cy=MenuButton]").click();
-  //   cy.get("[data-cy=Logout").click();
-  // });
+      it("タイトルが31文字の場合", () => {
+        cy.get("[data-cy=post]").click();
+        cy.get("[data-cy=title]").type(valid_title);
+        cy.get("[data-cy=text]").type("a");
+        cy.get("[data-cy=submit]").click();
+        cy.get("[data-cy=errors-title]").contains("タイトルは最大30文字です");
+      });
+      it("投稿内容が1001文字の場合", () => {
+        cy.get("[data-cy=post]").click();
+        cy.get("[data-cy=title]").type("a");
+        cy.get("[data-cy=text]").type(valid_text);
+        cy.get("[data-cy=submit]").click();
+        cy.get("[data-cy=errors-text]").contains(
+          "投稿内容は、最大1000文字です"
+        );
+      });
+    }
+  );
 });
