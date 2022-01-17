@@ -13,17 +13,20 @@ describe("記事削除機能", () => {
     cy.get("[data-cy=logout").click();
   });
 
-  it("自身が投稿した記事の場合、記事削除に成功する", () => {
-    cy.get("[data-cy=menu-button]").click();
-    cy.get("[data-cy=my-page]").click();
-    cy.get("[data-cy=deleteIconButton]").first().click();
-    cy.get("[data-cy=deleteButton]").click();
-    cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
-
-    cy.get("[data-cy=menu-button]").click();
-    cy.get("[data-cy=my-page]").click();
-    cy.get("[data-cy=deleteIconButton]").first().click();
-    cy.get("[data-cy=deleteButton]").click();
-    cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
+  context("自身が投稿した記事の場合、記事削除に成功する", () => {
+    it("1つめの記事を削除する", () => {
+      cy.get("[data-cy=menu-button]").click();
+      cy.get("[data-cy=my-page]").click();
+      cy.get("[data-cy=deleteIconButton]").first().click();
+      cy.get("[data-cy=deleteButton]").click();
+      cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
+    });
+    it("2つめの記事を削除する", () => {
+      cy.get("[data-cy=menu-button]").click();
+      cy.get("[data-cy=my-page]").click();
+      cy.get("[data-cy=deleteIconButton]").first().click();
+      cy.get("[data-cy=deleteButton]").click();
+      cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
+    });
   });
 });
