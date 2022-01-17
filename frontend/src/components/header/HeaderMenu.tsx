@@ -24,15 +24,17 @@ const HeaderMenu = () => {
       {currentUser ? (
         <Flex flexDirection="row" justifyContent="flex-end">
           <Menu>
-            <MenuButton data-cy="MenuButton">
+            <MenuButton data-cy="menu-button">
               <UserAvatar size="md" src={data?.user.avatar.url} />
             </MenuButton>
             <MenuList>
               <MenuGroup>
-                <MenuItem onClick={goUserPage}>マイページ</MenuItem>
+                <MenuItem onClick={goUserPage} data-cy="my-page">
+                  マイページ
+                </MenuItem>
               </MenuGroup>
               <MenuDivider />
-              <MenuItem onClick={logout} data-cy="Logout">
+              <MenuItem onClick={logout} data-cy="logout">
                 ログアウト
               </MenuItem>
             </MenuList>

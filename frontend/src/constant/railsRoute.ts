@@ -1,11 +1,11 @@
 let defaultApi = "";
 
 if (process.env.NODE_ENV === "development") {
-  defaultApi = "http://localhost:3001/";
+  defaultApi = "http://localhost:3000/api/v1";
 }
 
 if (process.env.NODE_ENV === "test") {
-  defaultApi = "http://localhost:3000/";
+  defaultApi = "http://localhost:3000/api/v1";
 }
 
 if (process.env.NODE_ENV === "production") {

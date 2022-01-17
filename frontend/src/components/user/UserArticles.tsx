@@ -44,12 +44,16 @@ const UserArticles = () => {
               cursor: "pointer",
             }}
             borderRadius="lg"
+            data-cy="article"
           >
             <Heading fontSize="xl">{article.title}</Heading>
           </Box>
           <VStack>
-            <EditArticleButton articleId={article.id} />
-            <DeleteArticleButton article={article} />
+            <EditArticleButton
+              articleId={article.id}
+              data-cy="editIconButton"
+            />
+            <DeleteArticleButton article={article} data-cy="deleteIconButton" />
           </VStack>
         </HStack>
       ))}

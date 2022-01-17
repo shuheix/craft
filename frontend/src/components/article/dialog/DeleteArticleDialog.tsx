@@ -51,6 +51,7 @@ const DeleteArticleDialog: VFC<Props> = (props) => {
               キャンセル
             </Button>
             <Button
+              data-cy="deleteButton"
               colorScheme="red"
               ml={3}
               onClick={() => {
