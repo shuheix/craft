@@ -29,7 +29,9 @@ const HeaderMenu = () => {
             </MenuButton>
             <MenuList>
               <MenuGroup>
-                <MenuItem onClick={goUserPage}>マイページ</MenuItem>
+                <MenuItem onClick={goUserPage} data-cy="MyPage">
+                  マイページ
+                </MenuItem>
               </MenuGroup>
               <MenuDivider />
               <MenuItem onClick={logout} data-cy="Logout">

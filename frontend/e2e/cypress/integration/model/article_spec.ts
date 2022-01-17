@@ -87,3 +87,30 @@ describe("記事作成機能", () => {
     }
   );
 });
+
+describe("記事削除機能", () => {
+  before("ログインする", () => {
+    cy.visit("/");
+    cy.get("[data-cy=Login]").click();
+    cy.get("[data-cy=Email]").type("cypress_test@cypress.com");
+    cy.get("[data-cy=Password]").type("12345678");
+    cy.get("[data-cy=ログイン]").click();
+  });
+
+  after("ログアウトに成功する", () => {
+    cy.visit("/");
+    cy.get("[data-cy=MenuButton]").click();
+    cy.get("[data-cy=Logout]").click();
+  });
+
+  it("自身が投稿した記事の場合、記事削除に成功する", () => {
+    cy.get("[data-cy=MenuButton]").click();
+    cy.get("[data-cy=MyPage]").click();
+    cy.get("[data-cy=deleteIconButton]").first().click();
+    cy.get("[data-cy=deleteButton]").click();
+    cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
+    cy.get("[data-cy=deleteIconButton]").first().click();
+    cy.get("[data-cy=deleteButton]").click();
+    cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
+  });
+});
