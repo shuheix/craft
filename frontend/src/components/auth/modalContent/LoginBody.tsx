@@ -44,7 +44,7 @@ const LoginBody: VFC<Props> = (props) => {
           onChange={handleSignUpState}
           w="sm"
           mx="auto"
-          data-cy="Email"
+          data-cy="email"
         />
         <Input
           placeholder="パスワード"
@@ -54,7 +54,7 @@ const LoginBody: VFC<Props> = (props) => {
           onChange={handleSignUpState}
           w="sm"
           mx="auto"
-          data-cy="Password"
+          data-cy="password"
         />
         <Button
           colorScheme="blue"

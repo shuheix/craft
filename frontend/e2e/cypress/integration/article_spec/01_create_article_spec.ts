@@ -1,16 +1,16 @@
 describe("記事作成機能", () => {
   before("ログインする", () => {
     cy.visit("/");
-    cy.get("[data-cy=Login]").click();
-    cy.get("[data-cy=Email]").type("cypress_test@cypress.com");
-    cy.get("[data-cy=Password]").type("12345678");
+    cy.get("[data-cy=login]").click();
+    cy.get("[data-cy=email]").type("cypress_test@cypress.com");
+    cy.get("[data-cy=password]").type("12345678");
     cy.get("[data-cy=ログイン]").click();
   });
 
   after("ログアウトに成功する", () => {
     cy.visit("/");
-    cy.get("[data-cy=MenuButton]").click();
-    cy.get("[data-cy=Logout").click();
+    cy.get("[data-cy=menu-button]").click();
+    cy.get("[data-cy=logout").click();
   });
 
   context("タイトル、投稿内容が1文字以上であれば投稿に成功する", () => {
@@ -65,12 +65,12 @@ describe("記事作成機能", () => {
       beforeEach("", () => {
         cy.visit("/");
       });
-      const valid_title: string = "あ".repeat(31);
-      const valid_text: string = "あ".repeat(1001);
+      const invalid_title: string = "あ".repeat(31);
+      const invalid_text: string = "あ".repeat(1001);
 
       it("タイトルが31文字の場合", () => {
         cy.get("[data-cy=post]").click();
-        cy.get("[data-cy=title]").type(valid_title);
+        cy.get("[data-cy=title]").type(invalid_title);
         cy.get("[data-cy=text]").type("a");
         cy.get("[data-cy=submit]").click();
         cy.get("[data-cy=errors-title]").contains("タイトルは最大30文字です");
@@ -78,7 +78,7 @@ describe("記事作成機能", () => {
       it("投稿内容が1001文字の場合", () => {
         cy.get("[data-cy=post]").click();
         cy.get("[data-cy=title]").type("a");
-        cy.get("[data-cy=text]").type(valid_text);
+        cy.get("[data-cy=text]").type(invalid_text);
         cy.get("[data-cy=submit]").click();
         cy.get("[data-cy=errors-text]").contains(
           "投稿内容は、最大1000文字です"
@@ -86,31 +86,4 @@ describe("記事作成機能", () => {
       });
     }
   );
-});
-
-describe("記事削除機能", () => {
-  before("ログインする", () => {
-    cy.visit("/");
-    cy.get("[data-cy=Login]").click();
-    cy.get("[data-cy=Email]").type("cypress_test@cypress.com");
-    cy.get("[data-cy=Password]").type("12345678");
-    cy.get("[data-cy=ログイン]").click();
-  });
-
-  after("ログアウトに成功する", () => {
-    cy.visit("/");
-    cy.get("[data-cy=MenuButton]").click();
-    cy.get("[data-cy=Logout]").click();
-  });
-
-  it("自身が投稿した記事の場合、記事削除に成功する", () => {
-    cy.get("[data-cy=MenuButton]").click();
-    cy.get("[data-cy=MyPage]").click();
-    cy.get("[data-cy=deleteIconButton]").first().click();
-    cy.get("[data-cy=deleteButton]").click();
-    cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
-    cy.get("[data-cy=deleteIconButton]").first().click();
-    cy.get("[data-cy=deleteButton]").click();
-    cy.get("[id=chakra-toast-manager-bottom-right]").contains("削除しました");
-  });
 });

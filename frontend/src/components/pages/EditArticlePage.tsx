@@ -97,7 +97,7 @@ const EditArticleLayout: VFC = () => {
       <Container py={20} maxW="container.xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.title || !!errors.text}>
-            <FormErrorMessage>
+            <FormErrorMessage data-cy="errors-title">
               {errors.title && errors.title?.message}
             </FormErrorMessage>
             <Input
@@ -110,8 +110,9 @@ const EditArticleLayout: VFC = () => {
               })}
               minH="50px"
               mb={10}
+              data-cy="edit-title"
             />
-            <FormErrorMessage>
+            <FormErrorMessage data-cy="errors-text">
               {errors.text && errors.text?.message}
             </FormErrorMessage>
             <Textarea
@@ -121,11 +122,12 @@ const EditArticleLayout: VFC = () => {
               {...register("text", {
                 required: "内容が未入力です",
                 maxLength: {
-                  value: 10000,
-                  message: "投稿内容は、最大10000文字です",
+                  value: 1000,
+                  message: "投稿内容は、最大1000文字です",
                 },
               })}
               rows={20}
+              data-cy="edit-text"
             />
           </FormControl>
           <HStack mt={3}>
@@ -145,7 +147,7 @@ const EditArticleLayout: VFC = () => {
               multiple
               hidden
             />
-            <Button type="submit" variant="solid">
+            <Button type="submit" variant="solid" data-cy="submit">
               投稿
             </Button>
             <br />
