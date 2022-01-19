@@ -11,11 +11,11 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import SignUpBody from "./modalContent/SignUpBody";
 import LoginBody from "./modalContent/LoginBody";
-import { useGoogleAuth } from "../../hooks/useGoogleAuth";
-import { useGuestAuth } from "../../hooks/useGuestAuth";
+import { useGoogleAuth } from "../../../hooks/useGoogleAuth";
+import { useGuestAuth } from "../../../hooks/useGuestAuth";
 
 const AuthModal: VFC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

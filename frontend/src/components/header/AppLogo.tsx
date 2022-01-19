@@ -1,5 +1,7 @@
-import { Button } from "@chakra-ui/react";
 import React, { VFC } from "react";
+import { Button, Image, Box } from "@chakra-ui/react";
+
+import logo from "../../asset/logo.png";
 
 type Props = {
   goHome: () => void;
@@ -9,7 +11,7 @@ const AppLogo: VFC<Props> = (props) => {
   const { goHome } = props;
   return (
     <div>
-      <Button onClick={goHome}>ロゴ</Button>
+      <Image src={logo} boxSize="50px" onClick={goHome} _hover={} />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import React from "react";
 import { useUser } from "../../hooks/fetch/useUser";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import { useAuth } from "../../hooks/useAuth";
-import AuthModal from "../auth/AuthModal";
+import AuthModal from "./auth/AuthModal";
 import UserAvatar from "../user/UserAvatar";
 
 const HeaderMenu = () => {
