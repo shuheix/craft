@@ -39,36 +39,40 @@ const LoginBody: VFC<Props> = (props) => {
         >
           ゲストユーザーログイン
         </Button>
-        <Input
-          placeholder="Email"
-          name="email"
-          mb={3}
-          value={email}
-          onChange={handleSignUpState}
-          w="sm"
-          mx="auto"
-          data-cy="email"
-        />
-        <Input
-          placeholder="パスワード"
-          name="password"
-          mb={3}
-          value={password}
-          onChange={handleSignUpState}
-          w="sm"
-          mx="auto"
-          data-cy="password"
-        />
-        <Button
-          colorScheme="blue"
-          mr={3}
-          onClick={login}
-          mx="auto"
-          w="xs"
-          data-cy="ログイン"
-        >
-          ログイン
-        </Button>
+        {process.env.NODE_ENV !== "production" && (
+          <>
+            <Input
+              placeholder="Email"
+              name="email"
+              mb={3}
+              value={email}
+              onChange={handleSignUpState}
+              w="sm"
+              mx="auto"
+              data-cy="email"
+            />
+            <Input
+              placeholder="パスワード"
+              name="password"
+              mb={3}
+              value={password}
+              onChange={handleSignUpState}
+              w="sm"
+              mx="auto"
+              data-cy="password"
+            />
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={login}
+              mx="auto"
+              w="xs"
+              data-cy="ログイン"
+            >
+              ログイン
+            </Button>
+          </>
+        )}
       </Flex>
     </>
   );

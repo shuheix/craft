@@ -12,7 +12,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { useAuth } from "../../../hooks/useAuth";
-import SignUpBody from "./modalContent/SignUpBody";
+// import SignUpBody from "./modalContent/SignUpBody";
 import LoginBody from "./modalContent/LoginBody";
 import { useGoogleAuth } from "../../../hooks/useGoogleAuth";
 import { useGuestAuth } from "../../../hooks/useGuestAuth";
@@ -21,13 +21,13 @@ const AuthModal: VFC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     handleSignUpState,
-    signUp,
+    // signUp,
     login,
     stateReset,
-    username,
+    // username,
     email,
     password,
-    passwordConfirmation,
+    // passwordConfirmation,
   } = useAuth();
   const { googleLogin } = useGoogleAuth();
   const { guestLogin } = useGuestAuth();
