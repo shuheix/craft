@@ -1,6 +1,6 @@
 import React, { VFC } from "react";
 import { Box, Container, Flex } from "@chakra-ui/react";
-import AppLogo from "../common/AppLogo";
+import AppLogo from "./AppLogo";
 import EditIconButton from "./EditIconButton";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import SearchGroup from "./SearchGroup";

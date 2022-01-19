@@ -11,23 +11,23 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { useAuth } from "../../hooks/useAuth";
-import SignUpBody from "./modalContent/SignUpBody";
+import { useAuth } from "../../../hooks/useAuth";
+// import SignUpBody from "./modalContent/SignUpBody";
 import LoginBody from "./modalContent/LoginBody";
-import { useGoogleAuth } from "../../hooks/useGoogleAuth";
-import { useGuestAuth } from "../../hooks/useGuestAuth";
+import { useGoogleAuth } from "../../../hooks/useGoogleAuth";
+import { useGuestAuth } from "../../../hooks/useGuestAuth";
 
 const AuthModal: VFC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     handleSignUpState,
-    signUp,
+    // signUp,
     login,
     stateReset,
-    username,
+    // username,
     email,
     password,
-    passwordConfirmation,
+    // passwordConfirmation,
   } = useAuth();
   const { googleLogin } = useGoogleAuth();
   const { guestLogin } = useGuestAuth();
@@ -43,7 +43,7 @@ const AuthModal: VFC = () => {
           <Tabs isFitted variant="enclosed" size="lg">
             <TabList>
               <Tab onClick={stateReset}>Login</Tab>
-              <Tab onClick={stateReset}>新規登録</Tab>
+              {/* <Tab onClick={stateReset}>新規登録</Tab> */}
             </TabList>
             <TabPanels h="400px">
               <TabPanel>
@@ -57,14 +57,14 @@ const AuthModal: VFC = () => {
                 />
               </TabPanel>
               <TabPanel>
-                <SignUpBody
+                {/* <SignUpBody
                   username={username}
                   email={email}
                   password={password}
                   passwordConfirmation={passwordConfirmation}
                   handleSignUpState={handleSignUpState}
                   signUp={signUp}
-                />
+                /> */}
               </TabPanel>
             </TabPanels>
           </Tabs>
