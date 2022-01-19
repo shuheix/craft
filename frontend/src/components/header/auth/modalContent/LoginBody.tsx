@@ -16,26 +16,29 @@ const LoginBody: VFC<Props> = (props) => {
     email,
     password,
     handleSignUpState,
-    googleLogin,
+    // googleLogin,
     guestLogin,
   } = props;
 
   return (
     <>
       <Flex flexDirection="column" alignItems="flex-end">
-        <Button onClick={googleLogin} w="sm" mx="auto" mb={3}>
+        {/* <Button onClick={googleLogin} w="sm" mx="auto" mb={3}>
           GoogleLogin
-        </Button>
+        </Button> */}
         <Button
           onClick={guestLogin}
           w="sm"
           mx="auto"
           mb={3}
           data-cy="GuestLogin"
+          bgColor="blue.100"
+          _hover={{
+            bgColor: "blue.200",
+          }}
         >
-          GuestLogin
+          ゲストユーザーログイン
         </Button>
-
         <Input
           placeholder="Email"
           name="email"
