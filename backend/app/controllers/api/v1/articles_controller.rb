@@ -20,7 +20,7 @@ module Api
             articles: article
           }, status: :ok
         else
-          render json: { status: :bad_request }
+          render status: :bad_request
         end
       end
 
@@ -31,7 +31,7 @@ module Api
             articles: article
           }, status: :ok
         else
-          render json: { status: :bad_request }
+          render status: :bad_request
         end
       end
 
@@ -41,9 +41,9 @@ module Api
         article = Article.find(params[:id])
         if article.user_id == current_user.id
           article.destroy
-          render json: { status: :ok }
+          render status: :ok
         else
-          render json: { status: :bad_request }
+          render status: :bad_request
         end
       end
 
