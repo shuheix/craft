@@ -34,21 +34,25 @@ RSpec.describe 'Api::V1::ArticlesControllers', type: :request do
   end
 
   describe '#create' do
+    let(:headers){
+      {
+        'Content-Type': 'application/json',
+        Authorization: "Bearer token"
+      }
+    }
+
+    let(:user){ FactoryBot.create(:user) }
+    before { stub_firebase(user) }
+
     context '全てのパラメータが揃っているリクエストの場合' do
-      before do
-      end
-      it 'ステータスコード「200 OK」を返す' do
-      end
       it '成功時のJSONデータのレスポンスを返す' do
+        post '/api/v1/articles', headers: headers, params: {title: 'a', text: 'a'}.to_json
+        expect(response).to have_http_status(:ok)
       end
       it '記事を作成する' do
       end
     end
-    context '認証されていないユーザーがリクエストした場合' do
-      it 'ステータスコード「400 Bad Request」を返す'
-      it 'パラメータ不正のJSONデータのレスポンスを返す'
-      it '記事を作成しない'
-    end
+
     context 'titleパラメータが不足している場合' do
       it 'ステータスコード「400 Bad Request」を返す'
       it 'パラメータ不正のJSONデータのレスポンスを返す'
