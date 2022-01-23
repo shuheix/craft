@@ -2,7 +2,9 @@ class Article < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :title, presence: true
+  validates :title, length: { maximum: 30 }
   validates :text, presence: true
+  validates :text, length: { maximum: 1000 }
   validates :user_id, presence: true
 
   scope :recent, -> { order(created_at: :desc) }
