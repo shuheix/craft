@@ -27,5 +27,25 @@ RSpec.describe Article, type: :model do
         expect(invalid_article.errors[:user_id]).to include('を入力してください')
       end
     end
+
+    context 'titleが30文字以内、textが1000文字以内であれば有効な状態である' do
+      it 'titleが30文字、textが1000文字の場合' do
+        valid_article = FactoryBot.create(:article, title: 'a'* 30, text: 'a'* 1000)
+        expect(valid_article).to be_valid
+      end
+    end
+
+    context 'titleが31文字以上、又は、textが1001文字以上であれば無効な状態である' do
+      it 'titleが31文字の場合' do
+        invalid_article = FactoryBot.build(:article, title: 'a'*31 )
+        invalid_article.valid?
+        expect(invalid_article.errors[:title]).to include('は30文字以内で入力してください')
+      end
+      it 'textが1001文字の場合' do
+        invalid_article = FactoryBot.build(:article, text: 'a'*100_1 )
+        invalid_article.valid?
+        expect(invalid_article.errors[:text]).to include('は1000文字以内で入力してください')
+      end
+    end
   end
 end

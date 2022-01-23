@@ -20,30 +20,27 @@ module Api
             articles: article
           }, status: :ok
         else
-          render json: { status: :bad_request }
+          render status: :bad_request
         end
       end
 
       def update
         article = Article.find(params[:id])
-        if article.update!(article_params)
+        if article.update(article_params)
           render json: {
             articles: article
           }, status: :ok
         else
-          render json: { status: :bad_request }
+          render status: :bad_request
         end
       end
 
       def destroy
-        raise ArgumentError, 'BadRequest Parameter' if payload.blank?
-
         article = Article.find(params[:id])
-        if article.user_id == current_user.id
-          article.destroy
-          render json: { status: :ok }
+        if article.destroy
+          render status: :ok
         else
-          render json: { status: :bad_request }
+          render status: :bad_request
         end
       end
 
