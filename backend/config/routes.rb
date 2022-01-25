@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :comments
         resource :tagmaps, only: %i[create destroy]
       end
+      resources :tags , only: [:index]
       resource :tags, only: %i[create destroy]
       post '/users/:uid/avatar', to: 'users#update_avatar'
     end

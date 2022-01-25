@@ -10,7 +10,7 @@ const Header: VFC = () => {
   const { goHomePage } = useAppHistory();
   return (
     <>
-      <Box height="65px" w="100%" bgColor="gray.50">
+      <Box height="65px" w="100%" bgColor="white" shadow="md">
         <Container maxW="container.xl" height="100%">
           <Flex
             alignItems="center"
