@@ -18,6 +18,7 @@ import { useAppHistory } from "../../hooks/useAppHistory";
 import dayjs from "dayjs";
 import { CalendarIcon } from "@chakra-ui/icons";
 import UserAvatar from "../user/UserAvatar";
+import TagRanks from "../article/tag/TagRanks";
 
 const IndexArticlePage: VFC = () => {
   const location = useLocation();
@@ -89,20 +90,7 @@ const IndexArticlePage: VFC = () => {
               </Box>
             ))}
           </SimpleGrid>
-          <Box
-            w="300px"
-            bgColor="white"
-            alignSelf="flex-start"
-            borderRadius="xl"
-            boxShadow="md"
-          >
-            <Heading fontSize="md" textAlign="center">
-              人気のタグ
-            </Heading>
-            <Box>
-
-            </Box>
-          </Box>
+          <TagRanks />
         </HStack>
         <PageSelect />
       </Container>
