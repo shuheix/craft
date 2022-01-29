@@ -4,7 +4,6 @@ import {
   Divider,
   Stack,
   HStack,
-  Avatar,
   Textarea,
   Spacer,
   Button,
@@ -12,6 +11,7 @@ import {
   Spinner,
   Center,
   FormErrorMessage,
+  FormControl,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { VFC } from "react";
@@ -20,6 +20,7 @@ import { useParams } from "react-router-dom";
 import { INDEX_COMMENTS_API } from "../../../constant/railsRoute";
 import { auth } from "../../../firebase";
 import { useComment } from "../../../hooks/useComment";
+import UserAvatar from "../../user/UserAvatar";
 
 type Comment = {
   text: string;
@@ -48,6 +49,7 @@ const CommentList: VFC = () => {
       });
     });
   };
+  console.log(errors.text?.message);
 
   if (isLoading)
     return (
@@ -68,44 +70,46 @@ const CommentList: VFC = () => {
       </Box>
       <Stack>
         {comments?.map((comment) => (
-          <HStack bgColor="white" borderRadius="md" key={comment.id}>
-            <Avatar />
-            <Stack>
-              <Heading />
-              <Text borderBottomRadius="xl" p={6} whiteSpace="pre-line">
-                {comment.text}
-              </Text>
-            </Stack>
+          <HStack bgColor="white" borderRadius="xl" key={comment.id}>
+            <UserAvatar src={comment.user.avatar.url} ml={2} />
+            <Text
+              borderBottomRadius="xl"
+              p={6}
+              whiteSpace="pre-line"
+              overflowWrap="anywhere"
+            >
+              {comment.text}
+            </Text>
           </HStack>
         ))}
       </Stack>
       <Box mt={10}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormErrorMessage>
-            {errors.text && errors.text?.message}
-          </FormErrorMessage>
-          <Textarea
-            resize="none"
-            bgColor="white"
-            row={20}
-            boxShadow="sm"
-            id="text"
-            borderRadius="2xl"
-            pr={10}
-            {...register("text", {
-              required: "内容が記載されていません",
-              maxLength: {
-                value: 1000,
-                message: "コメントは最大1000文字までです",
-              },
-            })}
-          />
-          <HStack>
-            <Spacer />
-            <Button type="submit" isLoading={isSubmitting}>
-              投稿
-            </Button>
-          </HStack>
+          <FormControl isInvalid={!!errors.text}>
+            <FormErrorMessage>{errors.text?.message}</FormErrorMessage>
+            <Textarea
+              resize="none"
+              bgColor="white"
+              row={20}
+              boxShadow="sm"
+              id="text"
+              borderRadius="2xl"
+              pr={10}
+              {...register("text", {
+                required: "内容が記載されていません",
+                maxLength: {
+                  value: 1000,
+                  message: "コメントは最大1000文字までです",
+                },
+              })}
+            />
+            <HStack>
+              <Spacer />
+              <Button type="submit" isLoading={isSubmitting}>
+                投稿
+              </Button>
+            </HStack>
+          </FormControl>
         </form>
       </Box>
     </>
