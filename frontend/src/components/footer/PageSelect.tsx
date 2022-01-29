@@ -10,12 +10,12 @@ const PageSelect: VFC = () => {
     <>
       <Flex justifyContent="flex-end" mt={4} pb={10}>
         {data?.meta.current_page !== 1 && (
-          <Button bgColor="gray.100" onClick={prevPage}>
+          <Button onClick={prevPage} variant="solid" colorScheme="green">
             戻る
           </Button>
         )}
         {data?.meta.current_page !== data?.meta.total_pages && (
-          <Button ml={4} onClick={nextPage}>
+          <Button ml={4} onClick={nextPage} variant="solid" colorScheme="green">
             次のページへ
           </Button>
         )}

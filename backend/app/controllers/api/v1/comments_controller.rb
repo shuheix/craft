@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < ApplicationController
-      skip_before_action :authenticate_user, only: :index
+      skip_before_action :authenticate_user, only: [:index,:create]
 
       def index
         comments = Comment.where(article_id: params[:article_id])
@@ -10,7 +10,7 @@ module Api
 
       def create
         comment = Comment.new(comment_params.merge(user_id: current_user.id, article_id: params[:article_id]))
-        if comment.save!
+        if comment.save
           render json: {
             comment: comment
           }, status: :ok

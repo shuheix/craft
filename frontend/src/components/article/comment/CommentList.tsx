@@ -37,15 +37,15 @@ const CommentList: VFC = () => {
 
   const onSubmit = (data: Comment) => {
     auth.currentUser?.getIdToken(true).then((token) => {
-      axios
-        .post(INDEX_COMMENTS_API(articleId), {
-          headers: { Authorization: token },
-          text: data.text,
-        })
-        .then(() => {
-          mutate();
-          reset();
-        });
+      axios({
+        url: INDEX_COMMENTS_API(articleId),
+        method: "POST",
+        headers: { Authorization: token },
+        data: { text: data.text },
+      }).then(() => {
+        mutate();
+        reset();
+      });
     });
   };
 
