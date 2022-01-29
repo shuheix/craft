@@ -105,7 +105,7 @@ const CommentList: VFC = () => {
             />
             <HStack>
               <Spacer />
-              <Button type="submit" isLoading={isSubmitting}>
+              <Button type="submit" isLoading={isSubmitting} colorScheme="teal">
                 投稿
               </Button>
             </HStack>

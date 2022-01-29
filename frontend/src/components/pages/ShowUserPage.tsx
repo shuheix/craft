@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { useContext, VFC } from "react";
 
 import {
   Box,
@@ -23,11 +23,14 @@ import UserAvatar from "../user/UserAvatar";
 import { useUser } from "../../hooks/fetch/useUser";
 import { useHistory, useParams } from "react-router-dom";
 import { EDIT_USER_URL } from "../../constant/appHistory";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const ShowUserPage: VFC = () => {
-  const { data, isError, isLoading } = useUser();
-  const history = useHistory();
   const { uid } = useParams<{ uid: string }>();
+  const { currentUser } = useContext(AuthContext);
+  const history = useHistory();
+
+  const { data, isError, isLoading } = useUser(uid);
   if (isError) return <p>error</p>;
   if (isLoading)
     return (
@@ -58,15 +61,17 @@ const ShowUserPage: VFC = () => {
                   {data?.user.profile}
                 </Text>
               </HStack>
-              <Button
-                alignSelf="flex-start"
-                variant="outline"
-                bgColor="white"
-                shadow="sm"
-                onClick={() => history.push(EDIT_USER_URL(uid))}
-              >
-                プロフィール編集
-              </Button>
+              {data?.user.uid === currentUser?.uid && (
+                <Button
+                  alignSelf="flex-start"
+                  variant="outline"
+                  bgColor="white"
+                  shadow="sm"
+                  onClick={() => history.push(EDIT_USER_URL(uid))}
+                >
+                  プロフィール編集
+                </Button>
+              )}
             </HStack>
             <Heading size="sm" alignSelf="self-start" px={1}>
               {data?.user.name}

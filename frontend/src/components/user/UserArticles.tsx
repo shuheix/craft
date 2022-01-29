@@ -11,13 +11,14 @@ import {
 } from "@chakra-ui/react";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
 import { useUser } from "../../hooks/fetch/useUser";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import EditArticleButton from "../ui/button/EditArticleButton";
 import DeleteArticleButton from "../ui/button/DeleteArticleButton";
 
 const UserArticles = () => {
-  const { data, isError, isLoading } = useUser();
   const history = useHistory();
+  const { uid } = useParams<{ uid: string }>();
+  const { data, isError, isLoading } = useUser(uid);
 
   if (isError) return <p>読み込みに失敗しました。</p>;
   if (isLoading) return <Spinner />;

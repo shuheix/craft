@@ -7,15 +7,19 @@ import {
   MenuItem,
   MenuDivider,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { useUser } from "../../hooks/fetch/useUser";
 import { useAppHistory } from "../../hooks/useAppHistory";
 import { useAuth } from "../../hooks/useAuth";
 import AuthModal from "./auth/AuthModal";
 import UserAvatar from "../user/UserAvatar";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const HeaderMenu = () => {
-  const { data, currentUser } = useUser();
+  const { uid } = useParams<{ uid: string }>();
+  const { data } = useUser(uid);
+  const { currentUser } = useContext(AuthContext);
   const { goUserPage } = useAppHistory();
   const { logout } = useAuth();
 
