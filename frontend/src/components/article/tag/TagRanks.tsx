@@ -35,7 +35,7 @@ const TagRanks: VFC = () => {
       <Divider colorScheme="teal" />
       <VStack py={5} h="100%" justifySelf="start" justifyContent="flex-start">
         {data?.tags.map((tag) => (
-          <HStack w="100%" justifyContent="space-between" px={5}>
+          <HStack w="100%" justifyContent="space-between" px={5} key={tag.id}>
             <Tag
               size="lg"
               borderRadius="full"

@@ -1,26 +1,23 @@
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { INDEX_ARTICLE_PAGE_URL } from "../constant/appHistory";
+import { useIndexArticle } from "./fetch/useIndexArticle";
 
 export const usePageSelect = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const history = useHistory();
-
-  const handlePage = () => {
-    if (currentPage !== undefined) {
-      const page = currentPage.toString();
+  const { data } = useIndexArticle();
+  const nextPage = () => {
+    if (data?.meta.next_page != null) {
+      const page = data?.meta.next_page.toString();
       history.push(INDEX_ARTICLE_PAGE_URL(page));
     }
   };
-  const nextPage = () => {
-    setCurrentPage((prev) => prev + 1);
-    handlePage();
+
+  const prevPage = () => {
+    if (data?.meta.prev_page != null) {
+      const page = data?.meta.prev_page.toString();
+      history.push(INDEX_ARTICLE_PAGE_URL(page));
+    }
   };
 
-  const backPage = () => {
-    setCurrentPage((prev) => prev - 1);
-    handlePage();
-  };
-
-  return { nextPage, backPage, currentPage };
+  return { nextPage, prevPage };
 };
