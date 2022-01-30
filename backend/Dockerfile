@@ -12,7 +12,6 @@ WORKDIR /craft/backend
 RUN mkdir /root/.ssh
 COPY Gemfile /craft/backend/Gemfile
 COPY Gemfile.lock /craft/backend/Gemfile.lock
-COPY ~/.ssh/craft-key.pem /root/.ssh
 
 RUN gem install bundler
 RUN bundle install
