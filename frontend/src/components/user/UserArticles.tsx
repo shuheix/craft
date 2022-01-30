@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   Stack,
@@ -11,17 +11,19 @@ import {
 } from "@chakra-ui/react";
 import { SHOW_ARTICLE_URL } from "../../constant/appHistory";
 import { useUser } from "../../hooks/fetch/useUser";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import EditArticleButton from "../ui/button/EditArticleButton";
 import DeleteArticleButton from "../ui/button/DeleteArticleButton";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const UserArticles = () => {
-  const { data, isError, isLoading } = useUser();
   const history = useHistory();
-
+  const { uid } = useParams<{ uid: string }>();
+  const { data, isError, isLoading } = useUser(uid);
+  const { currentUser } = useContext(AuthContext);
   if (isError) return <p>読み込みに失敗しました。</p>;
   if (isLoading) return <Spinner />;
-  if (data?.articles?.length === 0)
+  if (data?.user.articles?.length === 0)
     return (
       <Center>
         <p>まだ、投稿はありません。</p>
@@ -30,7 +32,7 @@ const UserArticles = () => {
 
   return (
     <Stack spacing={5}>
-      {data?.articles?.map((article) => (
+      {data?.user?.articles.map((article) => (
         <HStack key={article.id}>
           <Box
             flexGrow={1}
@@ -48,13 +50,18 @@ const UserArticles = () => {
           >
             <Heading fontSize="xl">{article.title}</Heading>
           </Box>
-          <VStack>
-            <EditArticleButton
-              articleId={article.id}
-              data-cy="editIconButton"
-            />
-            <DeleteArticleButton article={article} data-cy="deleteIconButton" />
-          </VStack>
+          {currentUser?.uid === article.uid && (
+            <VStack>
+              <EditArticleButton
+                articleId={article.id}
+                data-cy="editIconButton"
+              />
+              <DeleteArticleButton
+                article={article}
+                data-cy="deleteIconButton"
+              />
+            </VStack>
+          )}
         </HStack>
       ))}
     </Stack>

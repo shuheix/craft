@@ -12,3 +12,4 @@ export const EDIT_ARTICLE_URL = (articleId: string) =>
   `/articles/${articleId}/edit`;
 export const SHOW_USER_URL = (uid: string) => `/users/${uid}`;
 export const EDIT_USER_URL = (uid: string) => `/users/${uid}/edit`;
+export const SEARCH_URL = (query: string) => `/articles/search?q=${query}`;

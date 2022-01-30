@@ -5,9 +5,10 @@ module Api
 
       def show
         user = User.find_by(uid: params[:id])
-        articles = Article.where(user_id: user.id)
-        favorite_articles = user.favorite_articles
-        render json: { articles: articles, user: user, favorite_articles: favorite_articles }, status: :ok
+        # articles = Article.where(user_id: user.id)
+        # favorite_articles = user.favorite_articles
+        # render json: { articles: articles, user: user, favorite_articles: favorite_articles }, status: :ok
+        render json: user
       end
 
       def create

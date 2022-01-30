@@ -39,7 +39,7 @@ const EditUserPage: VFC = () => {
   const [file, setFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState("");
   const { uid } = useParams<{ uid: string }>();
-  const { data, mutate } = useUser();
+  const { data, mutate } = useUser(uid);
   const imageRef = useRef<HTMLInputElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();

@@ -24,7 +24,7 @@ const SearchGroup = () => {
           onKeyPress={pressEnterKey}
         />
         <InputRightElement>
-          <Button size="md" onClick={searchArticle}>
+          <Button size="md" onClick={searchArticle} colorScheme="teal">
             検索
           </Button>
         </InputRightElement>

@@ -7,15 +7,17 @@ import { useUser } from "../../../hooks/fetch/useUser";
 import axios from "axios";
 import { SHOW_ARTICLE_API } from "../../../constant/railsRoute";
 import { auth } from "../../../firebase";
+import { useParams } from "react-router-dom";
 
 type Props = ButtonProps & { article: ArticleType };
 
 const DeleteArticleButton: VFC<Props> = (props) => {
   const { article } = props;
+  const { uid } = useParams<{ uid: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const toast = useToast();
-  const { mutate } = useUser();
+  const { mutate } = useUser(uid);
 
   const deleteArticle = () => {
     auth.currentUser?.getIdToken(true).then((token) => {

@@ -13,7 +13,13 @@ const EditIconButton: VFC = () => {
   return (
     <>
       {isLargerThan768px ? (
-        <Button ml={4} onClick={goEditPage} data-cy="post">
+        <Button
+          ml={4}
+          onClick={goEditPage}
+          data-cy="post"
+          variant="solid"
+          colorScheme="teal"
+        >
           記事投稿
         </Button>
       ) : (
@@ -23,6 +29,7 @@ const EditIconButton: VFC = () => {
           aria-label="edit"
           ml={4}
           onClick={goEditPage}
+          colorScheme="green"
         />
       )}
     </>

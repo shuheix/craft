@@ -1,24 +1,19 @@
 import axios from "axios";
-import { useContext } from "react";
 import useSWR from "swr";
 import { SHOW_USERS_API } from "../../constant/railsRoute";
-import { AuthContext } from "../../providers/AuthProvider";
 import { ArticleType } from "../../types/articleType";
+import { CommentType } from "../../types/commentType";
 import { UserType } from "../../types/userType";
 
-export const useUser = () => {
-  const { currentUser } = useContext(AuthContext);
-
-  const { data, error, mutate } = useSWR(
-    currentUser ? SHOW_USERS_API(currentUser.uid) : null,
-    (url: string) =>
-      axios
-        .get<{
-          articles: ArticleType[];
-          user: UserType;
+export const useUser = (uid: string) => {
+  const { data, error, mutate } = useSWR(SHOW_USERS_API(uid), (url: string) =>
+    axios
+      .get<{
+        user: UserType & { articles: ArticleType[] } & {
           favorite_articles: ArticleType[];
-        }>(url)
-        .then((res) => res.data)
+        } & { comments: CommentType[] };
+      }>(url)
+      .then((res) => res.data)
   );
 
   return {
@@ -26,6 +21,5 @@ export const useUser = () => {
     isLoading: !error && !data,
     isError: error,
     mutate,
-    currentUser,
   };
 };
