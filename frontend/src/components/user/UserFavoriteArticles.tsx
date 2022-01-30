@@ -24,7 +24,7 @@ const UserFavoriteArticles = () => {
 
   if (isError) return <p>読み込みに失敗しました。</p>;
   if (isLoading) return <Spinner />;
-  if (data?.favorite_articles?.length === 0)
+  if (data?.user.favorite_articles?.length === 0)
     return (
       <Center>
         <Text>ブックマークした投稿はありません。</Text>
@@ -34,7 +34,7 @@ const UserFavoriteArticles = () => {
   return (
     <Stack spacing={4}>
       <Stack spacing={4}>
-        {data?.favorite_articles?.map((article) => (
+        {data?.user.favorite_articles?.map((article) => (
           <Box
             key={article.id}
             onClick={() => history.push(SHOW_ARTICLE_URL(article.id))}

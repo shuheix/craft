@@ -81,7 +81,9 @@ const ShowUserPage: VFC = () => {
             <Tabs isLazy w="100%">
               <TabList>
                 <Tab>投稿した質問</Tab>
-                <Tab>ブックマークした投稿</Tab>
+                {currentUser?.uid === data?.user.uid && (
+                  <Tab>ブックマークした投稿</Tab>
+                )}
               </TabList>
               <TabPanels>
                 <TabPanel>

@@ -1,5 +1,6 @@
 export type ArticleType = {
   id: string;
+  uid: string;
   title: string;
   text: string;
   user_id: string;

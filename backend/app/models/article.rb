@@ -6,6 +6,8 @@ class Article < ApplicationRecord
   validates :text, presence: true
   validates :text, length: { maximum: 1000 }
   validates :user_id, presence: true
+  # validates :uid, presence: true
+
 
   scope :recent, -> { order(created_at: :desc) }
 
