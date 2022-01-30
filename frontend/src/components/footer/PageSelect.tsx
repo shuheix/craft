@@ -15,6 +15,7 @@ type Props = {
 const PageSelect: VFC<Props> = (props) => {
   const { data } = props;
   const { nextPage, prevPage } = usePageSelect();
+  if (data?.meta.total_count === undefined) return null;
   if (data?.meta.total_count === 0) return null;
   return (
     <>
