@@ -22,7 +22,6 @@ import TagRanks from "../article/tag/TagRanks";
 const IndexArticlePage: VFC = () => {
   const { data, isError, isLoading } = useIndexArticle();
   const { goShowArticlePage } = useAppHistory();
-  console.log(data?.meta);
 
   if (isError) return <p>error!</p>;
   if (isLoading)

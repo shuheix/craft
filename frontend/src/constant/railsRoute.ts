@@ -13,8 +13,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // article controller
-export const INDEX_ARTICLES_API = (page: string) =>
-  `${defaultApi}/articles${page}`;
+export const INDEX_ARTICLES_API = (page?: string) => {
+  if (page === undefined) return `${defaultApi}/articles${page}`;
+  return `${defaultApi}/articles${page}`;
+};
 
 export const SHOW_ARTICLE_API = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}`;
