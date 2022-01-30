@@ -47,7 +47,7 @@ module Api
       def search
         articles = Article.ransack(tags_name_or_title_cont: params[:q])
         results = articles.result.includes(:user, :comments, :favorites, :tagmaps, :tags).page(params[:page]).per(12)
-        render json: results, each_serializer: ArticleSerializer, status: :ok
+        render json: results, each_serializer: ArticleSerializer, status: :ok, meta: meta_attributes(results)
       end
 
       private

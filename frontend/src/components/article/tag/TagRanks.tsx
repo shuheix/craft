@@ -8,18 +8,22 @@ import {
   Spinner,
   Tag,
   TagLabel,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import useTagRanks from "../../../hooks/fetch/useTagRanks";
 import { useHistory } from "react-router-dom";
 import { SEARCH_URL } from "../../../constant/appHistory";
+import { useResponsiveStyle } from "../../../hooks/useResponsiveStyle";
 
 const TagRanks: VFC = () => {
   const { data, isError, isLoading } = useTagRanks();
+  const { isLargerThan1024 } = useResponsiveStyle();
   const history = useHistory();
 
   if (isLoading) return <Spinner />;
   if (isError) return <p>error!</p>;
+  if (isLargerThan1024 === false) return null;
   return (
     <Box
       w="400px"

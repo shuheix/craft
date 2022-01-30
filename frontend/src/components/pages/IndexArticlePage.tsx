@@ -89,7 +89,7 @@ const IndexArticlePage: VFC = () => {
                 </Box>
               ))}
             </SimpleGrid>
-            <PageSelect />
+            <PageSelect data={data} />
           </Box>
           <TagRanks />
         </HStack>

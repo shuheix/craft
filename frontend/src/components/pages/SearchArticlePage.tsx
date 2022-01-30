@@ -91,7 +91,7 @@ const SearchArticlePage: VFC = () => {
             </Box>
           ))}
         </SimpleGrid>
-        <PageSelect />
+        <PageSelect data={data} />
       </Container>
     </Box>
   );

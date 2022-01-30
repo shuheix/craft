@@ -1,11 +1,21 @@
 import { Flex, Button } from "@chakra-ui/react";
 import React, { VFC } from "react";
-import { useIndexArticle } from "../../hooks/fetch/useIndexArticle";
 import { usePageSelect } from "../../hooks/usePageSelect";
+import { ArticleApiType } from "../../types/apiType";
+import { PaginationType } from "../../types/paginationType";
 
-const PageSelect: VFC = () => {
-  const { data } = useIndexArticle();
+type Props = {
+  data:
+    | {
+        articles: ArticleApiType[];
+        meta: PaginationType;
+      }
+    | undefined;
+};
+const PageSelect: VFC<Props> = (props) => {
+  const { data } = props;
   const { nextPage, prevPage } = usePageSelect();
+  if (data?.meta.total_count === 0) return null;
   return (
     <>
       <Flex justifyContent="flex-end" mt={4} pb={10}>
