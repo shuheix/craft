@@ -36,7 +36,7 @@ const IndexArticlePage: VFC = () => {
       <Header />
       <Container maxW="container.xl">
         <HStack mt={20}>
-          <Box w="100%" mr={5}>
+          <Box w="100%" mr={10}>
             <SimpleGrid
               columns={{ md: 1 }}
               spacingX="40px"

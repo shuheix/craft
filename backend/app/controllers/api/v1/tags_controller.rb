@@ -4,12 +4,12 @@ module Api
       skip_before_action :authenticate_user, only: :index
 
       def index
-        tag_id_ranks = Tagmap.group(:tag_id).order("count(tag_id) desc").limit(10).pluck(:tag_id)
+        tag_id_ranks = Tagmap.group(:tag_id).order('count(tag_id) desc').limit(10).pluck(:tag_id)
         tag_ranks = Tag.find(tag_id_ranks)
         render json: tag_ranks, status: :ok
       end
 
-      def create
+      def createe
         return if exist_tag_name?
 
         tag = Tag.new(tag_params)

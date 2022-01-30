@@ -8,7 +8,6 @@ import {
   Spinner,
   Tag,
   TagLabel,
-  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import useTagRanks from "../../../hooks/fetch/useTagRanks";
@@ -31,7 +30,7 @@ const TagRanks: VFC = () => {
       alignSelf="flex-start"
       borderRadius="xl"
       boxShadow="md"
-      h="400px"
+      h="500px"
     >
       <Heading fontSize="md" textAlign="center" py={5}>
         人気のタグ

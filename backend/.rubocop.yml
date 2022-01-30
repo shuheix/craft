@@ -17,6 +17,7 @@ AllCops:
     - "script/**/*"
     - "spec/**/*"
     - "app/models/*"
+    - "app/serializers/*"
 
   DisplayCopNames: true
   TargetRubyVersion: 3.0

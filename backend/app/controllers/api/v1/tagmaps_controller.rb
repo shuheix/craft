@@ -1,6 +1,13 @@
 module Api
   module V1
     class TagmapsController < ApplicationController
+      skip_before_action :authenticate_user, only: :index
+
+      def index
+        tagmap = Tagmap.all
+        render json: tagmap, status: :ok
+      end
+
       def create
         unless exist_tag_name?
           tag = Tag.new(tag_params)

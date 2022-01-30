@@ -14,7 +14,6 @@ module Api
       end
 
       def create
-        pp current_user
         article = Article.new(article_params.merge(user_id: current_user.id, uid: current_user.uid))
         if article.save
           render json: {
