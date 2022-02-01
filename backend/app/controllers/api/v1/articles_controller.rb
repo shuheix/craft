@@ -5,7 +5,7 @@ module Api
 
       def index
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
-        render json: articles, each_serializer: ArticleSerializer, status: :ok, meta: meta_attributes(articles)
+        render json: articles, each_serializer: ArticleSerializer, status: :ok, meta: pagination_dict(articles)
       end
 
       def show
@@ -47,7 +47,7 @@ module Api
       def search
         articles = Article.ransack(tags_name_or_title_cont: params[:q])
         results = articles.result.includes(:user, :comments, :favorites, :tagmaps, :tags).page(params[:page]).per(12)
-        render json: results, each_serializer: ArticleSerializer, status: :ok, meta: meta_attributes(results)
+        render json: results, each_serializer: ArticleSerializer, status: :ok, meta: pagination_dict(results)
       end
 
       private
@@ -60,14 +60,14 @@ module Api
         params.permit(:title, :text, :image)
       end
 
-      def meta_attributes(collection, extra_meta = {})
+      def pagination_dict(collection)
         {
           current_page: collection.current_page,
           next_page: collection.next_page,
-          prev_page: collection.prev_page, # use collection.previous_page when using will_paginate
+          prev_page: collection.prev_page,
           total_pages: collection.total_pages,
           total_count: collection.total_count
-        }.merge(extra_meta)
+        }
       end
 
       # JWTトークン認証

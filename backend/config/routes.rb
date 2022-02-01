@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get '/', to: 'articles#index'
+      root to: 'articles#index'
       resources :users, only: %i[create destroy update show]
       get '/articles/search', to: 'articles#search'
       resources :articles do
