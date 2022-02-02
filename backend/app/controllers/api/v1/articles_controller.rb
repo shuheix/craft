@@ -5,6 +5,7 @@ module Api
 
       def index
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
+        logger.debug "meta:#{pagination_dict(articles)}"
         render json: articles, each_serializer: ArticleSerializer, status: :ok, meta: pagination_dict(articles)
       end
 
