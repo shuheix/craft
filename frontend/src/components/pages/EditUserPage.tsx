@@ -23,8 +23,9 @@ import {
 import axios from "axios";
 import React, { useRef, useState, VFC } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
-import { SHOW_USERS_API } from "../../constant/railsRoute";
+import { useHistory, useParams } from "react-router-dom";
+import { SHOW_USER_URL } from "../../constant/appHistory";
+import { SHOW_USERS_API, USERS_AVATAR_API } from "../../constant/railsRoute";
 import { auth } from "../../firebase";
 import { useUser } from "../../hooks/fetch/useUser";
 import Header from "../header/Header";
@@ -43,6 +44,7 @@ const EditUserPage: VFC = () => {
   const imageRef = useRef<HTMLInputElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const history = useHistory();
 
   const {
     handleSubmit,
@@ -71,6 +73,7 @@ const EditUserPage: VFC = () => {
             isClosable: true,
             position: "bottom-right",
           });
+          history.push(SHOW_USER_URL(uid));
         })
         .catch(() => {
           toast({
@@ -89,7 +92,7 @@ const EditUserPage: VFC = () => {
     avatar.append("avatar", file);
     auth.currentUser?.getIdToken(true).then((token) => {
       axios({
-        url: `http://localhost:3000/api/v1/users/${uid}/avatar`,
+        url: USERS_AVATAR_API(uid),
         method: "POST",
         headers: {
           "content-type": "multipart/form-data",
@@ -121,7 +124,13 @@ const EditUserPage: VFC = () => {
   return (
     <Box bgColor="teal.50" minH="100vh">
       <Header />
-      <Container maxW="container.md" bgColor="white" py={20}>
+      <Container
+        maxW="container.md"
+        bgColor="white"
+        py={20}
+        my={10}
+        boxShadow="lg"
+      >
         <VStack alignItems="flex-start">
           <UserAvatar
             size="2xl"
