@@ -58,7 +58,7 @@ module Api
       end
 
       def article_params
-        params.permit(:title, :text, :image)
+        params.permit(:title, :text, :image, :is_answerd)
       end
 
       def pagination_dict(collection)
