@@ -33,9 +33,11 @@ export const SEARCH_ARTICLE_API = (querry: string) =>
 export const INDEX_COMMENTS_API = (articleId: string): string =>
   `${defaultApi}/articles/${articleId}/comments`;
 
-// rails_users_controller
+// users_controller
 export const USERS_API = `${defaultApi}/users`;
 export const SHOW_USERS_API = (uid: string) => `${USERS_API}/${uid}`;
+export const USERS_AVATAR_API = (uid: string) =>
+  `${defaultApi}/users/${uid}/avatar`;
 
 // favorites_controller
 export const FAVORITES_API = (articleId: string): string =>
