@@ -1,15 +1,30 @@
-import { Box, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Spinner, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import React, { VFC } from "react";
 import { useSingleArticle } from "../../../hooks/fetch/useSingleArticle";
+import AnswerdStateTag from "../tag/AnswerdStateTag";
 
 const ShowArticleBody: VFC = () => {
-  const { data } = useSingleArticle();
+  const { data, isError, isLoading } = useSingleArticle();
+
+  if (isLoading)
+    return (
+      <Box>
+        <Spinner />
+      </Box>
+    );
+  if (isError) return <p>error!</p>;
   return (
     <>
       <Box mb={5}>
         <Box shadow="sm" borderRadius="2xl" bgColor="white">
           <VStack>
+            <AnswerdStateTag
+              is_answerd={data?.article.is_answerd}
+              alignSelf="flex-start"
+              mt={3}
+              ml={3}
+            />
             <Heading
               justifyContent="center"
               borderTopRadius="xl"

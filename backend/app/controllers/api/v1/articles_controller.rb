@@ -5,7 +5,6 @@ module Api
 
       def index
         articles = Article.all.includes(:user, :comments, :favorites, :tagmaps, :tags).order(created_at: :desc).page(params[:page]).per(12)
-        logger.debug "meta:#{pagination_dict(articles)}"
         render json: articles, each_serializer: ArticleSerializer, status: :ok, meta: pagination_dict(articles)
       end
 
@@ -15,8 +14,8 @@ module Api
       end
 
       def create
-        article = Article.new(article_params.merge(user_id: current_user.id, uid: current_user.uid))
-        if article.save
+        article = Article.new(article_params.merge(user_id: current_user.id, uid: current_user.uid, is_answerd: false))
+        if article.save!
           render json: {
             articles: article
           }, status: :ok
