@@ -23,7 +23,7 @@ const ShowArticleBody: VFC = () => {
               is_answerd={data?.article.is_answerd}
               alignSelf="flex-start"
               mt={3}
-              ml={3}
+              ml={10}
             />
             <Heading
               justifyContent="center"
