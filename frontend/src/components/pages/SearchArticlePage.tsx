@@ -18,8 +18,10 @@ import React, { VFC } from "react";
 import { useLocation } from "react-router-dom";
 import { useSearchArticle } from "../../hooks/fetch/useSearchArticle";
 import { useAppHistory } from "../../hooks/useAppHistory";
+import AnswerdStateTag from "../article/tag/AnswerdStateTag";
 import PageSelect from "../footer/PageSelect";
 import Header from "../header/Header";
+import UserAvatar from "../user/UserAvatar";
 
 const SearchArticlePage: VFC = () => {
   const location = useLocation();
@@ -59,12 +61,15 @@ const SearchArticlePage: VFC = () => {
               borderRadius="xl"
             >
               <HStack h="100%" px={4}>
-                <Avatar src={article.avatar} />
+                <UserAvatar src={article.user.avatar.url} />
                 <VStack spacing={2} flexGrow={1}>
-                  <Heading size="xs" alignSelf="flex-start" mr={4}>
-                    <Icon as={CalendarIcon} mr={1} />
-                    {dayjs(article.created_at).format("YYYY年MM月DD日")}
-                  </Heading>
+                  <HStack justifyContent="space-between" w="100%">
+                    <Heading size="xs" alignSelf="flex-start" mr={4}>
+                      <Icon as={CalendarIcon} mr={1} />
+                      {dayjs(article.created_at).format("YYYY年MM月DD日")}
+                    </Heading>
+                    <AnswerdStateTag is_answerd={article.is_answerd} />
+                  </HStack>
                   <Heading
                     size="sm"
                     maxWidth="100%"
