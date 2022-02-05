@@ -15,7 +15,7 @@ module Api
 
       def create
         article = Article.new(article_params.merge(user_id: current_user.id, uid: current_user.uid, is_answerd: false))
-        if article.save!
+        if article.save
           render json: {
             articles: article
           }, status: :ok
