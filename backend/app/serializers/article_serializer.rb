@@ -1,5 +1,5 @@
 class ArticleSerializer < ActiveModel::Serializer
-  attributes :id, :title, :text, :image, :uid ,:created_at, :updated_at
+  attributes :id, :title, :text, :image, :uid, :is_answerd ,:created_at, :updated_at
 
   belongs_to :user, serializer: UserSerializer
   has_many :favorites, serializer: FavoriteSerializer

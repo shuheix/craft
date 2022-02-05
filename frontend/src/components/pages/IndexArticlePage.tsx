@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 import { CalendarIcon } from "@chakra-ui/icons";
 import UserAvatar from "../user/UserAvatar";
 import TagRanks from "../article/tag/TagRanks";
+import AnswerdStateTag from "../article/tag/AnswerdStateTag";
 
 const IndexArticlePage: VFC = () => {
   const { data, isError, isLoading } = useIndexArticle();
@@ -58,10 +59,14 @@ const IndexArticlePage: VFC = () => {
                   <HStack h="100%" px={4}>
                     <UserAvatar src={article.user.avatar.url} />
                     <VStack spacing={2} flexGrow={1}>
-                      <Heading size="xs" alignSelf="flex-start" mr={4}>
-                        <Icon as={CalendarIcon} mr={1} />
-                        {dayjs(article.created_at).format("YYYY年MM月DD日")}
-                      </Heading>
+                      <HStack justifyContent="space-between" w="100%">
+                        <Heading size="xs" alignSelf="flex-start" mr={4}>
+                          <Icon as={CalendarIcon} mr={1} />
+                          {dayjs(article.created_at).format("YYYY年MM月DD日")}
+                        </Heading>
+                        <AnswerdStateTag is_answerd={article.is_answerd} />
+                      </HStack>
+
                       <Heading
                         size="sm"
                         maxWidth="100%"

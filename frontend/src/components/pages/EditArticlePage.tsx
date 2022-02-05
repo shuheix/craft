@@ -12,6 +12,7 @@ import {
   Spacer,
   useToast,
   Spinner,
+  Select,
 } from "@chakra-ui/react";
 import Header from "../header/Header";
 import { AttachmentIcon } from "@chakra-ui/icons";
@@ -24,6 +25,7 @@ import { useSingleArticle } from "../../hooks/fetch/useSingleArticle";
 type InputValue = {
   title: string;
   text: string;
+  is_answerd: string;
 };
 
 const EditArticleLayout: VFC = () => {
@@ -33,6 +35,7 @@ const EditArticleLayout: VFC = () => {
   const toast = useToast();
   const { articleId } = useParams<{ articleId: string }>();
   const { data, isLoading, isError } = useSingleArticle();
+  console.log(data?.article.is_answerd);
 
   const {
     handleSubmit,
@@ -52,10 +55,12 @@ const EditArticleLayout: VFC = () => {
   };
 
   const onSubmit = (data: InputValue) => {
-    const { title, text } = data;
+    const { title, text, is_answerd } = data;
     const formData = new FormData();
     formData.append("title", title);
     formData.append("text", text);
+    formData.append("is_answerd", is_answerd);
+
     if (image !== undefined) {
       formData.append("image", image);
     }
@@ -97,6 +102,15 @@ const EditArticleLayout: VFC = () => {
       <Container py={20} maxW="container.xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={!!errors.title || !!errors.text}>
+            <Select
+              id="is_answerd"
+              mb={5}
+              {...register("is_answerd")}
+              defaultValue={data?.article.is_answerd ? "解決済" : "回答受付中"}
+            >
+              <option value="true">解決済</option>
+              <option value="false">回答受付中</option>
+            </Select>
             <FormErrorMessage data-cy="errors-title">
               {errors.title && errors.title?.message}
             </FormErrorMessage>
