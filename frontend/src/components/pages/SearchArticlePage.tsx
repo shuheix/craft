@@ -3,7 +3,6 @@ import {
   Container,
   Box,
   Spinner,
-  Avatar,
   Heading,
   HStack,
   SimpleGrid,
