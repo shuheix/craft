@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@1.28.0
+
 jobs:
   build:
     docker:
@@ -48,4 +49,44 @@ jobs:
       - run:
           name: rspec
           command: bundle exec rspec
+
+  react_start:
+    docker:
+      - image: circleci/node:15.14.0
+
+    working_directory: ~/craft/frontend
+
+    steps:
+      - checkout:
+          path: ~/craft
+      - restore_cache:
+          keys:
+          - v2-dependencies-{{ checksum "yarn.lock" }}
+          - v2-dependencies-
+      - run:
+          name: install dependencies
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v2-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: yarn start
+          command: yarn start
+
+workflows:
+  build:
+    jobs:
+      - build
+      - react_start:
+          requires:
+            - build
+      - cypress/run:
+          requires:
+            - react_start
+          yarn: true
+          wait-on: 'http://localhost:3001'
+          working_directory: ~/craft/frontend/e2e
+
+
 
