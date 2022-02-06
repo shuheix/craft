@@ -73,6 +73,7 @@ jobs:
       - run:
           name: yarn start
           command: yarn start
+          background: true
 
 workflows:
   build:
@@ -82,11 +83,10 @@ workflows:
           requires:
             - build
       - cypress/run:
-          requires:
-            - react_start
           yarn: true
           wait-on: 'http://localhost:3001'
           working_directory: ~/craft/frontend/e2e
+
 
 
 
