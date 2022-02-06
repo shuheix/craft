@@ -87,7 +87,7 @@ workflows:
           cache-key: >-
             cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/e2e/yarn.lock"
             }}
-          working_directory: ~/craft/frontend/e2e
+          working_directory: frontend/e2e
       - cypress/run:
           requires:
             - cypress/install
@@ -95,7 +95,7 @@ workflows:
           cache-key: >-
             cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/e2e/yarn.lock"
             }}
-          working_directory: ~/craft/frontend/e2e
+          working_directory: frontend/e2e
 
 
 
