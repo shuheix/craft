@@ -84,7 +84,6 @@ workflows:
             - build
       - cypress/run:
           yarn: true
-          wait-on: 'http://localhost:3001'
           working_directory: ~/craft/frontend/e2e
 
 
