@@ -82,6 +82,8 @@ workflows:
       - react_start:
           requires:
             - build
+      - cypress/install:
+          working_directory: ~/craft/frontend/e2e
       - cypress/run:
           yarn: true
           working_directory: ~/craft/frontend/e2e
