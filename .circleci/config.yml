@@ -70,10 +70,6 @@ jobs:
           paths:
             - node_modules
           key: v2-dependencies-{{ checksum "yarn.lock" }}
-      - run:
-          name: yarn start
-          command: PORT=3001 yarn start
-          background: true
 
 workflows:
   build:
@@ -93,6 +89,8 @@ workflows:
             - react_start
             - cypress/install
           yarn: true
+          start: "yarn run dev:start"
+          wait-on: 'http://localhost:3001'
           cache-key: >-
             cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/e2e/yarn.lock"
             }}
