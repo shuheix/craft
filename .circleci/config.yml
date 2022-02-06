@@ -72,7 +72,7 @@ jobs:
           key: v2-dependencies-{{ checksum "yarn.lock" }}
       - run:
           name: yarn start
-          command: yarn start
+          command: PORT=3001 yarn start
           background: true
 
 workflows:
@@ -90,6 +90,7 @@ workflows:
           working_directory: frontend/e2e
       - cypress/run:
           requires:
+            - react_start
             - cypress/install
           yarn: true
           cache-key: >-
