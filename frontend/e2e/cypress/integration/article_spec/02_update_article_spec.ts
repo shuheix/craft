@@ -24,6 +24,7 @@ describe("記事編集機能", () => {
       cy.get("[data-cy=edit-title]").clear().type("い");
       cy.get("[data-cy=edit-text]").clear().type("い");
       cy.get("[data-cy=submit]").click();
+      cy.wait(500);
       cy.get("[data-cy=show-title]").should("contain", "い");
       cy.get("[data-cy=show-text]").should("contain", "い");
     });
@@ -37,6 +38,7 @@ describe("記事編集機能", () => {
         cy.get("[data-cy=edit-title]").clear().type(valid_title);
         cy.get("[data-cy=edit-text]").clear().type(valid_text);
         cy.get("[data-cy=submit]").click();
+        cy.wait(500);
         cy.get("[data-cy=show-title]").should("contain", valid_title);
         cy.get("[data-cy=show-text]").should("contain", valid_text);
       });
