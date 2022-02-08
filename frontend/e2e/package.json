@@ -11,5 +11,9 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "dev:start": "cd .. && yarn install && PORT=3001 yarn start"
+  },
+  "devDependencies": {
+    "cypress-firebase": "^2.2.1",
+    "firebase-admin": "9"
   }
 }
