@@ -13,13 +13,13 @@ import "firebase/compat/auth";
 import { attachCustomCommands } from "cypress-firebase";
 
 const fbConfig = {
-  apiKey: Cypress.env("CYPRESS_FB_API_KEY"),
-  authDomain: Cypress.env("CYPRESS_FB_AUTH_DOMAIN"),
-  projectId: Cypress.env("CYPRESS_FB_PROJECT_ID"),
-  storageBucket: Cypress.env("CYPRESS_FB_STORAGE__BUCKET"),
-  messagingSenderId: Cypress.env("CYPRESS_FB_MESSAGING_SENDER_ID"),
-  appId: Cypress.env("CYPRESS_FB_APP_ID"),
-  measurementId: Cypress.env("CYPRESS_FB_MEASUREMENT_ID"),
+  apiKey: Cypress.env("CYPRESS_API_KEY"),
+  authDomain: Cypress.env("CYPRESS_AUTH_DOMAIN"),
+  projectId: Cypress.env("CYPRESS_PROJECT_ID"),
+  storageBucket: Cypress.env("CYPRESS_STORAGE_BUCKET"),
+  messagingSenderId: Cypress.env("CYPRESS_MESSAGING_SENDER_ID"),
+  appId: Cypress.env("CYPRESS_APP_ID"),
+  measurementId: Cypress.env("CYPRESS_APP_MEASUREMENT"),
 };
 
 firebase.initializeApp(fbConfig);
