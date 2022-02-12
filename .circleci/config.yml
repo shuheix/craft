@@ -99,6 +99,8 @@ workflows:
             echo CYPRESS_PROJECT_ID=$CYPRESS_PROJECT_ID > .env
             echo CYPRESS_STORAGE_BUCKET=$CYPRESS_STORAGE_BUCKET > .env
             echo CYPRESS_TEST_UID=$CYPRESS_TEST_UID > .env
+            cat .env
+            yarn run cypress:run
           yarn: true
           start: "yarn run dev:start"
           wait-on: 'http://localhost:3001'
