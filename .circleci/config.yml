@@ -38,7 +38,6 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
 
-      # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
@@ -49,66 +48,3 @@ jobs:
       - run:
           name: rspec
           command: bundle exec rspec
-
-  react_start:
-    docker:
-      - image: circleci/node:15.14.0
-
-    working_directory: ~/craft/frontend
-
-    steps:
-      - checkout:
-          path: ~/craft
-      - restore_cache:
-          keys:
-          - v2-dependencies-{{ checksum "yarn.lock" }}
-          - v2-dependencies-
-      - run:
-          name: install dependencies
-          command: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v2-dependencies-{{ checksum "yarn.lock" }}
-
-workflows:
-  build:
-    jobs:
-      - build
-      - react_start:
-          requires:
-            - build
-      - cypress/install:
-          yarn: true
-          cache-key: >-
-            cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/e2e/yarn.lock"
-            }}
-          working_directory: frontend/e2e
-
-      - cypress/run:
-          requires:
-            - react_start
-            - cypress/install
-          command: |
-            touch .env
-            echo CYPRESS_API_KEY=$CYPRESS_API_KEY > .env
-            echo CYPRESS_APP_ID=$CYPRESS_APP_ID > .env
-            echo CYPRESS_APP_MEASUREMENT=$CYPRESS_APP_MEASUREMENT > .env
-            echo CYPRESS_CYPRESS_AUTH_DOMAIN=$CYPRESS_AUTH_DOMAIN > .env
-            echo CYPRESS_MESSAGING_SENDER_ID=$CYPRESS_MESSAGING_SENDER_ID > .env
-            echo CYPRESS_PROJECT_ID=$CYPRESS_PROJECT_ID > .env
-            echo CYPRESS_STORAGE_BUCKET=$CYPRESS_STORAGE_BUCKET > .env
-            echo CYPRESS_TEST_UID=$CYPRESS_TEST_UID > .env
-            cat .env
-            yarn run cypress:run
-          yarn: true
-          start: "yarn run dev:start"
-          wait-on: 'http://localhost:3001'
-          cache-key: >-
-            cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/e2e/yarn.lock"
-            }}
-          working_directory: frontend/e2e
-
-
-
-
