@@ -5,7 +5,7 @@ import { ArticleType } from "../../types/articleType";
 import { CommentType } from "../../types/commentType";
 import { UserType } from "../../types/userType";
 
-export const useUser = (uid: string) => {
+export const useUser = (uid?: string) => {
   const { data, error, mutate } = useSWR(SHOW_USERS_API(uid), (url: string) =>
     axios
       .get<{

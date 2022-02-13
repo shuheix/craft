@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Input,
   InputGroup,
@@ -6,9 +7,9 @@ import {
   Tag,
   TagCloseButton,
   TagLabel,
-  Wrap,
   Text,
   VStack,
+  Divider,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useRef, VFC } from "react";
@@ -60,34 +61,32 @@ const TagList: VFC = () => {
 
   return (
     <>
-      <Wrap mb={5} bgColor="white" borderRadius="2xl" px={5} py={2}>
-        <Text w="100%" justifySelf="center" textAlign="center">
+      <Box mb={5} bgColor="white" borderRadius="2xl" px={5} py={2}>
+        <Text py={2} w="100%" justifySelf="center" textAlign="center">
           Tag
         </Text>
-        <VStack>
-          <VStack>
-            {data?.article.tags?.map((tag) => (
-              <Tag
-                variant="solid"
-                size="md"
-                borderRadius="full"
-                colorScheme="teal"
-                key={tag.id}
-              >
-                <TagLabel>{tag.name}</TagLabel>
-                {data.article.user.uid === currentUser?.uid && (
-                  <TagCloseButton onClick={() => removeTag(tag.id)} />
-                )}
-              </Tag>
-            ))}
-          </VStack>
+        <Divider colorScheme="teal" />
+        <VStack py={5} w="100%" align="flex-start">
+          {data?.article.tags?.map((tag) => (
+            <Tag
+              variant="solid"
+              size="md"
+              borderRadius="full"
+              colorScheme="teal"
+              key={tag.id}
+            >
+              <TagLabel>{tag.name}</TagLabel>
+              {data.article.user.uid === currentUser?.uid && (
+                <TagCloseButton onClick={() => removeTag(tag.id)} />
+              )}
+            </Tag>
+          ))}
         </VStack>
-
         {data?.article.user.uid === currentUser?.uid && (
           <InputGroup>
             <Input
               variant="flushed"
-              placeholder="タグ(15文字まで)"
+              placeholder="タグ(10文字まで)"
               ref={tagRef}
             />
             <InputRightElement>
@@ -97,7 +96,7 @@ const TagList: VFC = () => {
             </InputRightElement>
           </InputGroup>
         )}
-      </Wrap>
+      </Box>
     </>
   );
 };

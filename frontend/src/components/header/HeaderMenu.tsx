@@ -13,13 +13,12 @@ import { useAppHistory } from "../../hooks/useAppHistory";
 import { useAuth } from "../../hooks/useAuth";
 import AuthModal from "./auth/AuthModal";
 import UserAvatar from "../user/UserAvatar";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const HeaderMenu = () => {
-  const { uid } = useParams<{ uid: string }>();
-  const { data } = useUser(uid);
   const { currentUser } = useContext(AuthContext);
+  const uid = currentUser?.uid;
+  const { data } = useUser(uid);
   const { goUserPage } = useAppHistory();
   const { logout } = useAuth();
 
