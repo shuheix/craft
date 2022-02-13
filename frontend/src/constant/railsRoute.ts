@@ -35,7 +35,7 @@ export const INDEX_COMMENTS_API = (articleId: string): string =>
 
 // users_controller
 export const USERS_API = `${defaultApi}/users`;
-export const SHOW_USERS_API = (uid: string) => `${USERS_API}/${uid}`;
+export const SHOW_USERS_API = (uid?: string) => `${USERS_API}/${uid}`;
 export const USERS_AVATAR_API = (uid: string) =>
   `${defaultApi}/users/${uid}/avatar`;
 
