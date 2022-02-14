@@ -34,6 +34,7 @@ const ShowArticlePage: VFC = () => {
         </Center>
       </>
     );
+
   return (
     <>
       <Box bgColor="teal.50" minH="100vh">
@@ -41,7 +42,7 @@ const ShowArticlePage: VFC = () => {
         <Container py={10} maxW="container.xl">
           <Box display={{ md: "flex" }}>
             <Box w="100%">
-              {isLargerThan768 || <ArticleUser />}
+              <ArticleUser />
               <ShowArticleBody />
               <ImageModal />
               <CommentList />
