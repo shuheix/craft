@@ -90,7 +90,7 @@ const CommentList: VFC = () => {
             <Textarea
               resize="none"
               bgColor="white"
-              row={20}
+              rows={20}
               boxShadow="sm"
               id="text"
               borderRadius="2xl"
